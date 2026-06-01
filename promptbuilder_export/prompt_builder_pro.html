@@ -1329,333 +1329,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
   </div>
   <!-- ══ AYUDA ══ -->
   <div id="view-help" style="display:none">
-    <div class="ph"><h1>Ayuda y Tutorial</h1><p>Aprende a usar Prompt Builder Pro paso a paso. Todo lo que necesitas está aquí.</p></div>
-
-    <!-- ── INICIO RÁPIDO ── -->
-    <div class="help-hero">
-      <h2>⚡ Inicio rápido en 3 pasos</h2>
-      <p>¿Con prisa? Esto es lo único que necesitas para crear tu primer prompt:</p>
-      <div class="help-quick">
-        <div class="help-quick-step"><div class="qn">1</div><b>Elige una categoría</b><span>En <em>Inicio</em>, haz clic en una tarjeta: Imagen, Video, Música…</span></div>
-        <div class="help-quick-step"><div class="qn">2</div><b>Toca las opciones</b><span>Estilo, iluminación, cámara… El prompt se arma solo abajo.</span></div>
-        <div class="help-quick-step"><div class="qn">3</div><b>Copia y pega</b><span>Botón <em>Copiar</em> → pégalo en Midjourney, Sora, ChatGPT…</span></div>
-      </div>
-    </div>
-
-    <div class="help-toc">
-      <span style="font-size:.62rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tx3);margin-right:.3rem">Ir a:</span>
-      <button class="help-toc-btn" onclick="scrollToHelp('help-s0')">🗺 Mapa de la app</button>
-      <button class="help-toc-btn" onclick="scrollToHelp('help-s1')">🚀 ¿Qué es esto?</button>
-      <button class="help-toc-btn" onclick="scrollToHelp('help-s2')">👤 Tu cuenta</button>
-      <button class="help-toc-btn" onclick="scrollToHelp('help-s3')">🏗 El Builder</button>
-      <button class="help-toc-btn" onclick="scrollToHelp('help-s4')">📚 Biblioteca</button>
-      <button class="help-toc-btn" onclick="scrollToHelp('help-s8')">🖼 Referencias</button>
-      <button class="help-toc-btn" onclick="scrollToHelp('help-s5')">❋ Comunidad</button>
-      <button class="help-toc-btn" onclick="scrollToHelp('help-s9')">📊 Estadísticas</button>
-      <button class="help-toc-btn" onclick="scrollToHelp('help-s6')">⚙ Configuración</button>
-      <button class="help-toc-btn" onclick="scrollToHelp('help-s7')">💡 Consejos pro</button>
-    </div>
-
-    <!-- ── MAPA DE LA APP ── -->
-    <div class="help-section" id="help-s0">
-      <span class="help-section-icon">🗺</span>
-      <h3>Mapa de la app — ¿dónde está cada cosa?</h3>
-      <p>La app tiene un <strong>menú a la izquierda</strong> (en el móvil aparece abajo) y una <strong>zona de trabajo</strong> a la derecha. Esta es la distribución:</p>
-      <div class="help-fig">
-        <svg viewBox="0 0 800 470" role="img" aria-label="Mapa de la interfaz de Prompt Builder Pro" font-family="DM Sans, sans-serif">
-          <!-- sidebar -->
-          <rect x="14" y="14" width="212" height="448" rx="14" fill="var(--bg3)" stroke="var(--bd2)"/>
-          <text x="50" y="42" font-size="15" font-weight="600" fill="var(--tx)">Prompt Builder</text>
-          <text x="50" y="58" font-size="9" fill="var(--tx3)">PRO BETA</text>
-          <!-- nav pills -->
-          <g font-size="12.5" fill="var(--tx2)">
-            <rect x="28" y="64" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="82">👤 Mi Perfil</text>
-            <rect x="28" y="98" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="116">❋ Comunidad</text>
-            <text x="28" y="146" font-size="9" font-weight="700" letter-spacing="1" fill="var(--tx3)">CREAR</text>
-            <rect x="28" y="152" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="170">🏠 Inicio</text>
-            <rect x="28" y="186" width="184" height="28" rx="7" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="50" y="204" fill="var(--acc-tx)" font-weight="600">🏗 Builder</text>
-            <text x="28" y="234" font-size="9" font-weight="700" letter-spacing="1" fill="var(--tx3)">BIBLIOTECA</text>
-            <rect x="28" y="240" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="258">🖼 Referencias</text>
-            <rect x="28" y="274" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="292">📚 Biblioteca</text>
-            <text x="28" y="322" font-size="9" font-weight="700" letter-spacing="1" fill="var(--tx3)">SISTEMA</text>
-            <rect x="28" y="328" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="346">📊 Estadísticas</text>
-            <rect x="28" y="362" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="380">⚙ Panel de control</text>
-            <rect x="28" y="396" width="184" height="28" rx="7" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="50" y="414" fill="var(--acc-tx)" font-weight="600">❔ Ayuda</text>
-          </g>
-          <!-- number badges -->
-          <g font-size="11" font-weight="700" fill="#fff" text-anchor="middle">
-            <circle cx="30" cy="78" r="11" fill="var(--acc)"/><text x="30" y="82">1</text>
-            <circle cx="30" cy="112" r="11" fill="var(--acc)"/><text x="30" y="116">2</text>
-            <circle cx="30" cy="166" r="11" fill="var(--acc)"/><text x="30" y="170">3</text>
-            <circle cx="30" cy="200" r="11" fill="var(--acc)"/><text x="30" y="204">4</text>
-            <circle cx="30" cy="254" r="11" fill="var(--acc)"/><text x="30" y="258">5</text>
-            <circle cx="30" cy="288" r="11" fill="var(--acc)"/><text x="30" y="292">6</text>
-            <circle cx="30" cy="342" r="11" fill="var(--acc)"/><text x="30" y="346">7</text>
-            <circle cx="30" cy="376" r="11" fill="var(--acc)"/><text x="30" y="380">8</text>
-            <circle cx="30" cy="410" r="11" fill="var(--acc)"/><text x="30" y="414">9</text>
-          </g>
-          <!-- content area -->
-          <rect x="242" y="14" width="544" height="448" rx="14" fill="var(--bg2)" stroke="var(--bd2)"/>
-          <text x="276" y="56" font-size="20" font-weight="300" fill="var(--tx)" font-family="Fraunces, serif">Construye tu prompt</text>
-          <text x="276" y="76" font-size="11" fill="var(--tx3)">Elige una categoría para empezar</text>
-          <!-- category cards mock -->
-          <g>
-            <rect x="262" y="96" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="337" y="138" font-size="26" text-anchor="middle">🖼</text><text x="337" y="166" font-size="12" text-anchor="middle" fill="var(--tx2)">Imagen</text>
-            <rect x="427" y="96" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="502" y="138" font-size="26" text-anchor="middle">🎬</text><text x="502" y="166" font-size="12" text-anchor="middle" fill="var(--tx2)">Video</text>
-            <rect x="592" y="96" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="667" y="138" font-size="26" text-anchor="middle">🎵</text><text x="667" y="166" font-size="12" text-anchor="middle" fill="var(--tx2)">Música</text>
-            <rect x="262" y="200" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="337" y="242" font-size="26" text-anchor="middle">🧑</text><text x="337" y="270" font-size="12" text-anchor="middle" fill="var(--tx2)">Personaje</text>
-            <rect x="427" y="200" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="502" y="242" font-size="26" text-anchor="middle">📍</text><text x="502" y="270" font-size="12" text-anchor="middle" fill="var(--tx2)">Locación</text>
-            <rect x="592" y="200" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="667" y="242" font-size="26" text-anchor="middle">📱</text><text x="667" y="270" font-size="12" text-anchor="middle" fill="var(--tx2)">App</text>
-          </g>
-          <circle cx="262" cy="40" r="11" fill="var(--acc)"/><text x="262" y="44" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">10</text>
-          <text x="280" y="332" font-size="11" fill="var(--tx3)">↓ Más abajo: el cuadro del prompt, botones Copiar / ★ Guardar y las acciones de IA</text>
-          <rect x="262" y="346" width="480" height="40" rx="9" fill="var(--bg3)" stroke="var(--bd)" stroke-dasharray="4 4"/><text x="280" y="371" font-size="12" fill="var(--tx3)">Tu prompt aparece aquí…</text>
-          <rect x="262" y="398" width="90" height="30" rx="7" fill="var(--sel)"/><text x="307" y="418" font-size="11" fill="var(--sel-tx)" text-anchor="middle">Copiar</text>
-          <rect x="362" y="398" width="100" height="30" rx="7" fill="var(--bg3)" stroke="var(--bd2)"/><text x="412" y="418" font-size="11" fill="var(--tx2)" text-anchor="middle">★ Guardar</text>
-        </svg>
-        <div class="help-fig-cap">El menú de la izquierda con sus zonas (números) y la zona de trabajo a la derecha.</div>
-      </div>
-      <ul class="help-legend">
-        <li><span class="lg-n">1</span><span><b>Mi Perfil:</b> tus estadísticas y datos.</span></li>
-        <li><span class="lg-n">2</span><span><b>Comunidad:</b> prompts de otros usuarios.</span></li>
-        <li><span class="lg-n">3</span><span><b>Inicio:</b> elegir categoría para empezar.</span></li>
-        <li><span class="lg-n">4</span><span><b>Builder:</b> donde construyes el prompt.</span></li>
-        <li><span class="lg-n">5</span><span><b>Referencias:</b> tu banco de inspiración.</span></li>
-        <li><span class="lg-n">6</span><span><b>Biblioteca:</b> tus prompts guardados y carpetas.</span></li>
-        <li><span class="lg-n">7</span><span><b>Estadísticas:</b> qué opciones usas más.</span></li>
-        <li><span class="lg-n">8</span><span><b>Panel de control:</b> ajustes, tema, idioma, API key.</span></li>
-        <li><span class="lg-n">9</span><span><b>Ayuda:</b> esta guía.</span></li>
-        <li><span class="lg-n">10</span><span><b>Zona de trabajo:</b> las tarjetas, el prompt y los botones.</span></li>
-      </ul>
-    </div>
-
-    <div class="help-section" id="help-s1">
-      <span class="help-section-icon">🚀</span>
-      <h3>¿Qué es Prompt Builder Pro?</h3>
-      <p>Es una herramienta para construir <strong>prompts</strong> —es decir, instrucciones— de forma rápida y ordenada para usarlas en sistemas de inteligencia artificial como <strong>Midjourney, Sora, DALL-E, Kling, ChatGPT</strong> y muchos más.</p>
-      <p>En lugar de escribir todo desde cero cada vez, aquí puedes <strong>elegir opciones</strong> (estilo, iluminación, cámara, emoción…) y la app las combina automáticamente en un prompt listo para copiar y pegar.</p>
-      <div class="help-tip"><span class="help-tip-icon">💡</span>Piensa en el Builder como una <strong>receta de cocina</strong>: tú eliges los ingredientes y la app te da el plato final.</div>
-    </div>
-
-    <div class="help-section" id="help-s2">
-      <span class="help-section-icon">👤</span>
-      <h3>Tu cuenta</h3>
-      <div class="help-step"><div class="help-step-num">1</div><div class="help-step-body"><strong>Crear una cuenta:</strong> Al abrir la app verás la pantalla de inicio de sesión. Haz clic en <em>"Crear cuenta"</em>, pon un nombre de usuario, tu email y una contraseña de al menos 4 caracteres.</div></div>
-      <div class="help-step"><div class="help-step-num">2</div><div class="help-step-body"><strong>Iniciar sesión:</strong> Si ya tienes cuenta, escribe tu usuario o email y tu contraseña. La sesión se recuerda automáticamente.</div></div>
-      <div class="help-step"><div class="help-step-num">3</div><div class="help-step-body"><strong>Cerrar sesión:</strong> En la parte inferior del menú lateral verás tu nombre. Haz clic en el botón <span class="help-kbd">↩</span> para salir.</div></div>
-      <div class="help-step"><div class="help-step-num">4</div><div class="help-step-body"><strong>Tu perfil:</strong> En el menú lateral haz clic en <em>"Mi Perfil"</em> para ver tus estadísticas: cuántos prompts guardaste, cuántas publicaciones tienes, los likes que has recibido y más.</div></div>
-      <div class="help-warn"><span class="help-tip-icon">⚠️</span>Esta app guarda todo en tu navegador. Si borras los datos del navegador o usas otro dispositivo, no verás tu información guardada.</div>
-    </div>
-
-    <div class="help-section" id="help-s3">
-      <span class="help-section-icon">🏗</span>
-      <h3>Cómo usar el Builder</h3>
-      <p>El Builder es el corazón de la app. El flujo siempre es el mismo: eliges, ajustas, copias.</p>
-      <div class="help-fig">
-        <svg viewBox="0 0 820 180" role="img" aria-label="Flujo del Builder en 4 pasos" font-family="DM Sans, sans-serif">
-          <!-- panel 1 -->
-          <rect x="8" y="24" width="172" height="132" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/>
-          <text x="24" y="48" font-size="12" font-weight="700" fill="var(--acc)">1 · Categoría</text>
-          <rect x="24" y="60" width="64" height="40" rx="7" fill="var(--bg3)" stroke="var(--bd)"/><text x="56" y="85" font-size="18" text-anchor="middle">🖼</text>
-          <rect x="100" y="60" width="64" height="40" rx="7" fill="var(--bg3)" stroke="var(--bd)"/><text x="132" y="85" font-size="18" text-anchor="middle">🎬</text>
-          <rect x="24" y="108" width="64" height="36" rx="7" fill="var(--bg3)" stroke="var(--bd)"/><text x="56" y="131" font-size="16" text-anchor="middle">🎵</text>
-          <rect x="100" y="108" width="64" height="36" rx="7" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="132" y="131" font-size="16" text-anchor="middle">🧑</text>
-          <!-- arrow -->
-          <path d="M188 90 l18 0 m-6 -6 l6 6 l-6 6" fill="none" stroke="var(--tx3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- panel 2 -->
-          <rect x="214" y="24" width="172" height="132" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/>
-          <text x="230" y="48" font-size="12" font-weight="700" fill="var(--acc)">2 · Opciones</text>
-          <rect x="230" y="60" width="74" height="24" rx="12" fill="var(--sel)"/><text x="267" y="76" font-size="10" fill="var(--sel-tx)" text-anchor="middle">Cinemático</text>
-          <rect x="312" y="60" width="58" height="24" rx="12" fill="var(--bg3)" stroke="var(--bd2)"/><text x="341" y="76" font-size="10" fill="var(--tx2)" text-anchor="middle">Anime</text>
-          <rect x="230" y="92" width="60" height="24" rx="12" fill="var(--sel)"/><text x="260" y="108" font-size="10" fill="var(--sel-tx)" text-anchor="middle">Dorada</text>
-          <rect x="298" y="92" width="72" height="24" rx="12" fill="var(--bg3)" stroke="var(--bd2)"/><text x="334" y="108" font-size="10" fill="var(--tx2)" text-anchor="middle">Neón</text>
-          <rect x="230" y="124" width="86" height="24" rx="12" fill="var(--bg3)" stroke="var(--bd2)"/><text x="273" y="140" font-size="10" fill="var(--tx2)" text-anchor="middle">Gran angular</text>
-          <path d="M394 90 l18 0 m-6 -6 l6 6 l-6 6" fill="none" stroke="var(--tx3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- panel 3 -->
-          <rect x="420" y="24" width="172" height="132" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/>
-          <text x="436" y="48" font-size="12" font-weight="700" fill="var(--acc)">3 · Prompt</text>
-          <rect x="436" y="58" width="140" height="86" rx="8" fill="var(--bg3)" stroke="var(--bd)"/>
-          <g fill="var(--tx3)"><rect x="448" y="72" width="116" height="6" rx="3"/><rect x="448" y="86" width="100" height="6" rx="3"/><rect x="448" y="100" width="116" height="6" rx="3"/><rect x="448" y="114" width="80" height="6" rx="3"/></g>
-          <text x="448" y="138" font-size="9" fill="var(--ok)">● en vivo</text>
-          <path d="M600 90 l18 0 m-6 -6 l6 6 l-6 6" fill="none" stroke="var(--tx3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- panel 4 -->
-          <rect x="626" y="24" width="186" height="132" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/>
-          <text x="642" y="48" font-size="12" font-weight="700" fill="var(--acc)">4 · Usar</text>
-          <rect x="642" y="60" width="154" height="26" rx="7" fill="var(--sel)"/><text x="719" y="77" font-size="11" fill="var(--sel-tx)" text-anchor="middle">📋 Copiar</text>
-          <rect x="642" y="92" width="74" height="26" rx="7" fill="var(--bg3)" stroke="var(--bd2)"/><text x="679" y="109" font-size="10" fill="var(--tx2)" text-anchor="middle">★ Guardar</text>
-          <rect x="722" y="92" width="74" height="26" rx="7" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="759" y="109" font-size="10" fill="var(--acc-tx)" text-anchor="middle">✨ Refinar</text>
-          <rect x="642" y="124" width="154" height="24" rx="7" fill="var(--bg3)" stroke="var(--bd2)"/><text x="719" y="140" font-size="10" fill="var(--tx2)" text-anchor="middle">🌍 ES / EN / FR</text>
-        </svg>
-        <div class="help-fig-cap">El recorrido completo: de la categoría al prompt listo para copiar.</div>
-      </div>
-      <div class="help-step"><div class="help-step-num">1</div><div class="help-step-body"><strong>Elige una categoría:</strong> En <em>Inicio</em> verás tarjetas como <em>Imagen, Video, Música, Personaje…</em> Haz clic en la que necesitas.</div></div>
-      <div class="help-step"><div class="help-step-num">2</div><div class="help-step-body"><strong>Selecciona opciones:</strong> Aparecerán grupos de botones —<em>Estilo, Iluminación, Color, Cámara…</em> Haz clic en los que quieres incluir. La mayoría permiten <strong>varios a la vez</strong>; algunos solo uno.</div></div>
-      <div class="help-step"><div class="help-step-num">3</div><div class="help-step-body"><strong>El prompt se construye solo:</strong> Abajo verás el prompt actualizarse en tiempo real conforme eliges.</div></div>
-      <div class="help-step"><div class="help-step-num">4</div><div class="help-step-body"><strong>Edítalo si quieres:</strong> El cuadro del prompt es editable. Puedes cambiar o agregar texto a mano.</div></div>
-      <div class="help-step"><div class="help-step-num">5</div><div class="help-step-body"><strong>Copia el prompt:</strong> Haz clic en <em>"Copiar"</em> y pégalo en tu herramienta de IA favorita.</div></div>
-
-      <div class="help-sub">🎨 Organizar y personalizar las opciones</div>
-      <div class="help-step"><div class="help-step-num">★</div><div class="help-step-body"><strong>Favoritos:</strong> Pasa el cursor sobre una opción y toca la <span class="help-kbd">★</span> dorada. Quedará fijada arriba para acceso rápido.</div></div>
-      <div class="help-step"><div class="help-step-num">⇅</div><div class="help-step-body"><strong>Ordenar:</strong> Cada sección tiene botones <em>Orig · A–Z · Z–A · ★ · Color</em> para ordenar sus opciones como prefieras.</div></div>
-      <div class="help-step"><div class="help-step-num">🎨</div><div class="help-step-body"><strong>Colores:</strong> Puedes teñir las opciones de una sección con un color, o dar color a un tag individual desde su menú <span class="help-kbd">⬤</span>. Sirve para identificar visualmente lo importante.</div></div>
-      <div class="help-step"><div class="help-step-num">✥</div><div class="help-step-body"><strong>Arrastrar:</strong> Mantén pulsado un tag seleccionado y arrástralo para cambiar el orden en que aparece dentro del prompt.</div></div>
-      <div class="help-step"><div class="help-step-num">＋</div><div class="help-step-body"><strong>Opciones propias:</strong> Al final de cada sección hay un campo <em>"+ Añadir opción personalizada…"</em> para escribir tags que no estén en la lista.</div></div>
-
-      <div class="help-sub">🎬 Solo para Video: descripción y Timeline</div>
-      <p>En las categorías de video aparecen bloques extra para dar más control narrativo:</p>
-      <div class="help-step"><div class="help-step-num">1</div><div class="help-step-body"><strong>Descripción visual y Narrativa:</strong> dos cuadros separados —uno para describir lo que se ve, otro para la historia o el mensaje emocional.</div></div>
-      <div class="help-step"><div class="help-step-num">2</div><div class="help-step-body"><strong>Timeline segundo a segundo:</strong> añade <em>beats</em> (momentos) y define para cada uno el plano, movimiento de cámara, iluminación, emoción, lente, transición y notas. Ideal para Sora, Kling o Veo.</div></div>
-
-      <div class="help-sub">🤖 Acciones con Inteligencia Artificial</div>
-      <div class="help-step"><div class="help-step-num">✨</div><div class="help-step-body"><strong>Refinar con IA:</strong> Claude mejora y expande tu prompt con lenguaje técnico de fotografía y cine.</div></div>
-      <div class="help-step"><div class="help-step-num">3×</div><div class="help-step-body"><strong>3 Variaciones:</strong> genera tres versiones distintas del mismo prompt, cada una con un enfoque estético diferente.</div></div>
-      <div class="help-step"><div class="help-step-num">EN</div><div class="help-step-body"><strong>Optimizar EN:</strong> traduce a inglés y añade parámetros técnicos avanzados según la plataforma.</div></div>
-      <div class="help-step"><div class="help-step-num">🖼</div><div class="help-step-body"><strong>Analizar archivo:</strong> sube una imagen/video/audio de referencia (botón <em>Analizar</em> arriba) y la IA detecta su estilo y te sugiere opciones automáticamente.</div></div>
-      <div class="help-tip"><span class="help-tip-icon">🔑</span>Las acciones de IA y el análisis usan la API de Anthropic. Pon tu clave <span class="help-kbd">sk-ant-…</span> en <em>Panel de control → Clave API Anthropic</em>. <strong>Sin clave</strong> la app igual funciona: copia la instrucción al portapapeles para que la pegues tú mismo en Claude.</div>
-      <div class="help-tip"><span class="help-tip-icon">🌍</span>Puedes cambiar el idioma del prompt entre Español, Inglés y Francés con los botones que están debajo del cuadro.</div>
-
-      <div class="help-sub">⊞ Categorías personalizadas</div>
-      <div class="help-step"><div class="help-step-num">⊞</div><div class="help-step-body"><strong>Gestor de categorías:</strong> en <em>Inicio</em>, el botón <em>⊞ Categorías</em> te deja crear tus propias categorías, elegir qué secciones se ven y reordenarlas a tu gusto.</div></div>
-    </div>
-
-    <div class="help-section" id="help-s4">
-      <span class="help-section-icon">📚</span>
-      <h3>La Biblioteca</h3>
-      <p>La Biblioteca guarda todos los prompts que creas para reutilizarlos más tarde, y los organiza en carpetas.</p>
-      <div class="help-fig">
-        <svg viewBox="0 0 560 200" role="img" aria-label="Biblioteca con carpetas y prompts guardados" font-family="DM Sans, sans-serif">
-          <!-- folders column -->
-          <rect x="8" y="14" width="200" height="172" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/>
-          <text x="24" y="38" font-size="11" font-weight="700" letter-spacing="1" fill="var(--tx3)">CARPETAS</text>
-          <g font-size="12" fill="var(--tx2)">
-            <text x="24" y="62">📂 Todos los prompts</text>
-            <text x="38" y="86">📁 Cine</text><text x="170" y="86" fill="var(--tx3)" font-size="10">3</text>
-            <text x="38" y="110" fill="var(--acc-tx)" font-weight="600">📂 Producto</text><text x="170" y="110" fill="var(--tx3)" font-size="10">5</text>
-            <text x="54" y="132" font-size="11">📁 Verano</text>
-            <text x="38" y="156">📁 Personajes</text><text x="170" y="156" fill="var(--tx3)" font-size="10">2</text>
-          </g>
-          <rect x="24" y="166" width="100" height="22" rx="6" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="74" y="181" font-size="10" fill="var(--acc-tx)" text-anchor="middle">＋ Nueva carpeta</text>
-          <!-- prompt cards -->
-          <g>
-            <rect x="224" y="14" width="328" height="52" rx="10" fill="var(--bg2)" stroke="var(--bd2)"/>
-            <text x="240" y="36" font-size="13" font-weight="600" fill="var(--tx)">🏷 Retrato cinematográfico</text>
-            <text x="240" y="54" font-size="10" fill="var(--tx3)">Imagen · hace 2 días</text>
-            <rect x="468" y="28" width="70" height="24" rx="6" fill="var(--sel)"/><text x="503" y="44" font-size="10" fill="var(--sel-tx)" text-anchor="middle">Cargar</text>
-            <rect x="224" y="74" width="328" height="52" rx="10" fill="var(--bg2)" stroke="var(--bd2)"/>
-            <text x="240" y="96" font-size="13" font-weight="600" fill="var(--tx)">🏷 Spot de producto 9:16</text>
-            <text x="240" y="114" font-size="10" fill="var(--tx3)">Video · hace 5 días</text>
-            <rect x="468" y="88" width="70" height="24" rx="6" fill="var(--sel)"/><text x="503" y="104" font-size="10" fill="var(--sel-tx)" text-anchor="middle">Cargar</text>
-            <rect x="224" y="134" width="328" height="52" rx="10" fill="var(--bg2)" stroke="var(--bd2)"/>
-            <text x="240" y="156" font-size="13" font-weight="600" fill="var(--tx)">🏷 Banda sonora épica</text>
-            <text x="240" y="174" font-size="10" fill="var(--tx3)">Música · hace 1 semana</text>
-            <rect x="468" y="148" width="70" height="24" rx="6" fill="var(--sel)"/><text x="503" y="164" font-size="10" fill="var(--sel-tx)" text-anchor="middle">Cargar</text>
-          </g>
-        </svg>
-        <div class="help-fig-cap">Carpetas a la izquierda; cada prompt guardado tiene su botón "Cargar" para volver al Builder.</div>
-      </div>
-      <div class="help-step"><div class="help-step-num">1</div><div class="help-step-body"><strong>Guardar un prompt:</strong> En el cuadro del prompt escribe un nombre en el campo <em>"Nombre para guardar…"</em> y haz clic en <span class="help-kbd">★ Guardar</span>. También puedes pulsar <em>＋ Añadir prompt</em> dentro de la Biblioteca para pegar uno a mano.</div></div>
-      <div class="help-step"><div class="help-step-num">2</div><div class="help-step-body"><strong>Ver tus prompts:</strong> Haz clic en <em>Biblioteca</em> en el menú lateral. Verás todos tus prompts guardados, con buscador y ordenamiento (más reciente, nombre A→Z, etc.).</div></div>
-      <div class="help-step"><div class="help-step-num">3</div><div class="help-step-body"><strong>Cargar un prompt:</strong> Haz clic en <em>Cargar</em> en cualquier prompt para traerlo de vuelta al Builder.</div></div>
-      <div class="help-step"><div class="help-step-num">4</div><div class="help-step-body"><strong>Editar, renombrar, duplicar o mover:</strong> cada prompt tiene un menú con esas opciones, incluido cambiar su categoría o moverlo a otra carpeta.</div></div>
-      <div class="help-step"><div class="help-step-num">5</div><div class="help-step-body"><strong>Organizar con carpetas:</strong> En la sección de Biblioteca del menú, el botón <strong>＋</strong> crea carpetas (y subcarpetas). Arrastra o usa <em>📁 Mover a carpeta</em> para ordenarlos.</div></div>
-      <div class="help-tip"><span class="help-tip-icon">💾</span>Haz <strong>copia de seguridad</strong>: exporta toda tu biblioteca como archivo JSON desde <em>Panel de control → Biblioteca → ↓ Exportar JSON</em>, e impórtala cuando la necesites.</div>
-      <div class="help-tip"><span class="help-tip-icon">🧩</span><strong>Combos vs Presets:</strong> un <em>Combo</em> guarda una <strong>selección de opciones</strong> dentro de una sección para reusarla; un <em>Preset</em> guarda tu <strong>configuración de la app</strong> (tema, fuente, tamaños). No los confundas.</div>
-    </div>
-
-    <div class="help-section" id="help-s8">
-      <span class="help-section-icon">🖼</span>
-      <h3>Referencias — tu banco de inspiración</h3>
-      <p>En <em>"Referencias"</em> (menú lateral) guardas imágenes, videos, sonidos, apps o webs que te inspiran, para tenerlas a mano mientras construyes prompts.</p>
-      <div class="help-fig">
-        <svg viewBox="0 0 560 170" role="img" aria-label="Banco de referencias en cuadrícula" font-family="DM Sans, sans-serif">
-          <g>
-            <rect x="14" y="16" width="124" height="138" rx="11" fill="var(--bg2)" stroke="var(--bd2)"/>
-            <rect x="26" y="28" width="100" height="74" rx="7" fill="var(--bg3)"/><text x="76" y="72" font-size="30" text-anchor="middle">🖼</text>
-            <text x="26" y="122" font-size="11" font-weight="600" fill="var(--tx)">Paleta cálida</text><text x="26" y="138" font-size="9" fill="var(--tx3)">Imagen</text>
-            <rect x="150" y="16" width="124" height="138" rx="11" fill="var(--bg2)" stroke="var(--bd2)"/>
-            <rect x="162" y="28" width="100" height="74" rx="7" fill="var(--bg3)"/><text x="212" y="72" font-size="30" text-anchor="middle">🎬</text>
-            <text x="162" y="122" font-size="11" font-weight="600" fill="var(--tx)">Plano secuencia</text><text x="162" y="138" font-size="9" fill="var(--tx3)">Video</text>
-            <rect x="286" y="16" width="124" height="138" rx="11" fill="var(--bg2)" stroke="var(--bd2)"/>
-            <rect x="298" y="28" width="100" height="74" rx="7" fill="var(--bg3)"/><text x="348" y="72" font-size="30" text-anchor="middle">🔊</text>
-            <text x="298" y="122" font-size="11" font-weight="600" fill="var(--tx)">Ambiente lluvia</text><text x="298" y="138" font-size="9" fill="var(--tx3)">Sonido</text>
-            <rect x="422" y="16" width="124" height="138" rx="11" fill="var(--acc-bg)" stroke="var(--acc)" stroke-dasharray="5 4"/>
-            <text x="484" y="78" font-size="30" text-anchor="middle" fill="var(--acc-tx)">＋</text>
-            <text x="484" y="110" font-size="11" fill="var(--acc-tx)" text-anchor="middle">Añadir</text><text x="484" y="126" font-size="11" fill="var(--acc-tx)" text-anchor="middle">referencia</text>
-          </g>
-        </svg>
-        <div class="help-fig-cap">Tus referencias en cuadrícula; añade nuevas con el recuadro punteado.</div>
-      </div>
-      <div class="help-step"><div class="help-step-num">1</div><div class="help-step-body"><strong>Añadir una referencia:</strong> pulsa <em>＋ Añadir referencia</em>, elige el tipo (imagen, video, sonido, app, web…), ponle título, una URL o miniatura y notas sobre qué te gusta.</div></div>
-      <div class="help-step"><div class="help-step-num">2</div><div class="help-step-body"><strong>Consultarlas:</strong> quedan en una cuadrícula visual para inspirarte mientras eliges opciones en el Builder.</div></div>
-      <div class="help-tip"><span class="help-tip-icon">💡</span>Usa las notas para recordar <em>por qué</em> guardaste algo: "me gusta el contraste de luz", "color grade tipo Wong Kar-wai"… Eso luego se convierte en buenos tags.</div>
-    </div>
-
-    <div class="help-section" id="help-s5">
-      <span class="help-section-icon">❋</span>
-      <h3>La Comunidad</h3>
-      <p>En la Comunidad puedes ver lo que otros usuarios están creando y compartir tus propias creaciones.</p>
-      <div class="help-fig">
-        <svg viewBox="0 0 560 180" role="img" aria-label="Tarjeta de la comunidad con imagen, likes y comentarios" font-family="DM Sans, sans-serif">
-          <!-- filters -->
-          <rect x="14" y="12" width="70" height="26" rx="13" fill="var(--sel)"/><text x="49" y="29" font-size="11" fill="var(--sel-tx)" text-anchor="middle">✦ Todo</text>
-          <rect x="92" y="12" width="86" height="26" rx="13" fill="var(--bg2)" stroke="var(--bd2)"/><text x="135" y="29" font-size="11" fill="var(--tx2)" text-anchor="middle">♥ Popular</text>
-          <rect x="186" y="12" width="92" height="26" rx="13" fill="var(--bg2)" stroke="var(--bd2)"/><text x="232" y="29" font-size="11" fill="var(--tx2)" text-anchor="middle">◈ Mis posts</text>
-          <rect x="404" y="12" width="142" height="26" rx="13" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="475" y="29" font-size="11" fill="var(--acc-tx)" text-anchor="middle">+ Publicar Prompt</text>
-          <!-- card -->
-          <rect x="14" y="50" width="250" height="120" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/>
-          <rect x="14" y="50" width="250" height="58" rx="12" fill="var(--bg3)"/><text x="139" y="88" font-size="26" text-anchor="middle">🖼</text>
-          <text x="28" y="128" font-size="13" font-weight="600" fill="var(--tx)">Atardecer neón en Tokio</text>
-          <text x="28" y="146" font-size="10" fill="var(--tx3)">por @gio · Imagen</text>
-          <text x="28" y="163" font-size="11" fill="var(--fav)">♥ 24</text><text x="78" y="163" font-size="11" fill="var(--tx2)">💬 6</text>
-          <rect x="168" y="146" width="88" height="20" rx="6" fill="var(--sel)"/><text x="212" y="160" font-size="9.5" fill="var(--sel-tx)" text-anchor="middle">Usar prompt →</text>
-          <!-- second card outline -->
-          <rect x="280" y="50" width="250" height="120" rx="12" fill="var(--bg2)" stroke="var(--bd2)" stroke-dasharray="5 4" opacity=".6"/>
-          <text x="405" y="115" font-size="12" fill="var(--tx3)" text-anchor="middle">más publicaciones…</text>
-        </svg>
-        <div class="help-fig-cap">Filtros arriba, y cada tarjeta con imagen, likes, comentarios y "Usar prompt →".</div>
-      </div>
-      <div class="help-step"><div class="help-step-num">1</div><div class="help-step-body"><strong>Ver publicaciones:</strong> Haz clic en <em>"Comunidad"</em> en el menú. Verás tarjetas con prompts de otros usuarios.</div></div>
-      <div class="help-step"><div class="help-step-num">2</div><div class="help-step-body"><strong>Usar un prompt de otro usuario:</strong> Haz clic en el botón <em>"Usar prompt →"</em> en cualquier tarjeta. El prompt se cargará directamente en tu Builder.</div></div>
-      <div class="help-step"><div class="help-step-num">3</div><div class="help-step-body"><strong>Publicar algo:</strong> Haz clic en <em>"+ Compartir"</em>. Escribe un título, pega el prompt que usaste y opcionalmente sube una imagen del resultado o un link.</div></div>
-      <div class="help-step"><div class="help-step-num">4</div><div class="help-step-body"><strong>Subir una imagen:</strong> Al publicar, selecciona <em>"📁 Subir archivo"</em> y elige una imagen desde tu computadora (máx. 1.5 MB). La imagen se guarda directamente en la app.</div></div>
-      <div class="help-step"><div class="help-step-num">5</div><div class="help-step-body"><strong>Dar likes y comentar:</strong> Haz clic en <span class="help-kbd">♥</span> para dar like, o en <span class="help-kbd">💬</span> para abrir los comentarios y dejar un mensaje.</div></div>
-      <div class="help-tip"><span class="help-tip-icon">💡</span>Usa el filtro <strong>"Popular"</strong> para ver los prompts que más likes han recibido. ¡Ideal para inspirarte!</div>
-      <div class="help-warn"><span class="help-tip-icon">⚠️</span>Las imágenes subidas se guardan en tu navegador. Si son muy grandes, pueden ocupar mucho espacio. El límite es <strong>1.5 MB por imagen</strong>.</div>
-    </div>
-
-    <div class="help-section" id="help-s9">
-      <span class="help-section-icon">📊</span>
-      <h3>Estadísticas</h3>
-      <p>La sección <em>"Estadísticas"</em> del menú te muestra <strong>qué opciones y tags usas más</strong>. Es una forma de descubrir tu estilo personal y agilizar tu trabajo: lo que más repites probablemente merezca ser un favorito ★ o un Combo.</p>
-      <div class="help-tip"><span class="help-tip-icon">💡</span>Si ves que siempre eliges la misma iluminación o cámara, guárdalas como favoritos para tenerlas siempre arriba.</div>
-    </div>
-
-    <div class="help-section" id="help-s6">
-      <span class="help-section-icon">⚙</span>
-      <h3>Configuración (Panel de control)</h3>
-      <p>En <em>"Panel de control"</em> puedes personalizar casi todo:</p>
-      <div class="help-step"><div class="help-step-num">1</div><div class="help-step-body"><strong>Idioma:</strong> Cambia el idioma de la interfaz entre 10 idiomas disponibles: Español, Inglés, Francés, Chino, Hindi, Árabe, Bengalí, Portugués, Ruso y Japonés.</div></div>
-      <div class="help-step"><div class="help-step-num">2</div><div class="help-step-body"><strong>Tema:</strong> Elige entre modo claro, oscuro o automático (sigue el horario: claro de 7am a 7pm).</div></div>
-      <div class="help-step"><div class="help-step-num">3</div><div class="help-step-body"><strong>Tipografía y tamaño:</strong> Cambia la fuente y el tamaño de los botones según tu gusto.</div></div>
-      <div class="help-step"><div class="help-step-num">4</div><div class="help-step-body"><strong>Categorías activas:</strong> Desactiva las categorías que no usas para tener la pantalla más limpia.</div></div>
-      <div class="help-step"><div class="help-step-num">5</div><div class="help-step-body"><strong>Estilos visuales:</strong> Prueba los estilos <em>Glass, Brutal, Editorial, Retro…</em> para cambiar el look de la app.</div></div>
-      <div class="help-step"><div class="help-step-num">6</div><div class="help-step-body"><strong>Presets de configuración:</strong> Guarda tu configuración actual como un preset para restaurarla cuando quieras.</div></div>
-      <div class="help-step"><div class="help-step-num">7</div><div class="help-step-body"><strong>Clave API Anthropic:</strong> pega tu clave <span class="help-kbd">sk-ant-…</span> para que las acciones de IA (Refinar, Variaciones, Traducir, Analizar) funcionen directamente dentro de la app. Es opcional; sin ella, la app copia las instrucciones para que las uses en Claude.</div></div>
-      <div class="help-step"><div class="help-step-num">8</div><div class="help-step-body"><strong>Biblioteca:</strong> desde aquí exportas o importas tu biblioteca en JSON, o la borras por completo.</div></div>
-      <div class="help-warn"><span class="help-tip-icon">⚠️</span>Tu clave API se guarda solo en tu navegador. No abras esta app en sitios públicos con tu clave puesta: por seguridad, úsala únicamente en tu propio equipo.</div>
-    </div>
-
-    <div class="help-section" id="help-s7">
-      <span class="help-section-icon">💡</span>
-      <h3>Consejos pro para mejores resultados</h3>
-      <div class="help-step"><div class="help-step-num">★</div><div class="help-step-body"><strong>Menos es más al principio:</strong> Empieza seleccionando 3 o 4 opciones y ve añadiendo más. Demasiadas opciones pueden generar prompts muy largos que confunden a la IA.</div></div>
-      <div class="help-step"><div class="help-step-num">★</div><div class="help-step-body"><strong>Usa "Analizar":</strong> Si tienes una imagen de referencia, súbela en el botón <em>"Analizar"</em> (arriba del Builder). La app detectará automáticamente el estilo, iluminación y más para sugerirte opciones.</div></div>
-      <div class="help-step"><div class="help-step-num">★</div><div class="help-step-body"><strong>Guarda los favoritos:</strong> Si hay una opción que usas mucho, haz clic en la <span class="help-kbd">★</span> que aparece al pasar el cursor sobre ella. Aparecerá en la barra de favoritos para acceso rápido.</div></div>
-      <div class="help-step"><div class="help-step-num">★</div><div class="help-step-body"><strong>El Combinador:</strong> En la categoría <em>"Crear"</em> del Builder encontrarás el Combinador. Te permite mezclar varios prompts guardados en tu biblioteca para crear uno nuevo.</div></div>
-      <div class="help-step"><div class="help-step-num">★</div><div class="help-step-body"><strong>Estadísticas:</strong> En la sección <em>"Estadísticas"</em> del menú puedes ver qué opciones usas más. Útil para descubrir tu estilo personal.</div></div>
-      <div class="help-step"><div class="help-step-num">★</div><div class="help-step-body"><strong>Inglés para mejores resultados:</strong> La mayoría de las IAs de imagen funcionan mejor con prompts en inglés. Usa el botón <span class="help-kbd">English</span> para traducir tu prompt automáticamente.</div></div>
-      <div class="help-tip"><span class="help-tip-icon">🎯</span><strong>Flujo recomendado:</strong> Elige categoría → Selecciona opciones → Refina con IA → Traduce a inglés → Copia → Pega en tu IA → Si te gusta el resultado, ¡guárdalo y compártelo en la Comunidad!</div>
-    </div>
+    <div id="help-body"></div>
   </div>
   <div id="view-admin" style="display:none">
     <div class="ph">
@@ -2582,6 +2256,7 @@ function applyUILang(){
   if(S.cat)renderParams();
   if(eid("view-library")?.style.display!=="none")renderLib();
   if(eid("view-settings")?.style.display!=="none")renderSettings();
+  if(eid("view-help")?.style.display!=="none")renderHelp();
   syncHomeCtrl();
 }
 
@@ -2710,6 +2385,7 @@ function gotoView(v,btn){
   if(v==="stats")renderStats();
   if(v==="community")renderComm();
   if(v==="profile")renderProfile();
+  if(v==="help")renderHelp();
   if(v==="admin"){if(isSuperUser())renderAdmin();else gotoHome(null);}
 }
 function gotoHome(btn){
@@ -4985,6 +4661,350 @@ function loadLibItem_profile(prompt){
   toast("Prompt cargado en el Builder ✓");
 }
 
+// ════ HELP CENTER (multilingüe ES/EN/FR) ═════════════════════════
+function ht(k){const L=getLang();const o=HELP_STR[k];return o?(o[L]||o.EN||o.ES):k;}
+function hStep(n,b){return `<div class="help-step"><div class="help-step-num">${n}</div><div class="help-step-body">${b}</div></div>`;}
+function hTip(ic,b){return `<div class="help-tip"><span class="help-tip-icon">${ic}</span>${b}</div>`;}
+function hWarn(b){return `<div class="help-warn"><span class="help-tip-icon">⚠️</span>${b}</div>`;}
+function hSub(s){return `<div class="help-sub">${s}</div>`;}
+function helpFigMap(){return `<div class="help-fig"><svg viewBox="0 0 800 470" role="img" font-family="DM Sans, sans-serif">
+  <rect x="14" y="14" width="212" height="448" rx="14" fill="var(--bg3)" stroke="var(--bd2)"/>
+  <text x="50" y="42" font-size="15" font-weight="600" fill="var(--tx)">Prompt Builder</text>
+  <text x="50" y="58" font-size="9" fill="var(--tx3)">${ht('f_pro')}</text>
+  <g font-size="12.5" fill="var(--tx2)">
+    <rect x="28" y="64" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="82">👤 ${ht('f_profile')}</text>
+    <rect x="28" y="98" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="116">❋ ${ht('f_comm')}</text>
+    <text x="28" y="146" font-size="9" font-weight="700" letter-spacing="1" fill="var(--tx3)">${ht('f_create')}</text>
+    <rect x="28" y="152" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="170">🏠 ${ht('f_home')}</text>
+    <rect x="28" y="186" width="184" height="28" rx="7" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="50" y="204" fill="var(--acc-tx)" font-weight="600">🏗 ${ht('f_builder')}</text>
+    <text x="28" y="234" font-size="9" font-weight="700" letter-spacing="1" fill="var(--tx3)">${ht('f_libsec')}</text>
+    <rect x="28" y="240" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="258">🖼 ${ht('f_refs')}</text>
+    <rect x="28" y="274" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="292">📚 ${ht('f_lib')}</text>
+    <text x="28" y="322" font-size="9" font-weight="700" letter-spacing="1" fill="var(--tx3)">${ht('f_sys')}</text>
+    <rect x="28" y="328" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="346">📊 ${ht('f_stats')}</text>
+    <rect x="28" y="362" width="184" height="28" rx="7" fill="var(--bg2)" stroke="var(--bd)"/><text x="50" y="380">⚙ ${ht('f_panel')}</text>
+    <rect x="28" y="396" width="184" height="28" rx="7" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="50" y="414" fill="var(--acc-tx)" font-weight="600">❔ ${ht('f_help')}</text>
+  </g>
+  <g font-size="11" font-weight="700" fill="#fff" text-anchor="middle">
+    <circle cx="30" cy="78" r="11" fill="var(--acc)"/><text x="30" y="82">1</text>
+    <circle cx="30" cy="112" r="11" fill="var(--acc)"/><text x="30" y="116">2</text>
+    <circle cx="30" cy="166" r="11" fill="var(--acc)"/><text x="30" y="170">3</text>
+    <circle cx="30" cy="200" r="11" fill="var(--acc)"/><text x="30" y="204">4</text>
+    <circle cx="30" cy="254" r="11" fill="var(--acc)"/><text x="30" y="258">5</text>
+    <circle cx="30" cy="288" r="11" fill="var(--acc)"/><text x="30" y="292">6</text>
+    <circle cx="30" cy="342" r="11" fill="var(--acc)"/><text x="30" y="346">7</text>
+    <circle cx="30" cy="376" r="11" fill="var(--acc)"/><text x="30" y="380">8</text>
+    <circle cx="30" cy="410" r="11" fill="var(--acc)"/><text x="30" y="414">9</text>
+  </g>
+  <rect x="242" y="14" width="544" height="448" rx="14" fill="var(--bg2)" stroke="var(--bd2)"/>
+  <text x="276" y="56" font-size="20" font-weight="300" fill="var(--tx)" font-family="Fraunces, serif">${ht('f_buildtitle')}</text>
+  <text x="276" y="76" font-size="11" fill="var(--tx3)">${ht('f_choosecat')}</text>
+  <g>
+    <rect x="262" y="96" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="337" y="138" font-size="26" text-anchor="middle">🖼</text><text x="337" y="166" font-size="12" text-anchor="middle" fill="var(--tx2)">${ht('card_image')}</text>
+    <rect x="427" y="96" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="502" y="138" font-size="26" text-anchor="middle">🎬</text><text x="502" y="166" font-size="12" text-anchor="middle" fill="var(--tx2)">${ht('card_video')}</text>
+    <rect x="592" y="96" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="667" y="138" font-size="26" text-anchor="middle">🎵</text><text x="667" y="166" font-size="12" text-anchor="middle" fill="var(--tx2)">${ht('card_music')}</text>
+    <rect x="262" y="200" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="337" y="242" font-size="26" text-anchor="middle">🧑</text><text x="337" y="270" font-size="12" text-anchor="middle" fill="var(--tx2)">${ht('card_char')}</text>
+    <rect x="427" y="200" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="502" y="242" font-size="26" text-anchor="middle">📍</text><text x="502" y="270" font-size="12" text-anchor="middle" fill="var(--tx2)">${ht('card_loc')}</text>
+    <rect x="592" y="200" width="150" height="92" rx="11" fill="var(--bg3)" stroke="var(--bd)"/><text x="667" y="242" font-size="26" text-anchor="middle">📱</text><text x="667" y="270" font-size="12" text-anchor="middle" fill="var(--tx2)">${ht('card_app')}</text>
+  </g>
+  <circle cx="262" cy="40" r="11" fill="var(--acc)"/><text x="262" y="44" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">10</text>
+  <text x="280" y="332" font-size="11" fill="var(--tx3)">${ht('f_morebelow')}</text>
+  <rect x="262" y="346" width="480" height="40" rx="9" fill="var(--bg3)" stroke="var(--bd)" stroke-dasharray="4 4"/><text x="280" y="371" font-size="12" fill="var(--tx3)">${ht('f_prompthere')}</text>
+  <rect x="262" y="398" width="90" height="30" rx="7" fill="var(--sel)"/><text x="307" y="418" font-size="11" fill="var(--sel-tx)" text-anchor="middle">${ht('f_copy')}</text>
+  <rect x="362" y="398" width="100" height="30" rx="7" fill="var(--bg3)" stroke="var(--bd2)"/><text x="412" y="418" font-size="11" fill="var(--tx2)" text-anchor="middle">${ht('f_save')}</text>
+</svg><div class="help-fig-cap">${ht('s0_cap')}</div></div>`;}
+function helpFigBuilder(){return `<div class="help-fig"><svg viewBox="0 0 820 180" role="img" font-family="DM Sans, sans-serif">
+  <rect x="8" y="24" width="172" height="132" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/>
+  <text x="24" y="48" font-size="12" font-weight="700" fill="var(--acc)">${ht('b_1cat')}</text>
+  <rect x="24" y="60" width="64" height="40" rx="7" fill="var(--bg3)" stroke="var(--bd)"/><text x="56" y="85" font-size="18" text-anchor="middle">🖼</text>
+  <rect x="100" y="60" width="64" height="40" rx="7" fill="var(--bg3)" stroke="var(--bd)"/><text x="132" y="85" font-size="18" text-anchor="middle">🎬</text>
+  <rect x="24" y="108" width="64" height="36" rx="7" fill="var(--bg3)" stroke="var(--bd)"/><text x="56" y="131" font-size="16" text-anchor="middle">🎵</text>
+  <rect x="100" y="108" width="64" height="36" rx="7" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="132" y="131" font-size="16" text-anchor="middle">🧑</text>
+  <path d="M188 90 l18 0 m-6 -6 l6 6 l-6 6" fill="none" stroke="var(--tx3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="214" y="24" width="172" height="132" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/>
+  <text x="230" y="48" font-size="12" font-weight="700" fill="var(--acc)">${ht('b_2opt')}</text>
+  <rect x="230" y="60" width="84" height="24" rx="12" fill="var(--sel)"/><text x="272" y="76" font-size="10" fill="var(--sel-tx)" text-anchor="middle">${ht('b_cinematic')}</text>
+  <rect x="322" y="60" width="48" height="24" rx="12" fill="var(--bg3)" stroke="var(--bd2)"/><text x="346" y="76" font-size="10" fill="var(--tx2)" text-anchor="middle">${ht('b_anime')}</text>
+  <rect x="230" y="92" width="60" height="24" rx="12" fill="var(--sel)"/><text x="260" y="108" font-size="10" fill="var(--sel-tx)" text-anchor="middle">${ht('b_golden')}</text>
+  <rect x="298" y="92" width="56" height="24" rx="12" fill="var(--bg3)" stroke="var(--bd2)"/><text x="326" y="108" font-size="10" fill="var(--tx2)" text-anchor="middle">${ht('b_neon')}</text>
+  <rect x="230" y="124" width="96" height="24" rx="12" fill="var(--bg3)" stroke="var(--bd2)"/><text x="278" y="140" font-size="10" fill="var(--tx2)" text-anchor="middle">${ht('b_wide')}</text>
+  <path d="M394 90 l18 0 m-6 -6 l6 6 l-6 6" fill="none" stroke="var(--tx3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="420" y="24" width="172" height="132" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/>
+  <text x="436" y="48" font-size="12" font-weight="700" fill="var(--acc)">${ht('b_3prompt')}</text>
+  <rect x="436" y="58" width="140" height="86" rx="8" fill="var(--bg3)" stroke="var(--bd)"/>
+  <g fill="var(--tx3)"><rect x="448" y="72" width="116" height="6" rx="3"/><rect x="448" y="86" width="100" height="6" rx="3"/><rect x="448" y="100" width="116" height="6" rx="3"/><rect x="448" y="114" width="80" height="6" rx="3"/></g>
+  <text x="448" y="138" font-size="9" fill="var(--ok)">${ht('b_live')}</text>
+  <path d="M600 90 l18 0 m-6 -6 l6 6 l-6 6" fill="none" stroke="var(--tx3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="626" y="24" width="186" height="132" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/>
+  <text x="642" y="48" font-size="12" font-weight="700" fill="var(--acc)">${ht('b_4use')}</text>
+  <rect x="642" y="60" width="154" height="26" rx="7" fill="var(--sel)"/><text x="719" y="77" font-size="11" fill="var(--sel-tx)" text-anchor="middle">${ht('b_copy')}</text>
+  <rect x="642" y="92" width="74" height="26" rx="7" fill="var(--bg3)" stroke="var(--bd2)"/><text x="679" y="109" font-size="10" fill="var(--tx2)" text-anchor="middle">${ht('b_save')}</text>
+  <rect x="722" y="92" width="74" height="26" rx="7" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="759" y="109" font-size="10" fill="var(--acc-tx)" text-anchor="middle">${ht('b_refine')}</text>
+  <rect x="642" y="124" width="154" height="24" rx="7" fill="var(--bg3)" stroke="var(--bd2)"/><text x="719" y="140" font-size="10" fill="var(--tx2)" text-anchor="middle">${ht('b_lang')}</text>
+</svg><div class="help-fig-cap">${ht('s3_cap')}</div></div>`;}
+function helpFigLibrary(){return `<div class="help-fig"><svg viewBox="0 0 560 200" role="img" font-family="DM Sans, sans-serif">
+  <rect x="8" y="14" width="200" height="172" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/>
+  <text x="24" y="38" font-size="11" font-weight="700" letter-spacing="1" fill="var(--tx3)">${ht('lf_folders')}</text>
+  <g font-size="12" fill="var(--tx2)">
+    <text x="24" y="62">${ht('lf_all')}</text>
+    <text x="38" y="86">${ht('lf_cine')}</text><text x="170" y="86" fill="var(--tx3)" font-size="10">3</text>
+    <text x="38" y="110" fill="var(--acc-tx)" font-weight="600">${ht('lf_product')}</text><text x="170" y="110" fill="var(--tx3)" font-size="10">5</text>
+    <text x="54" y="132" font-size="11">${ht('lf_summer')}</text>
+    <text x="38" y="156">${ht('lf_chars')}</text><text x="170" y="156" fill="var(--tx3)" font-size="10">2</text>
+  </g>
+  <rect x="24" y="166" width="110" height="22" rx="6" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="79" y="181" font-size="10" fill="var(--acc-tx)" text-anchor="middle">${ht('lf_newfolder')}</text>
+  <g>
+    <rect x="224" y="14" width="328" height="52" rx="10" fill="var(--bg2)" stroke="var(--bd2)"/><text x="240" y="36" font-size="13" font-weight="600" fill="var(--tx)">${ht('lf_c1')}</text><text x="240" y="54" font-size="10" fill="var(--tx3)">${ht('lf_c1m')}</text>
+    <rect x="468" y="28" width="70" height="24" rx="6" fill="var(--sel)"/><text x="503" y="44" font-size="10" fill="var(--sel-tx)" text-anchor="middle">${ht('lf_load')}</text>
+    <rect x="224" y="74" width="328" height="52" rx="10" fill="var(--bg2)" stroke="var(--bd2)"/><text x="240" y="96" font-size="13" font-weight="600" fill="var(--tx)">${ht('lf_c2')}</text><text x="240" y="114" font-size="10" fill="var(--tx3)">${ht('lf_c2m')}</text>
+    <rect x="468" y="88" width="70" height="24" rx="6" fill="var(--sel)"/><text x="503" y="104" font-size="10" fill="var(--sel-tx)" text-anchor="middle">${ht('lf_load')}</text>
+    <rect x="224" y="134" width="328" height="52" rx="10" fill="var(--bg2)" stroke="var(--bd2)"/><text x="240" y="156" font-size="13" font-weight="600" fill="var(--tx)">${ht('lf_c3')}</text><text x="240" y="174" font-size="10" fill="var(--tx3)">${ht('lf_c3m')}</text>
+    <rect x="468" y="148" width="70" height="24" rx="6" fill="var(--sel)"/><text x="503" y="164" font-size="10" fill="var(--sel-tx)" text-anchor="middle">${ht('lf_load')}</text>
+  </g>
+</svg><div class="help-fig-cap">${ht('s4_cap')}</div></div>`;}
+function helpFigRefs(){return `<div class="help-fig"><svg viewBox="0 0 560 170" role="img" font-family="DM Sans, sans-serif">
+  <rect x="14" y="16" width="124" height="138" rx="11" fill="var(--bg2)" stroke="var(--bd2)"/><rect x="26" y="28" width="100" height="74" rx="7" fill="var(--bg3)"/><text x="76" y="72" font-size="30" text-anchor="middle">🖼</text><text x="26" y="122" font-size="11" font-weight="600" fill="var(--tx)">${ht('rf_warm')}</text><text x="26" y="138" font-size="9" fill="var(--tx3)">${ht('rf_warm_t')}</text>
+  <rect x="150" y="16" width="124" height="138" rx="11" fill="var(--bg2)" stroke="var(--bd2)"/><rect x="162" y="28" width="100" height="74" rx="7" fill="var(--bg3)"/><text x="212" y="72" font-size="30" text-anchor="middle">🎬</text><text x="162" y="122" font-size="11" font-weight="600" fill="var(--tx)">${ht('rf_seq')}</text><text x="162" y="138" font-size="9" fill="var(--tx3)">${ht('rf_seq_t')}</text>
+  <rect x="286" y="16" width="124" height="138" rx="11" fill="var(--bg2)" stroke="var(--bd2)"/><rect x="298" y="28" width="100" height="74" rx="7" fill="var(--bg3)"/><text x="348" y="72" font-size="30" text-anchor="middle">🔊</text><text x="298" y="122" font-size="11" font-weight="600" fill="var(--tx)">${ht('rf_rain')}</text><text x="298" y="138" font-size="9" fill="var(--tx3)">${ht('rf_rain_t')}</text>
+  <rect x="422" y="16" width="124" height="138" rx="11" fill="var(--acc-bg)" stroke="var(--acc)" stroke-dasharray="5 4"/><text x="484" y="78" font-size="30" text-anchor="middle" fill="var(--acc-tx)">＋</text><text x="484" y="110" font-size="11" fill="var(--acc-tx)" text-anchor="middle">${ht('rf_add')}</text><text x="484" y="126" font-size="11" fill="var(--acc-tx)" text-anchor="middle">${ht('rf_add2')}</text>
+</svg><div class="help-fig-cap">${ht('s8_cap')}</div></div>`;}
+function helpFigComm(){return `<div class="help-fig"><svg viewBox="0 0 560 180" role="img" font-family="DM Sans, sans-serif">
+  <rect x="14" y="12" width="70" height="26" rx="13" fill="var(--sel)"/><text x="49" y="29" font-size="11" fill="var(--sel-tx)" text-anchor="middle">${ht('cf_all')}</text>
+  <rect x="92" y="12" width="86" height="26" rx="13" fill="var(--bg2)" stroke="var(--bd2)"/><text x="135" y="29" font-size="11" fill="var(--tx2)" text-anchor="middle">${ht('cf_popular')}</text>
+  <rect x="186" y="12" width="92" height="26" rx="13" fill="var(--bg2)" stroke="var(--bd2)"/><text x="232" y="29" font-size="11" fill="var(--tx2)" text-anchor="middle">${ht('cf_mine')}</text>
+  <rect x="404" y="12" width="142" height="26" rx="13" fill="var(--acc-bg)" stroke="var(--acc)"/><text x="475" y="29" font-size="11" fill="var(--acc-tx)" text-anchor="middle">${ht('cf_post')}</text>
+  <rect x="14" y="50" width="250" height="120" rx="12" fill="var(--bg2)" stroke="var(--bd2)"/><rect x="14" y="50" width="250" height="58" rx="12" fill="var(--bg3)"/><text x="139" y="88" font-size="26" text-anchor="middle">🖼</text>
+  <text x="28" y="128" font-size="13" font-weight="600" fill="var(--tx)">${ht('cf_title')}</text><text x="28" y="146" font-size="10" fill="var(--tx3)">${ht('cf_by')}</text>
+  <text x="28" y="163" font-size="11" fill="var(--fav)">♥ 24</text><text x="78" y="163" font-size="11" fill="var(--tx2)">💬 6</text>
+  <rect x="168" y="146" width="88" height="20" rx="6" fill="var(--sel)"/><text x="212" y="160" font-size="9.5" fill="var(--sel-tx)" text-anchor="middle">${ht('cf_use')}</text>
+  <rect x="280" y="50" width="250" height="120" rx="12" fill="var(--bg2)" stroke="var(--bd2)" stroke-dasharray="5 4" opacity=".6"/><text x="405" y="115" font-size="12" fill="var(--tx3)" text-anchor="middle">${ht('cf_more')}</text>
+</svg><div class="help-fig-cap">${ht('s5_cap')}</div></div>`;}
+function helpToc(){
+  const items=[["help-s0",ht('toc_map')],["help-s1",ht('toc_what')],["help-s2",ht('toc_acc')],["help-s3",ht('toc_builder')],["help-s4",ht('toc_lib')],["help-s8",ht('toc_refs')],["help-s5",ht('toc_comm')],["help-s9",ht('toc_stats')],["help-s6",ht('toc_cfg')],["help-s7",ht('toc_tips')]];
+  return `<div class="help-toc"><span style="font-size:.62rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tx3);margin-right:.3rem">${ht('h_goto')}</span>`+items.map(([id,l])=>`<button class="help-toc-btn" onclick="scrollToHelp('${id}')">${l}</button>`).join("")+`</div>`;
+}
+function helpLegend(){
+  let o='<ul class="help-legend">';
+  for(let i=1;i<=10;i++)o+=`<li><span class="lg-n">${i}</span><span>${ht('l'+i)}</span></li>`;
+  return o+'</ul>';
+}
+function renderHelp(){
+  const el=eid("help-body");if(!el)return;
+  el.innerHTML=`
+    <div class="ph"><h1>${ht('h_title')}</h1><p>${ht('h_sub')}</p></div>
+    <div class="help-hero">
+      <h2>${ht('h_hero_t')}</h2>
+      <p>${ht('h_hero_sub')}</p>
+      <div class="help-quick">
+        <div class="help-quick-step"><div class="qn">1</div><b>${ht('h_q1b')}</b><span>${ht('h_q1s')}</span></div>
+        <div class="help-quick-step"><div class="qn">2</div><b>${ht('h_q2b')}</b><span>${ht('h_q2s')}</span></div>
+        <div class="help-quick-step"><div class="qn">3</div><b>${ht('h_q3b')}</b><span>${ht('h_q3s')}</span></div>
+      </div>
+    </div>
+    ${helpToc()}
+    <div class="help-section" id="help-s0"><span class="help-section-icon">🗺</span><h3>${ht('s0_t')}</h3><p>${ht('s0_p')}</p>${helpFigMap()}${helpLegend()}</div>
+    <div class="help-section" id="help-s1"><span class="help-section-icon">🚀</span><h3>${ht('s1_t')}</h3><p>${ht('s1_p1')}</p><p>${ht('s1_p2')}</p>${hTip('💡',ht('s1_tip'))}</div>
+    <div class="help-section" id="help-s2"><span class="help-section-icon">👤</span><h3>${ht('s2_t')}</h3>${hStep(1,ht('s2_1'))}${hStep(2,ht('s2_2'))}${hStep(3,ht('s2_3'))}${hStep(4,ht('s2_4'))}${hWarn(ht('s2_warn'))}</div>
+    <div class="help-section" id="help-s3"><span class="help-section-icon">🏗</span><h3>${ht('s3_t')}</h3><p>${ht('s3_p')}</p>${helpFigBuilder()}${hStep(1,ht('s3_1'))}${hStep(2,ht('s3_2'))}${hStep(3,ht('s3_3'))}${hStep(4,ht('s3_4'))}${hStep(5,ht('s3_5'))}${hSub(ht('s3_sub_org'))}${hStep('★',ht('s3_fav'))}${hStep('⇅',ht('s3_sort'))}${hStep('🎨',ht('s3_color'))}${hStep('✥',ht('s3_drag'))}${hStep('＋',ht('s3_custom'))}${hSub(ht('s3_sub_video'))}<p>${ht('s3_video_p')}</p>${hStep(1,ht('s3_v1'))}${hStep(2,ht('s3_v2'))}${hSub(ht('s3_sub_ai'))}${hStep('✨',ht('s3_ai_refine'))}${hStep('3×',ht('s3_ai_var'))}${hStep('EN',ht('s3_ai_en'))}${hStep('🖼',ht('s3_ai_analyze'))}${hTip('🔑',ht('s3_tip_key'))}${hTip('🌍',ht('s3_tip_lang'))}${hSub(ht('s3_sub_cats'))}${hStep('⊞',ht('s3_catmgr'))}</div>
+    <div class="help-section" id="help-s4"><span class="help-section-icon">📚</span><h3>${ht('s4_t')}</h3><p>${ht('s4_p')}</p>${helpFigLibrary()}${hStep(1,ht('s4_1'))}${hStep(2,ht('s4_2'))}${hStep(3,ht('s4_3'))}${hStep(4,ht('s4_4'))}${hStep(5,ht('s4_5'))}${hTip('💾',ht('s4_tip_backup'))}${hTip('🧩',ht('s4_tip_combos'))}</div>
+    <div class="help-section" id="help-s8"><span class="help-section-icon">🖼</span><h3>${ht('s8_t')}</h3><p>${ht('s8_p')}</p>${helpFigRefs()}${hStep(1,ht('s8_1'))}${hStep(2,ht('s8_2'))}${hTip('💡',ht('s8_tip'))}</div>
+    <div class="help-section" id="help-s5"><span class="help-section-icon">❋</span><h3>${ht('s5_t')}</h3><p>${ht('s5_p')}</p>${helpFigComm()}${hStep(1,ht('s5_1'))}${hStep(2,ht('s5_2'))}${hStep(3,ht('s5_3'))}${hStep(4,ht('s5_4'))}${hStep(5,ht('s5_5'))}${hTip('💡',ht('s5_tip'))}${hWarn(ht('s5_warn'))}</div>
+    <div class="help-section" id="help-s9"><span class="help-section-icon">📊</span><h3>${ht('s9_t')}</h3><p>${ht('s9_p')}</p>${hTip('💡',ht('s9_tip'))}</div>
+    <div class="help-section" id="help-s6"><span class="help-section-icon">⚙</span><h3>${ht('s6_t')}</h3><p>${ht('s6_p')}</p>${hStep(1,ht('s6_1'))}${hStep(2,ht('s6_2'))}${hStep(3,ht('s6_3'))}${hStep(4,ht('s6_4'))}${hStep(5,ht('s6_5'))}${hStep(6,ht('s6_6'))}${hStep(7,ht('s6_7'))}${hStep(8,ht('s6_8'))}${hWarn(ht('s6_warn'))}</div>
+    <div class="help-section" id="help-s7"><span class="help-section-icon">💡</span><h3>${ht('s7_t')}</h3>${hStep('★',ht('s7_1'))}${hStep('★',ht('s7_2'))}${hStep('★',ht('s7_3'))}${hStep('★',ht('s7_4'))}${hStep('★',ht('s7_5'))}${hStep('★',ht('s7_6'))}${hTip('🎯',ht('s7_flow'))}</div>
+  `;
+}
+const HELP_STR=HELP_STRINGS();
+function HELP_STRINGS(){return {
+  h_goto:{ES:`Ir a:`,EN:`Go to:`,FR:`Aller à :`},
+  h_title:{ES:`Ayuda y Tutorial`,EN:`Help & Tutorial`,FR:`Aide & Tutoriel`},
+  h_sub:{ES:`Aprende a usar Prompt Builder Pro paso a paso. Todo lo que necesitas está aquí.`,EN:`Learn to use Prompt Builder Pro step by step. Everything you need is here.`,FR:`Apprenez à utiliser Prompt Builder Pro étape par étape. Tout ce dont vous avez besoin est ici.`},
+  h_hero_t:{ES:`⚡ Inicio rápido en 3 pasos`,EN:`⚡ Quick start in 3 steps`,FR:`⚡ Démarrage rapide en 3 étapes`},
+  h_hero_sub:{ES:`¿Con prisa? Esto es lo único que necesitas para crear tu primer prompt:`,EN:`In a hurry? This is all you need to create your first prompt:`,FR:`Pressé ? Voici tout ce qu'il faut pour créer votre premier prompt :`},
+  h_q1b:{ES:`Elige una categoría`,EN:`Pick a category`,FR:`Choisissez une catégorie`},
+  h_q1s:{ES:`En <em>Inicio</em>, haz clic en una tarjeta: Imagen, Video, Música…`,EN:`On <em>Home</em>, click a card: Image, Video, Music…`,FR:`Sur <em>Accueil</em>, cliquez sur une carte : Image, Vidéo, Musique…`},
+  h_q2b:{ES:`Toca las opciones`,EN:`Tap the options`,FR:`Touchez les options`},
+  h_q2s:{ES:`Estilo, iluminación, cámara… El prompt se arma solo abajo.`,EN:`Style, lighting, camera… The prompt builds itself below.`,FR:`Style, éclairage, caméra… Le prompt se construit tout seul en bas.`},
+  h_q3b:{ES:`Copia y pega`,EN:`Copy and paste`,FR:`Copiez et collez`},
+  h_q3s:{ES:`Botón <em>Copiar</em> → pégalo en Midjourney, Sora, ChatGPT…`,EN:`<em>Copy</em> button → paste it into Midjourney, Sora, ChatGPT…`,FR:`Bouton <em>Copier</em> → collez-le dans Midjourney, Sora, ChatGPT…`},
+  toc_map:{ES:`🗺 Mapa de la app`,EN:`🗺 App map`,FR:`🗺 Carte de l'app`},
+  toc_what:{ES:`🚀 ¿Qué es esto?`,EN:`🚀 What is this?`,FR:`🚀 C'est quoi ?`},
+  toc_acc:{ES:`👤 Tu cuenta`,EN:`👤 Your account`,FR:`👤 Votre compte`},
+  toc_builder:{ES:`🏗 El Builder`,EN:`🏗 The Builder`,FR:`🏗 Le Builder`},
+  toc_lib:{ES:`📚 Biblioteca`,EN:`📚 Library`,FR:`📚 Bibliothèque`},
+  toc_refs:{ES:`🖼 Referencias`,EN:`🖼 References`,FR:`🖼 Références`},
+  toc_comm:{ES:`❋ Comunidad`,EN:`❋ Community`,FR:`❋ Communauté`},
+  toc_stats:{ES:`📊 Estadísticas`,EN:`📊 Statistics`,FR:`📊 Statistiques`},
+  toc_cfg:{ES:`⚙ Configuración`,EN:`⚙ Settings`,FR:`⚙ Réglages`},
+  toc_tips:{ES:`💡 Consejos pro`,EN:`💡 Pro tips`,FR:`💡 Astuces pro`},
+  f_pro:{ES:`PRO BETA`,EN:`PRO BETA`,FR:`PRO BETA`},
+  f_profile:{ES:`Mi Perfil`,EN:`My Profile`,FR:`Mon Profil`},
+  f_comm:{ES:`Comunidad`,EN:`Community`,FR:`Communauté`},
+  f_create:{ES:`CREAR`,EN:`CREATE`,FR:`CRÉER`},
+  f_home:{ES:`Inicio`,EN:`Home`,FR:`Accueil`},
+  f_builder:{ES:`Builder`,EN:`Builder`,FR:`Builder`},
+  f_libsec:{ES:`BIBLIOTECA`,EN:`LIBRARY`,FR:`BIBLIOTHÈQUE`},
+  f_refs:{ES:`Referencias`,EN:`References`,FR:`Références`},
+  f_lib:{ES:`Biblioteca`,EN:`Library`,FR:`Bibliothèque`},
+  f_sys:{ES:`SISTEMA`,EN:`SYSTEM`,FR:`SYSTÈME`},
+  f_stats:{ES:`Estadísticas`,EN:`Statistics`,FR:`Statistiques`},
+  f_panel:{ES:`Panel de control`,EN:`Control Panel`,FR:`Panneau`},
+  f_help:{ES:`Ayuda`,EN:`Help`,FR:`Aide`},
+  f_buildtitle:{ES:`Construye tu prompt`,EN:`Build your prompt`,FR:`Construisez votre prompt`},
+  f_choosecat:{ES:`Elige una categoría para empezar`,EN:`Pick a category to start`,FR:`Choisissez une catégorie pour commencer`},
+  card_image:{ES:`Imagen`,EN:`Image`,FR:`Image`},
+  card_video:{ES:`Video`,EN:`Video`,FR:`Vidéo`},
+  card_music:{ES:`Música`,EN:`Music`,FR:`Musique`},
+  card_char:{ES:`Personaje`,EN:`Character`,FR:`Personnage`},
+  card_loc:{ES:`Locación`,EN:`Location`,FR:`Lieu`},
+  card_app:{ES:`App`,EN:`App`,FR:`App`},
+  f_morebelow:{ES:`↓ Más abajo: el cuadro del prompt, botones Copiar / ★ Guardar y las acciones de IA`,EN:`↓ Below: the prompt box, Copy / ★ Save buttons and the AI actions`,FR:`↓ Plus bas : la zone du prompt, les boutons Copier / ★ Enregistrer et les actions IA`},
+  f_prompthere:{ES:`Tu prompt aparece aquí…`,EN:`Your prompt appears here…`,FR:`Votre prompt apparaît ici…`},
+  f_copy:{ES:`Copiar`,EN:`Copy`,FR:`Copier`},
+  f_save:{ES:`★ Guardar`,EN:`★ Save`,FR:`★ Enregistrer`},
+  s0_cap:{ES:`El menú de la izquierda con sus zonas (números) y la zona de trabajo a la derecha.`,EN:`The left menu with its zones (numbers) and the work area on the right.`,FR:`Le menu de gauche avec ses zones (numéros) et l'espace de travail à droite.`},
+  l1:{ES:`<b>Mi Perfil:</b> tus estadísticas y datos.`,EN:`<b>My Profile:</b> your stats and data.`,FR:`<b>Mon Profil :</b> vos statistiques et données.`},
+  l2:{ES:`<b>Comunidad:</b> prompts de otros usuarios.`,EN:`<b>Community:</b> prompts from other users.`,FR:`<b>Communauté :</b> les prompts d'autres utilisateurs.`},
+  l3:{ES:`<b>Inicio:</b> elegir categoría para empezar.`,EN:`<b>Home:</b> pick a category to start.`,FR:`<b>Accueil :</b> choisir une catégorie pour commencer.`},
+  l4:{ES:`<b>Builder:</b> donde construyes el prompt.`,EN:`<b>Builder:</b> where you build the prompt.`,FR:`<b>Builder :</b> où vous construisez le prompt.`},
+  l5:{ES:`<b>Referencias:</b> tu banco de inspiración.`,EN:`<b>References:</b> your inspiration bank.`,FR:`<b>Références :</b> votre banque d'inspiration.`},
+  l6:{ES:`<b>Biblioteca:</b> tus prompts guardados y carpetas.`,EN:`<b>Library:</b> your saved prompts and folders.`,FR:`<b>Bibliothèque :</b> vos prompts enregistrés et dossiers.`},
+  l7:{ES:`<b>Estadísticas:</b> qué opciones usas más.`,EN:`<b>Statistics:</b> which options you use most.`,FR:`<b>Statistiques :</b> les options que vous utilisez le plus.`},
+  l8:{ES:`<b>Panel de control:</b> ajustes, tema, idioma, API key.`,EN:`<b>Control Panel:</b> settings, theme, language, API key.`,FR:`<b>Panneau :</b> réglages, thème, langue, clé API.`},
+  l9:{ES:`<b>Ayuda:</b> esta guía.`,EN:`<b>Help:</b> this guide.`,FR:`<b>Aide :</b> ce guide.`},
+  l10:{ES:`<b>Zona de trabajo:</b> las tarjetas, el prompt y los botones.`,EN:`<b>Work area:</b> the cards, the prompt and the buttons.`,FR:`<b>Espace de travail :</b> les cartes, le prompt et les boutons.`},
+  s0_t:{ES:`Mapa de la app — ¿dónde está cada cosa?`,EN:`App map — where is everything?`,FR:`Carte de l'app — où se trouve chaque chose ?`},
+  s0_p:{ES:`La app tiene un <strong>menú a la izquierda</strong> (en el móvil aparece abajo) y una <strong>zona de trabajo</strong> a la derecha. Esta es la distribución:`,EN:`The app has a <strong>menu on the left</strong> (on mobile it appears at the bottom) and a <strong>work area</strong> on the right. This is the layout:`,FR:`L'app a un <strong>menu à gauche</strong> (sur mobile il apparaît en bas) et un <strong>espace de travail</strong> à droite. Voici la disposition :`},
+  s1_t:{ES:`¿Qué es Prompt Builder Pro?`,EN:`What is Prompt Builder Pro?`,FR:`Qu'est-ce que Prompt Builder Pro ?`},
+  s1_p1:{ES:`Es una herramienta para construir <strong>prompts</strong> —es decir, instrucciones— de forma rápida y ordenada para usarlas en sistemas de inteligencia artificial como <strong>Midjourney, Sora, DALL-E, Kling, ChatGPT</strong> y muchos más.`,EN:`It's a tool to build <strong>prompts</strong> —that is, instructions— quickly and neatly for use in AI systems like <strong>Midjourney, Sora, DALL-E, Kling, ChatGPT</strong> and many more.`,FR:`C'est un outil pour construire des <strong>prompts</strong> —c'est-à-dire des instructions— rapidement et proprement, à utiliser dans des systèmes d'IA comme <strong>Midjourney, Sora, DALL-E, Kling, ChatGPT</strong> et bien d'autres.`},
+  s1_p2:{ES:`En lugar de escribir todo desde cero cada vez, aquí puedes <strong>elegir opciones</strong> (estilo, iluminación, cámara, emoción…) y la app las combina automáticamente en un prompt listo para copiar y pegar.`,EN:`Instead of writing everything from scratch each time, here you can <strong>pick options</strong> (style, lighting, camera, emotion…) and the app combines them automatically into a prompt ready to copy and paste.`,FR:`Au lieu de tout écrire de zéro à chaque fois, vous pouvez <strong>choisir des options</strong> (style, éclairage, caméra, émotion…) et l'app les combine automatiquement en un prompt prêt à copier-coller.`},
+  s1_tip:{ES:`Piensa en el Builder como una <strong>receta de cocina</strong>: tú eliges los ingredientes y la app te da el plato final.`,EN:`Think of the Builder as a <strong>cooking recipe</strong>: you pick the ingredients and the app gives you the finished dish.`,FR:`Voyez le Builder comme une <strong>recette de cuisine</strong> : vous choisissez les ingrédients et l'app vous donne le plat final.`},
+  s2_t:{ES:`Tu cuenta`,EN:`Your account`,FR:`Votre compte`},
+  s2_1:{ES:`<strong>Crear una cuenta:</strong> Al abrir la app verás la pantalla de inicio de sesión. Haz clic en <em>"Crear cuenta"</em>, pon un nombre de usuario, tu email y una contraseña de al menos 4 caracteres.`,EN:`<strong>Create an account:</strong> When you open the app you'll see the login screen. Click <em>"Create account"</em>, enter a username, your email and a password of at least 4 characters.`,FR:`<strong>Créer un compte :</strong> En ouvrant l'app, vous verrez l'écran de connexion. Cliquez sur <em>« Créer un compte »</em>, saisissez un nom d'utilisateur, votre email et un mot de passe d'au moins 4 caractères.`},
+  s2_2:{ES:`<strong>Iniciar sesión:</strong> Si ya tienes cuenta, escribe tu usuario o email y tu contraseña. La sesión se recuerda automáticamente.`,EN:`<strong>Log in:</strong> If you already have an account, enter your username or email and your password. The session is remembered automatically.`,FR:`<strong>Se connecter :</strong> Si vous avez déjà un compte, saisissez votre identifiant ou email et votre mot de passe. La session est mémorisée automatiquement.`},
+  s2_3:{ES:`<strong>Cerrar sesión:</strong> En la parte inferior del menú lateral verás tu nombre. Haz clic en el botón <span class="help-kbd">↩</span> para salir.`,EN:`<strong>Log out:</strong> At the bottom of the side menu you'll see your name. Click the <span class="help-kbd">↩</span> button to leave.`,FR:`<strong>Se déconnecter :</strong> En bas du menu latéral, vous verrez votre nom. Cliquez sur le bouton <span class="help-kbd">↩</span> pour sortir.`},
+  s2_4:{ES:`<strong>Tu perfil:</strong> En el menú lateral haz clic en <em>"Mi Perfil"</em> para ver tus estadísticas: cuántos prompts guardaste, cuántas publicaciones tienes, los likes que has recibido y más.`,EN:`<strong>Your profile:</strong> In the side menu click <em>"My Profile"</em> to see your stats: how many prompts you saved, how many posts you have, the likes you've received and more.`,FR:`<strong>Votre profil :</strong> Dans le menu latéral, cliquez sur <em>« Mon Profil »</em> pour voir vos statistiques : prompts enregistrés, publications, likes reçus et plus.`},
+  s2_warn:{ES:`Esta app guarda todo en tu navegador. Si borras los datos del navegador o usas otro dispositivo, no verás tu información guardada.`,EN:`This app stores everything in your browser. If you clear your browser data or use another device, you won't see your saved information.`,FR:`Cette app enregistre tout dans votre navigateur. Si vous effacez les données du navigateur ou utilisez un autre appareil, vous ne verrez pas vos informations enregistrées.`},
+  s3_t:{ES:`Cómo usar el Builder`,EN:`How to use the Builder`,FR:`Comment utiliser le Builder`},
+  s3_p:{ES:`El Builder es el corazón de la app. El flujo siempre es el mismo: eliges, ajustas, copias.`,EN:`The Builder is the heart of the app. The flow is always the same: pick, tweak, copy.`,FR:`Le Builder est le cœur de l'app. Le flux est toujours le même : choisir, ajuster, copier.`},
+  s3_cap:{ES:`El recorrido completo: de la categoría al prompt listo para copiar.`,EN:`The full journey: from category to a prompt ready to copy.`,FR:`Le parcours complet : de la catégorie au prompt prêt à copier.`},
+  b_1cat:{ES:`1 · Categoría`,EN:`1 · Category`,FR:`1 · Catégorie`},
+  b_2opt:{ES:`2 · Opciones`,EN:`2 · Options`,FR:`2 · Options`},
+  b_3prompt:{ES:`3 · Prompt`,EN:`3 · Prompt`,FR:`3 · Prompt`},
+  b_4use:{ES:`4 · Usar`,EN:`4 · Use`,FR:`4 · Utiliser`},
+  b_cinematic:{ES:`Cinemático`,EN:`Cinematic`,FR:`Cinématique`},
+  b_anime:{ES:`Anime`,EN:`Anime`,FR:`Anime`},
+  b_golden:{ES:`Dorada`,EN:`Golden`,FR:`Dorée`},
+  b_neon:{ES:`Neón`,EN:`Neon`,FR:`Néon`},
+  b_wide:{ES:`Gran angular`,EN:`Wide angle`,FR:`Grand angle`},
+  b_live:{ES:`● en vivo`,EN:`● live`,FR:`● en direct`},
+  b_copy:{ES:`📋 Copiar`,EN:`📋 Copy`,FR:`📋 Copier`},
+  b_save:{ES:`★ Guardar`,EN:`★ Save`,FR:`★ Enregistrer`},
+  b_refine:{ES:`✨ Refinar`,EN:`✨ Refine`,FR:`✨ Affiner`},
+  b_lang:{ES:`🌍 ES / EN / FR`,EN:`🌍 ES / EN / FR`,FR:`🌍 ES / EN / FR`},
+  s3_1:{ES:`<strong>Elige una categoría:</strong> En <em>Inicio</em> verás tarjetas como <em>Imagen, Video, Música, Personaje…</em> Haz clic en la que necesitas.`,EN:`<strong>Pick a category:</strong> On <em>Home</em> you'll see cards like <em>Image, Video, Music, Character…</em> Click the one you need.`,FR:`<strong>Choisissez une catégorie :</strong> Sur <em>Accueil</em>, vous verrez des cartes comme <em>Image, Vidéo, Musique, Personnage…</em> Cliquez sur celle dont vous avez besoin.`},
+  s3_2:{ES:`<strong>Selecciona opciones:</strong> Aparecerán grupos de botones —<em>Estilo, Iluminación, Color, Cámara…</em> Haz clic en los que quieres incluir. La mayoría permiten <strong>varios a la vez</strong>; algunos solo uno.`,EN:`<strong>Select options:</strong> Groups of buttons will appear —<em>Style, Lighting, Color, Camera…</em> Click the ones you want to include. Most allow <strong>several at once</strong>; some just one.`,FR:`<strong>Sélectionnez des options :</strong> Des groupes de boutons apparaîtront —<em>Style, Éclairage, Couleur, Caméra…</em> Cliquez sur ceux à inclure. La plupart en autorisent <strong>plusieurs à la fois</strong> ; certains un seul.`},
+  s3_3:{ES:`<strong>El prompt se construye solo:</strong> Abajo verás el prompt actualizarse en tiempo real conforme eliges.`,EN:`<strong>The prompt builds itself:</strong> Below you'll see the prompt update in real time as you choose.`,FR:`<strong>Le prompt se construit tout seul :</strong> En bas, vous verrez le prompt se mettre à jour en temps réel.`},
+  s3_4:{ES:`<strong>Edítalo si quieres:</strong> El cuadro del prompt es editable. Puedes cambiar o agregar texto a mano.`,EN:`<strong>Edit it if you want:</strong> The prompt box is editable. You can change or add text by hand.`,FR:`<strong>Modifiez-le si besoin :</strong> La zone du prompt est éditable. Vous pouvez changer ou ajouter du texte à la main.`},
+  s3_5:{ES:`<strong>Copia el prompt:</strong> Haz clic en <em>"Copiar"</em> y pégalo en tu herramienta de IA favorita.`,EN:`<strong>Copy the prompt:</strong> Click <em>"Copy"</em> and paste it into your favorite AI tool.`,FR:`<strong>Copiez le prompt :</strong> Cliquez sur <em>« Copier »</em> et collez-le dans votre outil d'IA préféré.`},
+  s3_sub_org:{ES:`🎨 Organizar y personalizar las opciones`,EN:`🎨 Organize and customize the options`,FR:`🎨 Organiser et personnaliser les options`},
+  s3_fav:{ES:`<strong>Favoritos:</strong> Pasa el cursor sobre una opción y toca la <span class="help-kbd">★</span> dorada. Quedará fijada arriba para acceso rápido.`,EN:`<strong>Favorites:</strong> Hover over an option and tap the golden <span class="help-kbd">★</span>. It'll be pinned at the top for quick access.`,FR:`<strong>Favoris :</strong> Survolez une option et touchez l'<span class="help-kbd">★</span> dorée. Elle sera épinglée en haut pour un accès rapide.`},
+  s3_sort:{ES:`<strong>Ordenar:</strong> Cada sección tiene botones <em>Orig · A–Z · Z–A · ★ · Color</em> para ordenar sus opciones como prefieras.`,EN:`<strong>Sort:</strong> Each section has <em>Orig · A–Z · Z–A · ★ · Color</em> buttons to sort its options however you like.`,FR:`<strong>Trier :</strong> Chaque section a des boutons <em>Orig · A–Z · Z–A · ★ · Couleur</em> pour trier ses options à votre guise.`},
+  s3_color:{ES:`<strong>Colores:</strong> Puedes teñir las opciones de una sección con un color, o dar color a un tag individual desde su menú <span class="help-kbd">⬤</span>. Sirve para identificar visualmente lo importante.`,EN:`<strong>Colors:</strong> You can tint a section's options with a color, or color an individual tag from its <span class="help-kbd">⬤</span> menu. Useful to visually flag what matters.`,FR:`<strong>Couleurs :</strong> Vous pouvez teinter les options d'une section, ou colorer un tag individuel depuis son menu <span class="help-kbd">⬤</span>. Pratique pour repérer l'essentiel.`},
+  s3_drag:{ES:`<strong>Arrastrar:</strong> Mantén pulsado un tag seleccionado y arrástralo para cambiar el orden en que aparece dentro del prompt.`,EN:`<strong>Drag:</strong> Press and hold a selected tag and drag it to change the order it appears in the prompt.`,FR:`<strong>Glisser :</strong> Maintenez un tag sélectionné et faites-le glisser pour changer son ordre dans le prompt.`},
+  s3_custom:{ES:`<strong>Opciones propias:</strong> Al final de cada sección hay un campo <em>"+ Añadir opción personalizada…"</em> para escribir tags que no estén en la lista.`,EN:`<strong>Your own options:</strong> At the end of each section there's a <em>"+ Add custom option…"</em> field to write tags that aren't in the list.`,FR:`<strong>Vos propres options :</strong> À la fin de chaque section, un champ <em>« + Ajouter une option… »</em> permet d'écrire des tags absents de la liste.`},
+  s3_sub_video:{ES:`🎬 Solo para Video: descripción y Timeline`,EN:`🎬 Video only: description and Timeline`,FR:`🎬 Vidéo seulement : description et Timeline`},
+  s3_video_p:{ES:`En las categorías de video aparecen bloques extra para dar más control narrativo:`,EN:`In video categories, extra blocks appear to give more narrative control:`,FR:`Dans les catégories vidéo, des blocs supplémentaires offrent plus de contrôle narratif :`},
+  s3_v1:{ES:`<strong>Descripción visual y Narrativa:</strong> dos cuadros separados —uno para describir lo que se ve, otro para la historia o el mensaje emocional.`,EN:`<strong>Visual description and Narrative:</strong> two separate boxes —one to describe what's seen, another for the story or emotional message.`,FR:`<strong>Description visuelle et Narration :</strong> deux zones séparées —une pour décrire ce qu'on voit, une pour l'histoire ou le message émotionnel.`},
+  s3_v2:{ES:`<strong>Timeline segundo a segundo:</strong> añade <em>beats</em> (momentos) y define para cada uno el plano, movimiento de cámara, iluminación, emoción, lente, transición y notas. Ideal para Sora, Kling o Veo.`,EN:`<strong>Second-by-second Timeline:</strong> add <em>beats</em> (moments) and define for each the shot, camera move, lighting, emotion, lens, transition and notes. Great for Sora, Kling or Veo.`,FR:`<strong>Timeline seconde par seconde :</strong> ajoutez des <em>beats</em> (moments) et définissez pour chacun le plan, le mouvement de caméra, l'éclairage, l'émotion, l'objectif, la transition et des notes. Idéal pour Sora, Kling ou Veo.`},
+  s3_sub_ai:{ES:`🤖 Acciones con Inteligencia Artificial`,EN:`🤖 Artificial Intelligence actions`,FR:`🤖 Actions avec l'Intelligence Artificielle`},
+  s3_ai_refine:{ES:`<strong>Refinar con IA:</strong> Claude mejora y expande tu prompt con lenguaje técnico de fotografía y cine.`,EN:`<strong>Refine with AI:</strong> Claude improves and expands your prompt with technical photography and film language.`,FR:`<strong>Affiner avec l'IA :</strong> Claude améliore et développe votre prompt avec un vocabulaire technique de photo et de cinéma.`},
+  s3_ai_var:{ES:`<strong>3 Variaciones:</strong> genera tres versiones distintas del mismo prompt, cada una con un enfoque estético diferente.`,EN:`<strong>3 Variations:</strong> generates three different versions of the same prompt, each with a different aesthetic approach.`,FR:`<strong>3 Variations :</strong> génère trois versions différentes du même prompt, chacune avec une approche esthétique distincte.`},
+  s3_ai_en:{ES:`<strong>Optimizar EN:</strong> traduce a inglés y añade parámetros técnicos avanzados según la plataforma.`,EN:`<strong>Optimize EN:</strong> translates to English and adds advanced technical parameters per platform.`,FR:`<strong>Optimiser EN :</strong> traduit en anglais et ajoute des paramètres techniques avancés selon la plateforme.`},
+  s3_ai_analyze:{ES:`<strong>Analizar archivo:</strong> sube una imagen/video/audio de referencia (botón <em>Analizar</em> arriba) y la IA detecta su estilo y te sugiere opciones automáticamente.`,EN:`<strong>Analyze file:</strong> upload a reference image/video/audio (<em>Analyze</em> button up top) and the AI detects its style and suggests options automatically.`,FR:`<strong>Analyser un fichier :</strong> importez une image/vidéo/audio de référence (bouton <em>Analyser</em> en haut) et l'IA détecte son style et suggère des options automatiquement.`},
+  s3_tip_key:{ES:`Las acciones de IA y el análisis usan la API de Anthropic. Pon tu clave <span class="help-kbd">sk-ant-…</span> en <em>Panel de control → Clave API Anthropic</em>. <strong>Sin clave</strong> la app igual funciona: copia la instrucción al portapapeles para que la pegues tú mismo en Claude.`,EN:`AI actions and analysis use the Anthropic API. Put your <span class="help-kbd">sk-ant-…</span> key in <em>Control Panel → Anthropic API Key</em>. <strong>Without a key</strong> the app still works: it copies the instruction to the clipboard so you can paste it into Claude yourself.`,FR:`Les actions IA et l'analyse utilisent l'API d'Anthropic. Mettez votre clé <span class="help-kbd">sk-ant-…</span> dans <em>Panneau → Clé API Anthropic</em>. <strong>Sans clé</strong>, l'app fonctionne quand même : elle copie l'instruction dans le presse-papiers pour que vous la colliez vous-même dans Claude.`},
+  s3_tip_lang:{ES:`Puedes cambiar el idioma del prompt entre Español, Inglés y Francés con los botones que están debajo del cuadro.`,EN:`You can switch the prompt's language between Spanish, English and French with the buttons below the box.`,FR:`Vous pouvez changer la langue du prompt entre espagnol, anglais et français avec les boutons sous la zone.`},
+  s3_sub_cats:{ES:`⊞ Categorías personalizadas`,EN:`⊞ Custom categories`,FR:`⊞ Catégories personnalisées`},
+  s3_catmgr:{ES:`<strong>Gestor de categorías:</strong> en <em>Inicio</em>, el botón <em>⊞ Categorías</em> te deja crear tus propias categorías, elegir qué secciones se ven y reordenarlas a tu gusto.`,EN:`<strong>Category manager:</strong> on <em>Home</em>, the <em>⊞ Categories</em> button lets you create your own categories, choose which sections show, and reorder them.`,FR:`<strong>Gestionnaire de catégories :</strong> sur <em>Accueil</em>, le bouton <em>⊞ Catégories</em> permet de créer vos propres catégories, choisir les sections visibles et les réordonner.`},
+  s4_t:{ES:`La Biblioteca`,EN:`The Library`,FR:`La Bibliothèque`},
+  s4_p:{ES:`La Biblioteca guarda todos los prompts que creas para reutilizarlos más tarde, y los organiza en carpetas.`,EN:`The Library stores all the prompts you create to reuse later, and organizes them in folders.`,FR:`La Bibliothèque enregistre tous les prompts que vous créez pour les réutiliser, et les organise en dossiers.`},
+  s4_cap:{ES:`Carpetas a la izquierda; cada prompt guardado tiene su botón "Cargar" para volver al Builder.`,EN:`Folders on the left; each saved prompt has its "Load" button to return to the Builder.`,FR:`Dossiers à gauche ; chaque prompt enregistré a son bouton « Charger » pour revenir au Builder.`},
+  lf_folders:{ES:`CARPETAS`,EN:`FOLDERS`,FR:`DOSSIERS`},
+  lf_all:{ES:`📂 Todos los prompts`,EN:`📂 All prompts`,FR:`📂 Tous les prompts`},
+  lf_cine:{ES:`📁 Cine`,EN:`📁 Film`,FR:`📁 Ciné`},
+  lf_product:{ES:`📂 Producto`,EN:`📂 Product`,FR:`📂 Produit`},
+  lf_summer:{ES:`📁 Verano`,EN:`📁 Summer`,FR:`📁 Été`},
+  lf_chars:{ES:`📁 Personajes`,EN:`📁 Characters`,FR:`📁 Personnages`},
+  lf_newfolder:{ES:`＋ Nueva carpeta`,EN:`＋ New folder`,FR:`＋ Nouveau dossier`},
+  lf_c1:{ES:`🏷 Retrato cinematográfico`,EN:`🏷 Cinematic portrait`,FR:`🏷 Portrait cinématographique`},
+  lf_c1m:{ES:`Imagen · hace 2 días`,EN:`Image · 2 days ago`,FR:`Image · il y a 2 jours`},
+  lf_c2:{ES:`🏷 Spot de producto 9:16`,EN:`🏷 Product spot 9:16`,FR:`🏷 Spot produit 9:16`},
+  lf_c2m:{ES:`Video · hace 5 días`,EN:`Video · 5 days ago`,FR:`Vidéo · il y a 5 jours`},
+  lf_c3:{ES:`🏷 Banda sonora épica`,EN:`🏷 Epic soundtrack`,FR:`🏷 Bande-son épique`},
+  lf_c3m:{ES:`Música · hace 1 semana`,EN:`Music · 1 week ago`,FR:`Musique · il y a 1 semaine`},
+  lf_load:{ES:`Cargar`,EN:`Load`,FR:`Charger`},
+  s4_1:{ES:`<strong>Guardar un prompt:</strong> En el cuadro del prompt escribe un nombre en el campo <em>"Nombre para guardar…"</em> y haz clic en <span class="help-kbd">★ Guardar</span>. También puedes pulsar <em>＋ Añadir prompt</em> dentro de la Biblioteca para pegar uno a mano.`,EN:`<strong>Save a prompt:</strong> In the prompt box, type a name in the <em>"Name to save…"</em> field and click <span class="help-kbd">★ Save</span>. You can also press <em>＋ Add prompt</em> inside the Library to paste one by hand.`,FR:`<strong>Enregistrer un prompt :</strong> Dans la zone du prompt, saisissez un nom dans le champ <em>« Nom à enregistrer… »</em> et cliquez sur <span class="help-kbd">★ Enregistrer</span>. Vous pouvez aussi cliquer sur <em>＋ Ajouter un prompt</em> dans la Bibliothèque pour en coller un à la main.`},
+  s4_2:{ES:`<strong>Ver tus prompts:</strong> Haz clic en <em>Biblioteca</em> en el menú lateral. Verás todos tus prompts guardados, con buscador y ordenamiento (más reciente, nombre A→Z, etc.).`,EN:`<strong>See your prompts:</strong> Click <em>Library</em> in the side menu. You'll see all your saved prompts, with search and sorting (newest, name A→Z, etc.).`,FR:`<strong>Voir vos prompts :</strong> Cliquez sur <em>Bibliothèque</em> dans le menu. Vous verrez tous vos prompts enregistrés, avec recherche et tri (plus récent, nom A→Z, etc.).`},
+  s4_3:{ES:`<strong>Cargar un prompt:</strong> Haz clic en <em>Cargar</em> en cualquier prompt para traerlo de vuelta al Builder.`,EN:`<strong>Load a prompt:</strong> Click <em>Load</em> on any prompt to bring it back to the Builder.`,FR:`<strong>Charger un prompt :</strong> Cliquez sur <em>Charger</em> sur n'importe quel prompt pour le ramener dans le Builder.`},
+  s4_4:{ES:`<strong>Editar, renombrar, duplicar o mover:</strong> cada prompt tiene un menú con esas opciones, incluido cambiar su categoría o moverlo a otra carpeta.`,EN:`<strong>Edit, rename, duplicate or move:</strong> each prompt has a menu with those options, including changing its category or moving it to another folder.`,FR:`<strong>Modifier, renommer, dupliquer ou déplacer :</strong> chaque prompt a un menu avec ces options, y compris changer sa catégorie ou le déplacer vers un autre dossier.`},
+  s4_5:{ES:`<strong>Organizar con carpetas:</strong> En la sección de Biblioteca del menú, el botón <strong>＋</strong> crea carpetas (y subcarpetas). Arrastra o usa <em>📁 Mover a carpeta</em> para ordenarlos.`,EN:`<strong>Organize with folders:</strong> In the Library section of the menu, the <strong>＋</strong> button creates folders (and subfolders). Drag or use <em>📁 Move to folder</em> to organize them.`,FR:`<strong>Organiser avec des dossiers :</strong> Dans la section Bibliothèque du menu, le bouton <strong>＋</strong> crée des dossiers (et sous-dossiers). Glissez ou utilisez <em>📁 Déplacer vers un dossier</em> pour les ranger.`},
+  s4_tip_backup:{ES:`Haz <strong>copia de seguridad</strong>: exporta toda tu biblioteca como archivo JSON desde <em>Panel de control → Biblioteca → ↓ Exportar JSON</em>, e impórtala cuando la necesites.`,EN:`Make a <strong>backup</strong>: export your whole library as a JSON file from <em>Control Panel → Library → ↓ Export JSON</em>, and import it when you need it.`,FR:`Faites une <strong>sauvegarde</strong> : exportez toute votre bibliothèque en fichier JSON depuis <em>Panneau → Bibliothèque → ↓ Exporter JSON</em>, et réimportez-la au besoin.`},
+  s4_tip_combos:{ES:`<strong>Combos vs Presets:</strong> un <em>Combo</em> guarda una <strong>selección de opciones</strong> dentro de una sección para reusarla; un <em>Preset</em> guarda tu <strong>configuración de la app</strong> (tema, fuente, tamaños). No los confundas.`,EN:`<strong>Combos vs Presets:</strong> a <em>Combo</em> saves a <strong>selection of options</strong> within a section to reuse; a <em>Preset</em> saves your <strong>app configuration</strong> (theme, font, sizes). Don't mix them up.`,FR:`<strong>Combos vs Presets :</strong> un <em>Combo</em> enregistre une <strong>sélection d'options</strong> dans une section pour la réutiliser ; un <em>Preset</em> enregistre votre <strong>configuration de l'app</strong> (thème, police, tailles). Ne les confondez pas.`},
+  s8_t:{ES:`Referencias — tu banco de inspiración`,EN:`References — your inspiration bank`,FR:`Références — votre banque d'inspiration`},
+  s8_p:{ES:`En <em>"Referencias"</em> (menú lateral) guardas imágenes, videos, sonidos, apps o webs que te inspiran, para tenerlas a mano mientras construyes prompts.`,EN:`In <em>"References"</em> (side menu) you save images, videos, sounds, apps or websites that inspire you, to keep them handy while building prompts.`,FR:`Dans <em>« Références »</em> (menu latéral), vous enregistrez des images, vidéos, sons, apps ou sites qui vous inspirent, pour les garder à portée pendant la création.`},
+  s8_cap:{ES:`Tus referencias en cuadrícula; añade nuevas con el recuadro punteado.`,EN:`Your references in a grid; add new ones with the dashed box.`,FR:`Vos références en grille ; ajoutez-en avec l'encadré pointillé.`},
+  rf_warm:{ES:`Paleta cálida`,EN:`Warm palette`,FR:`Palette chaude`},
+  rf_warm_t:{ES:`Imagen`,EN:`Image`,FR:`Image`},
+  rf_seq:{ES:`Plano secuencia`,EN:`Long take`,FR:`Plan-séquence`},
+  rf_seq_t:{ES:`Video`,EN:`Video`,FR:`Vidéo`},
+  rf_rain:{ES:`Ambiente lluvia`,EN:`Rain ambience`,FR:`Ambiance pluie`},
+  rf_rain_t:{ES:`Sonido`,EN:`Sound`,FR:`Son`},
+  rf_add:{ES:`Añadir`,EN:`Add`,FR:`Ajouter`},
+  rf_add2:{ES:`referencia`,EN:`reference`,FR:`référence`},
+  s8_1:{ES:`<strong>Añadir una referencia:</strong> pulsa <em>＋ Añadir referencia</em>, elige el tipo (imagen, video, sonido, app, web…), ponle título, una URL o miniatura y notas sobre qué te gusta.`,EN:`<strong>Add a reference:</strong> press <em>＋ Add reference</em>, choose the type (image, video, sound, app, web…), give it a title, a URL or thumbnail and notes on what you like.`,FR:`<strong>Ajouter une référence :</strong> cliquez sur <em>＋ Ajouter une référence</em>, choisissez le type (image, vidéo, son, app, web…), donnez un titre, une URL ou miniature et des notes sur ce qui vous plaît.`},
+  s8_2:{ES:`<strong>Consultarlas:</strong> quedan en una cuadrícula visual para inspirarte mientras eliges opciones en el Builder.`,EN:`<strong>Browse them:</strong> they sit in a visual grid to inspire you while choosing options in the Builder.`,FR:`<strong>Les consulter :</strong> elles restent dans une grille visuelle pour vous inspirer pendant que vous choisissez vos options.`},
+  s8_tip:{ES:`Usa las notas para recordar <em>por qué</em> guardaste algo: "me gusta el contraste de luz", "color grade tipo Wong Kar-wai"… Eso luego se convierte en buenos tags.`,EN:`Use the notes to remember <em>why</em> you saved something: "I like the light contrast", "Wong Kar-wai color grade"… That later becomes good tags.`,FR:`Utilisez les notes pour vous rappeler <em>pourquoi</em> vous l'avez enregistré : « j'aime le contraste de lumière », « étalonnage à la Wong Kar-wai »… Cela devient ensuite de bons tags.`},
+  s5_t:{ES:`La Comunidad`,EN:`The Community`,FR:`La Communauté`},
+  s5_p:{ES:`En la Comunidad puedes ver lo que otros usuarios están creando y compartir tus propias creaciones.`,EN:`In the Community you can see what other users are creating and share your own creations.`,FR:`Dans la Communauté, vous pouvez voir ce que créent les autres et partager vos propres créations.`},
+  s5_cap:{ES:`Filtros arriba, y cada tarjeta con imagen, likes, comentarios y "Usar prompt →".`,EN:`Filters on top, and each card with image, likes, comments and "Use prompt →".`,FR:`Filtres en haut, et chaque carte avec image, likes, commentaires et « Utiliser le prompt → ».`},
+  cf_all:{ES:`✦ Todo`,EN:`✦ All`,FR:`✦ Tout`},
+  cf_popular:{ES:`♥ Popular`,EN:`♥ Popular`,FR:`♥ Populaire`},
+  cf_mine:{ES:`◈ Mis posts`,EN:`◈ My posts`,FR:`◈ Mes posts`},
+  cf_post:{ES:`+ Publicar Prompt`,EN:`+ Post Prompt`,FR:`+ Publier`},
+  cf_title:{ES:`Atardecer neón en Tokio`,EN:`Neon sunset in Tokyo`,FR:`Coucher de soleil néon à Tokyo`},
+  cf_by:{ES:`por @gio · Imagen`,EN:`by @gio · Image`,FR:`par @gio · Image`},
+  cf_use:{ES:`Usar prompt →`,EN:`Use prompt →`,FR:`Utiliser →`},
+  cf_more:{ES:`más publicaciones…`,EN:`more posts…`,FR:`plus de posts…`},
+  s5_1:{ES:`<strong>Ver publicaciones:</strong> Haz clic en <em>"Comunidad"</em> en el menú. Verás tarjetas con prompts de otros usuarios.`,EN:`<strong>See posts:</strong> Click <em>"Community"</em> in the menu. You'll see cards with prompts from other users.`,FR:`<strong>Voir les publications :</strong> Cliquez sur <em>« Communauté »</em> dans le menu. Vous verrez des cartes avec les prompts d'autres utilisateurs.`},
+  s5_2:{ES:`<strong>Usar un prompt de otro usuario:</strong> Haz clic en el botón <em>"Usar prompt →"</em> en cualquier tarjeta. El prompt se cargará directamente en tu Builder.`,EN:`<strong>Use another user's prompt:</strong> Click the <em>"Use prompt →"</em> button on any card. The prompt loads directly into your Builder.`,FR:`<strong>Utiliser le prompt d'un autre :</strong> Cliquez sur <em>« Utiliser le prompt → »</em> sur une carte. Le prompt se charge directement dans votre Builder.`},
+  s5_3:{ES:`<strong>Publicar algo:</strong> Haz clic en <em>"+ Publicar Prompt"</em>. Escribe un título, pega el prompt que usaste y opcionalmente sube una imagen del resultado o un link.`,EN:`<strong>Post something:</strong> Click <em>"+ Post Prompt"</em>. Write a title, paste the prompt you used and optionally upload an image of the result or a link.`,FR:`<strong>Publier quelque chose :</strong> Cliquez sur <em>« + Publier »</em>. Écrivez un titre, collez le prompt utilisé et, en option, importez une image du résultat ou un lien.`},
+  s5_4:{ES:`<strong>Subir una imagen:</strong> Al publicar, selecciona <em>"📁 Subir archivo"</em> y elige una imagen desde tu computadora (máx. 1.5 MB). La imagen se guarda directamente en la app.`,EN:`<strong>Upload an image:</strong> When posting, select <em>"📁 Upload file"</em> and pick an image from your computer (max 1.5 MB). The image is stored directly in the app.`,FR:`<strong>Importer une image :</strong> À la publication, choisissez <em>« 📁 Importer un fichier »</em> et sélectionnez une image (max 1,5 Mo). L'image est enregistrée directement dans l'app.`},
+  s5_5:{ES:`<strong>Dar likes y comentar:</strong> Haz clic en <span class="help-kbd">♥</span> para dar like, o en <span class="help-kbd">💬</span> para abrir los comentarios y dejar un mensaje.`,EN:`<strong>Like and comment:</strong> Click <span class="help-kbd">♥</span> to like, or <span class="help-kbd">💬</span> to open comments and leave a message.`,FR:`<strong>Aimer et commenter :</strong> Cliquez sur <span class="help-kbd">♥</span> pour liker, ou <span class="help-kbd">💬</span> pour ouvrir les commentaires et laisser un message.`},
+  s5_tip:{ES:`Usa el filtro <strong>"Popular"</strong> para ver los prompts que más likes han recibido. ¡Ideal para inspirarte!`,EN:`Use the <strong>"Popular"</strong> filter to see the most-liked prompts. Great for inspiration!`,FR:`Utilisez le filtre <strong>« Populaire »</strong> pour voir les prompts les plus likés. Parfait pour s'inspirer !`},
+  s5_warn:{ES:`Las imágenes subidas se guardan en tu navegador. Si son muy grandes, pueden ocupar mucho espacio. El límite es <strong>1.5 MB por imagen</strong>.`,EN:`Uploaded images are stored in your browser. If they're too big they can take up a lot of space. The limit is <strong>1.5 MB per image</strong>.`,FR:`Les images importées sont enregistrées dans votre navigateur. Trop grandes, elles prennent beaucoup de place. La limite est de <strong>1,5 Mo par image</strong>.`},
+  s9_t:{ES:`Estadísticas`,EN:`Statistics`,FR:`Statistiques`},
+  s9_p:{ES:`La sección <em>"Estadísticas"</em> del menú te muestra <strong>qué opciones y tags usas más</strong>. Es una forma de descubrir tu estilo personal y agilizar tu trabajo: lo que más repites probablemente merezca ser un favorito ★ o un Combo.`,EN:`The <em>"Statistics"</em> section of the menu shows <strong>which options and tags you use most</strong>. It's a way to discover your personal style and speed up your work: what you repeat most probably deserves to be a favorite ★ or a Combo.`,FR:`La section <em>« Statistiques »</em> du menu montre <strong>les options et tags que vous utilisez le plus</strong>. Un moyen de découvrir votre style et de gagner du temps : ce que vous répétez le plus mérite sans doute un favori ★ ou un Combo.`},
+  s9_tip:{ES:`Si ves que siempre eliges la misma iluminación o cámara, guárdalas como favoritos para tenerlas siempre arriba.`,EN:`If you notice you always pick the same lighting or camera, save them as favorites to keep them at the top.`,FR:`Si vous choisissez toujours le même éclairage ou la même caméra, mettez-les en favoris pour les garder en haut.`},
+  s6_t:{ES:`Configuración (Panel de control)`,EN:`Settings (Control Panel)`,FR:`Réglages (Panneau)`},
+  s6_p:{ES:`En <em>"Panel de control"</em> puedes personalizar casi todo:`,EN:`In <em>"Control Panel"</em> you can customize almost everything:`,FR:`Dans <em>« Panneau »</em>, vous pouvez presque tout personnaliser :`},
+  s6_1:{ES:`<strong>Idioma:</strong> Cambia el idioma de la interfaz entre 10 idiomas disponibles: Español, Inglés, Francés, Chino, Hindi, Árabe, Bengalí, Portugués, Ruso y Japonés.`,EN:`<strong>Language:</strong> Change the interface language among 10 available: Spanish, English, French, Chinese, Hindi, Arabic, Bengali, Portuguese, Russian and Japanese.`,FR:`<strong>Langue :</strong> Changez la langue de l'interface parmi 10 : espagnol, anglais, français, chinois, hindi, arabe, bengali, portugais, russe et japonais.`},
+  s6_2:{ES:`<strong>Tema:</strong> Elige entre modo claro, oscuro o automático (sigue el horario: claro de 7am a 7pm).`,EN:`<strong>Theme:</strong> Choose light, dark or automatic mode (follows the clock: light 7am–7pm).`,FR:`<strong>Thème :</strong> Choisissez clair, sombre ou automatique (suit l'horaire : clair de 7h à 19h).`},
+  s6_3:{ES:`<strong>Tipografía y tamaño:</strong> Cambia la fuente y el tamaño de los botones según tu gusto.`,EN:`<strong>Typography and size:</strong> Change the font and button size to your taste.`,FR:`<strong>Typographie et taille :</strong> Changez la police et la taille des boutons à votre goût.`},
+  s6_4:{ES:`<strong>Categorías activas:</strong> Desactiva las categorías que no usas para tener la pantalla más limpia.`,EN:`<strong>Active categories:</strong> Disable the categories you don't use for a cleaner screen.`,FR:`<strong>Catégories actives :</strong> Désactivez les catégories inutilisées pour un écran plus propre.`},
+  s6_5:{ES:`<strong>Estilos visuales:</strong> Prueba los estilos <em>Glass, Brutal, Editorial, Retro…</em> para cambiar el look de la app.`,EN:`<strong>Visual styles:</strong> Try the <em>Glass, Brutal, Editorial, Retro…</em> styles to change the app's look.`,FR:`<strong>Styles visuels :</strong> Essayez les styles <em>Glass, Brutal, Editorial, Retro…</em> pour changer le look de l'app.`},
+  s6_6:{ES:`<strong>Presets de configuración:</strong> Guarda tu configuración actual como un preset para restaurarla cuando quieras.`,EN:`<strong>Configuration presets:</strong> Save your current setup as a preset to restore it whenever you want.`,FR:`<strong>Presets de configuration :</strong> Enregistrez votre configuration actuelle comme preset pour la restaurer quand vous voulez.`},
+  s6_7:{ES:`<strong>Clave API Anthropic:</strong> pega tu clave <span class="help-kbd">sk-ant-…</span> para que las acciones de IA (Refinar, Variaciones, Traducir, Analizar) funcionen directamente dentro de la app. Es opcional; sin ella, la app copia las instrucciones para que las uses en Claude.`,EN:`<strong>Anthropic API Key:</strong> paste your <span class="help-kbd">sk-ant-…</span> key so AI actions (Refine, Variations, Translate, Analyze) work directly inside the app. It's optional; without it, the app copies the instructions for you to use in Claude.`,FR:`<strong>Clé API Anthropic :</strong> collez votre clé <span class="help-kbd">sk-ant-…</span> pour que les actions IA (Affiner, Variations, Traduire, Analyser) fonctionnent directement dans l'app. C'est optionnel ; sinon, l'app copie les instructions pour Claude.`},
+  s6_8:{ES:`<strong>Biblioteca:</strong> desde aquí exportas o importas tu biblioteca en JSON, o la borras por completo.`,EN:`<strong>Library:</strong> from here you export or import your library as JSON, or clear it entirely.`,FR:`<strong>Bibliothèque :</strong> d'ici vous exportez/importez votre bibliothèque en JSON, ou l'effacez entièrement.`},
+  s6_warn:{ES:`Tu clave API se guarda solo en tu navegador. No abras esta app en sitios públicos con tu clave puesta: por seguridad, úsala únicamente en tu propio equipo.`,EN:`Your API key is stored only in your browser. Don't open this app on public sites with your key set: for safety, use it only on your own device.`,FR:`Votre clé API n'est enregistrée que dans votre navigateur. N'ouvrez pas cette app sur des sites publics avec votre clé : par sécurité, utilisez-la uniquement sur votre appareil.`},
+  s7_t:{ES:`Consejos pro para mejores resultados`,EN:`Pro tips for better results`,FR:`Astuces pro pour de meilleurs résultats`},
+  s7_1:{ES:`<strong>Menos es más al principio:</strong> Empieza seleccionando 3 o 4 opciones y ve añadiendo más. Demasiadas opciones pueden generar prompts muy largos que confunden a la IA.`,EN:`<strong>Less is more at first:</strong> Start by selecting 3 or 4 options and add more gradually. Too many options can create very long prompts that confuse the AI.`,FR:`<strong>Moins, c'est plus au début :</strong> Commencez par 3 ou 4 options puis ajoutez-en. Trop d'options créent des prompts très longs qui embrouillent l'IA.`},
+  s7_2:{ES:`<strong>Usa "Analizar":</strong> Si tienes una imagen de referencia, súbela en el botón <em>"Analizar"</em> (arriba del Builder). La app detectará automáticamente el estilo, iluminación y más para sugerirte opciones.`,EN:`<strong>Use "Analyze":</strong> If you have a reference image, upload it with the <em>"Analyze"</em> button (top of the Builder). The app will auto-detect style, lighting and more to suggest options.`,FR:`<strong>Utilisez « Analyser » :</strong> Si vous avez une image de référence, importez-la avec le bouton <em>« Analyser »</em> (en haut du Builder). L'app détectera automatiquement le style, l'éclairage et plus pour suggérer des options.`},
+  s7_3:{ES:`<strong>Guarda los favoritos:</strong> Si hay una opción que usas mucho, haz clic en la <span class="help-kbd">★</span> que aparece al pasar el cursor sobre ella. Aparecerá en la barra de favoritos para acceso rápido.`,EN:`<strong>Save favorites:</strong> If there's an option you use a lot, click the <span class="help-kbd">★</span> that appears when you hover over it. It'll show in the favorites bar for quick access.`,FR:`<strong>Enregistrez les favoris :</strong> Pour une option très utilisée, cliquez sur l'<span class="help-kbd">★</span> qui apparaît au survol. Elle ira dans la barre de favoris pour un accès rapide.`},
+  s7_4:{ES:`<strong>El Combinador:</strong> En la categoría <em>"Crear"</em> del Builder encontrarás el Combinador. Te permite mezclar varios prompts guardados en tu biblioteca para crear uno nuevo.`,EN:`<strong>The Combinator:</strong> In the Builder's <em>"Create"</em> category you'll find the Combinator. It lets you mix several saved prompts from your library to create a new one.`,FR:`<strong>Le Combinateur :</strong> Dans la catégorie <em>« Créer »</em> du Builder, vous trouverez le Combinateur. Il permet de mélanger plusieurs prompts enregistrés pour en créer un nouveau.`},
+  s7_5:{ES:`<strong>Estadísticas:</strong> En la sección <em>"Estadísticas"</em> del menú puedes ver qué opciones usas más. Útil para descubrir tu estilo personal.`,EN:`<strong>Statistics:</strong> In the menu's <em>"Statistics"</em> section you can see which options you use most. Useful to discover your personal style.`,FR:`<strong>Statistiques :</strong> Dans la section <em>« Statistiques »</em> du menu, voyez les options les plus utilisées. Utile pour découvrir votre style.`},
+  s7_6:{ES:`<strong>Inglés para mejores resultados:</strong> La mayoría de las IAs de imagen funcionan mejor con prompts en inglés. Usa el botón <span class="help-kbd">English</span> para traducir tu prompt automáticamente.`,EN:`<strong>English for better results:</strong> Most image AIs work better with English prompts. Use the <span class="help-kbd">English</span> button to translate your prompt automatically.`,FR:`<strong>L'anglais pour de meilleurs résultats :</strong> La plupart des IA d'image fonctionnent mieux en anglais. Utilisez le bouton <span class="help-kbd">English</span> pour traduire automatiquement votre prompt.`},
+  s7_flow:{ES:`<strong>Flujo recomendado:</strong> Elige categoría → Selecciona opciones → Refina con IA → Traduce a inglés → Copia → Pega en tu IA → Si te gusta el resultado, ¡guárdalo y compártelo en la Comunidad!`,EN:`<strong>Recommended flow:</strong> Pick category → Select options → Refine with AI → Translate to English → Copy → Paste into your AI → If you like the result, save it and share it in the Community!`,FR:`<strong>Flux recommandé :</strong> Choisir une catégorie → Sélectionner les options → Affiner avec l'IA → Traduire en anglais → Copier → Coller dans votre IA → Si le résultat vous plaît, enregistrez-le et partagez-le dans la Communauté !`},
+};}
 // ════ HELP SCROLL ════════════════════════════════════════════════
 function scrollToHelp(id){
   const el=document.getElementById(id);
