@@ -7,7 +7,7 @@
 ### Stack
 - HTML + CSS variables (light/dark auto)
 - Vanilla JS (sin frameworks)
-- Anthropic API claude-sonnet-4-20250514 (análisis de archivos, traducción)
+- Anthropic API: claude-sonnet-4-6 (análisis de archivos/imágenes) y claude-haiku-4-5-20251001 (refinar prompt y traducción)
 - localStorage para persistencia
 
 ### Arquitectura

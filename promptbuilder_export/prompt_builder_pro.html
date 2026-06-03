@@ -2014,6 +2014,7 @@ function toast(m){const e=eid("toast");e.textContent=m;e.classList.add("show");c
 function eid(i){return document.getElementById(i)}
 function esc(s){return String(s).replace(/[^a-z0-9_]/gi,"_")}
 function escHtml(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function safeUrl(u){u=String(u||"").trim();return /^(https?:\/\/|data:image\/)/i.test(u)?u:"";}
 function getLang(){return S.cfg.ui||"ES"}
 function cN(c){return c.name[getLang()]||c.name.ES}
 function cD(c){return c.desc[getLang()]||c.desc.ES}
@@ -2311,7 +2312,7 @@ function renderMobNav(){
   if(bar){
     const u=sess?(getUsers().find(x=>x.id===sess.id)||{}):{};
     const initials=sess?escHtml(sess.username.slice(0,2).toUpperCase()):"?";
-    const avatarInner=u.avatar?`<img src="${u.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`${initials}`;
+    const avatarInner=u.avatar&&safeUrl(u.avatar)?`<img src="${escHtml(safeUrl(u.avatar))}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`${escHtml(initials)}`;
     bar.innerHTML=`<div class="mob-bar-logo">Prompt Builder <small>Pro Beta</small></div>${sess?`<button class="mob-bar-avatar" onclick="gotoView('profile',null)" title="My Profile">${avatarInner}</button>`:""}`;
   }
   if(nav){
@@ -3994,7 +3995,7 @@ function factoryReset(){
   S.cfg={ui:"EN",theme:"auto",themePreset:"default",defLang:"EN",defPlatform:"",defRatio:"",
     activeCats:["image","app","character","location","storyboard","video","music","sound","voice","biz_plan","pitch","finance_doc","contract","social_post","email_mkt","ad_copy","blog_seo","job_desc","perf_review","training","team_update","linkedin_post","cold_outreach","personal_brand","net_msg","code_gen","tech_doc","system_design","code_review_cat","market_research","data_analysis","exec_summary","support_reply","faq_doc","product_guide"],
     customCats:[],hiddenSecs:{},hiddenTags:{},deletedTags:{},
-    font:"Helvetica",fz:17,cardFz:17,cardPad:16,tagFz:19,tagPy:7,tagPx:14,density:"normal",apiKey:"",customColors:{},uiStyle:"default",customTheme:{bg:"#1a1a2e",tx:"#e2e2f0",acc:"#6366f1",sug:"#8b5cf6",sidebar:"#111111"}};
+    font:"Helvetica",fz:17,cardFz:17,cardPad:16,tagFz:17,tagPy:7,tagPx:14,density:"normal",apiKey:"",customColors:{},uiStyle:"default",customTheme:{bg:"#1a1a2e",tx:"#e2e2f0",acc:"#6366f1",sug:"#8b5cf6",sidebar:"#111111"}};
   persist();applyFont(S.cfg.font,S.cfg.fz);applyCardSizes();applyTagSizes();applyTheme(S.cfg.theme);applyThemePreset("default");
   applyCustomColors();applyUILang();renderCats();renderSettings();toast(t("t_rst"));
 }
@@ -4023,7 +4024,7 @@ function selectModel(cat,model){
 function renderCombinator(){
   const items=S.library;
   const sepLabels=t("comb_seps")||["Párrafo","Línea |","Em dash","Coma"];
-  const sepRow=`<div class="comb-sep-row"><span class="comb-sep-lbl">${t("comb_sep_lbl")}</span>${COMB_SEPS.map((s,i)=>{const active=S.combinatorSep===s;return`<button class="gbtn" style="font-size:.71rem${active?";background:var(--tx);color:var(--bg);border-color:var(--tx)":""}" onclick="setCombinatorSep(${JSON.stringify(s)})">${sepLabels[i]||s}</button>`;}).join("")}</div>`;
+  const sepRow=`<div class="comb-sep-row"><span class="comb-sep-lbl">${t("comb_sep_lbl")}</span>${COMB_SEPS.map((s,i)=>{const active=S.combinatorSep===s;return`<button class="gbtn" style="font-size:.71rem${active?";background:var(--tx);color:var(--bg);border-color:var(--tx)":""}" onclick="setCombinatorSep(${escHtml(JSON.stringify(s))})">${sepLabels[i]||s}</button>`;}).join("")}</div>`;
   if(!items.length){
     return sepRow+`<div class="lib-empty">${t("comb_empty_lib")}</div>`;
   }
@@ -4211,7 +4212,7 @@ function renderUserPill(){
   const users=getUsers();
   const u=users.find(x=>x.id===sess.id)||{};
   const initials=sess.username.slice(0,2).toUpperCase();
-  const avatarInner=u.avatar?`<img src="${u.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`${escHtml(initials)}`;
+  const avatarInner=u.avatar&&safeUrl(u.avatar)?`<img src="${escHtml(safeUrl(u.avatar))}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`${escHtml(initials)}`;
   wrap.innerHTML=`<div class="user-pill" style="cursor:pointer" onclick="gotoView('profile',document.querySelector('.ni[data-view=profile]'))" title="View Profile">
     <div class="user-avatar" style="overflow:hidden;padding:0;flex-shrink:0">${avatarInner}</div>
     <span class="user-name">${escHtml(u.displayName||sess.username)}</span>
@@ -4226,7 +4227,7 @@ function showEditProfileModal(){
   const ov=document.createElement("div");
   ov.className="apm-ov";ov.id="__pem__";
   ov.addEventListener("click",e=>{if(e.target===ov)eid("__pem__")?.remove();});
-  const prevAvatar=u.avatar?`<img src="${u.avatar}" alt="">`:`${ini}`;
+  const prevAvatar=u.avatar&&safeUrl(u.avatar)?`<img src="${escHtml(safeUrl(u.avatar))}" alt="">`:`${escHtml(ini)}`;
   ov.innerHTML=`<div class="apm" style="max-width:460px">
     <div class="apm-hdr">
       <span class="apm-hdr-title">Edit Profile</span>
@@ -4520,10 +4521,11 @@ function renderComm(){
     const isOwn=p.userId===sess?.id;
     const ini=p.username.slice(0,2).toUpperCase();
     let mediaHtml="";
-    if((p.mediaType==="image"||p.mediaType==="upload")&&p.mediaUrl){
-      mediaHtml=`<img class="comm-card-media" src="${p.mediaUrl}" alt="${p.title}" onerror="this.style.display='none'">`;
+    const mediaSrc=safeUrl(p.mediaUrl);
+    if((p.mediaType==="image"||p.mediaType==="upload")&&mediaSrc){
+      mediaHtml=`<img class="comm-card-media" src="${escHtml(mediaSrc)}" alt="${escHtml(p.title)}" onerror="this.style.display='none'">`;
     }
-    const linkHtml=p.mediaType==="link"&&p.mediaUrl?`<a class="comm-card-link" href="${p.mediaUrl}" target="_blank" rel="noopener">🔗 Ver resultado</a>`:"";
+    const linkHtml=p.mediaType==="link"&&mediaSrc?`<a class="comm-card-link" href="${escHtml(mediaSrc)}" target="_blank" rel="noopener noreferrer">🔗 Ver resultado</a>`:"";
     const deleteBtn=isOwn?`<button class="comm-delete-btn" onclick="deleteCommPost('${p.id}')" title="Eliminar">✕</button>`:"";
     const engineLabel=p.aiEngine?(AI_ENGINES.find(e=>e.id===p.aiEngine)||{label:p.aiEngine}).label:"";
     const engineBadge=engineLabel?`<span class="engine-badge">✦ ${engineLabel}</span>`:"";
@@ -4532,7 +4534,7 @@ ${mediaHtml}
 <div class="comm-card-body">
   <div class="comm-card-user">
     <div class="comm-card-avatar">${ini}</div>
-    <span class="comm-card-username">@${p.username}</span>
+    <span class="comm-card-username">@${escHtml(p.username)}</span>
     <span class="comm-card-date">${timeAgo(p.timestamp)}</span>
     ${engineBadge}
   </div>
@@ -4542,7 +4544,7 @@ ${mediaHtml}
   <div class="comm-card-actions">
     <button class="comm-like-btn${isLiked?" liked":""}" data-like-id="${p.id}" onclick="toggleLike('${p.id}')"><span class="comm-like-heart">♥</span><span class="comm-like-count">${p.likes.length||""}</span></button>
     <button class="comm-comment-btn" onclick="toggleComments('${p.id}')">💬 <span>${p.comments.length||""}</span></button>
-    <button class="comm-use-btn" onclick="useCommPrompt(${JSON.stringify(p.prompt)})">Usar prompt →</button>
+    <button class="comm-use-btn" onclick="useCommPrompt(${escHtml(JSON.stringify(p.prompt))})">Usar prompt →</button>
     ${deleteBtn}
   </div>
 </div>
@@ -4571,7 +4573,7 @@ function renderProfile(){
     const ini=sess.username.slice(0,2).toUpperCase();
     const joined=u.createdAt?new Date(u.createdAt).toLocaleDateString("en-US",{day:"2-digit",month:"long",year:"numeric"}):"—";
     const badge=isSuperUser()?`<span class="admin-badge" style="font-size:.58rem;padding:.12rem .42rem">⚙ Admin</span>`:"";
-    const avatarInner=u.avatar?`<img src="${u.avatar}" alt="">`:`${ini}`;
+    const avatarInner=u.avatar&&safeUrl(u.avatar)?`<img src="${escHtml(safeUrl(u.avatar))}" alt="">`:`${escHtml(ini)}`;
     const dispName=u.displayName?`<div style="font-size:.78rem;color:var(--tx3);margin-top:.1rem">${escHtml(u.displayName)}</div>`:"";
     const bio=u.bio?`<div style="font-size:.74rem;color:var(--tx2);margin-top:.25rem;line-height:1.4">${escHtml(u.bio)}</div>`:"";
     hero.innerHTML=`
@@ -4611,7 +4613,7 @@ function renderProfile(){
           <span style="font-size:.82rem">📄</span>
           <span class="profile-recent-name">${(it.name||"Sin nombre").replace(/</g,"&lt;")}</span>
           <span class="profile-recent-meta">${it.date||""}</span>
-          <button class="admin-action-btn primary" style="font-size:.66rem;padding:.17rem .45rem" onclick="loadLibItem_profile(${JSON.stringify(it.prompt)})">Cargar</button>
+          <button class="admin-action-btn primary" style="font-size:.66rem;padding:.17rem .45rem" onclick="loadLibItem_profile(${escHtml(JSON.stringify(it.prompt))})">Cargar</button>
         </div>`).join("");
     }
   }
