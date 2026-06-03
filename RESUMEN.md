@@ -1,6 +1,6 @@
 # 📋 Resumen del proyecto — Prompt Builder Pro
 
-Documento de seguimiento de todo lo trabajado. Última actualización: **2 de junio de 2026**.
+Documento de seguimiento de todo lo trabajado. Última actualización: **3 de junio de 2026**.
 
 ---
 
@@ -51,6 +51,15 @@ Documento de seguimiento de todo lo trabajado. Última actualización: **2 de ju
 - Desplegado en **GitHub Pages** con un `index.html` de entrada para tener un enlace limpio.
 - A partir de ahora los cambios se suben automáticamente y Pages se actualiza solo en 1-2 minutos.
 
+### 6. Auditoría de seguridad, bugs y coherencia
+Se revisó toda la app. Hallazgos y arreglos aplicados:
+- 🔴 **Bugs reparados:** los botones *"Usar prompt →"* (Comunidad), *"Cargar"* (Perfil) y el separador del Combinador estaban **rotos** — las comillas de `JSON.stringify` cerraban el atributo `onclick`. Solucionado con `escHtml`.
+- 🟠 **XSS cerrado:** se escapan `mediaUrl`, `title`, `username` y los avatares en Comunidad/Perfil. Nuevo helper `safeUrl()` que solo permite `http(s)`/`data:image` y bloquea `javascript:`.
+- 🟡 **Coherencia:** config duplicada unificada (`tagFz`), README con los modelos de IA correctos.
+- 🔐 **Admin:** la contraseña por defecto del superusuario dejó de ser `1234` (se cambió a una no obvia).
+
+**Nota importante sobre la "Comunidad" y el "Admin":** la app **no tiene servidor (backend)**. Usuarios, comunidad y panel Admin viven solo en el navegador de cada visitante (localStorage). No es seguridad real ni datos compartidos — es local. Para que fueran reales haría falta un backend (p. ej. Supabase).
+
 ---
 
 ## 🕓 Historial de commits
@@ -61,15 +70,18 @@ Documento de seguimiento de todo lo trabajado. Última actualización: **2 de ju
 | `223ad06` | Completa Brand Design: barra de herramientas IA y 3 secciones nuevas |
 | `077ce22` | Traduce el centro de ayuda a ES/EN/FR |
 | `eab8746` | Añade index.html de entrada para GitHub Pages |
+| `83e552d` | Añade RESUMEN.md con el resumen del proyecto |
+| `ed74e5c` | Seguridad y bugs: repara botones rotos y cierra XSS |
 
 ---
 
 ## 💡 Posibles siguientes pasos
 
 - Traducir el centro de ayuda a los otros 7 idiomas de la interfaz (hoy caen a inglés).
+- Añadir un **backend** (p. ej. Supabase) si se quiere que usuarios/Comunidad/Admin sean reales y compartidos.
+- Validación robusta de los archivos JSON/packs que se importan.
 - Ideas del propio proyecto: pesos por tag (0.1–2.0), historial de versiones del prompt, modo "Director" con estética precargada, exportar en sintaxis nativa de cada plataforma (`--ar`, `--chaos`…).
-- Ajustar el README para reflejar los modelos de IA actuales.
 
 ---
 
-> ⚠️ **Seguridad:** el repositorio es público. Nunca debe subirse una clave API real (`sk-ant-…`) dentro del código. La app guarda la clave solo en el navegador del usuario, así que mientras no se escriba en el archivo, todo está bien.
+> ⚠️ **Seguridad:** el repositorio es **público**. Nunca debe subirse una clave API real (`sk-ant-…`) dentro del código — la app guarda la clave solo en el navegador del usuario. Cualquier credencial escrita en el código (incluida la del Admin) es visible para todos; la privacidad real solo llega con un repo privado o un backend.

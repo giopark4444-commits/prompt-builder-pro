@@ -5057,7 +5057,7 @@ function seedSuperUser(){
       id: SUPER_ID,
       username: SUPER_USERNAME,
       email: SUPER_EMAIL,
-      passHash: hashPass("1234"),
+      passHash: hashPass("gioPBP-r7k2-admin"),
       isAdmin: true,
       createdAt: new Date().toISOString()
     });
@@ -5066,7 +5066,7 @@ function seedSuperUser(){
     // Ensure admin flag and current seed password are always in sync
     let changed = false;
     if(!exists.isAdmin){ exists.isAdmin = true; changed = true; }
-    const targetHash = hashPass("1234");
+    const targetHash = hashPass("gioPBP-r7k2-admin");
     if(exists.passHash !== targetHash){ exists.passHash = targetHash; changed = true; }
     if(changed) saveUsers(users);
   }
