@@ -12,7 +12,7 @@
   --tx:#1c1917;--tx2:#57534e;--tx3:#a8a29e;
   --bd:rgba(0,0,0,.07);--bd2:rgba(0,0,0,.12);
   --sel:#1c1917;--sel-tx:#faf9f7;
-  --acc:#059669;--acc-bg:#e4f7ee;--acc-tx:#065f46;
+  --acc:#00a56d;--acc-bg:#d7f7e9;--acc-tx:#01734c;
   --sug:#7c3aed;--sug-bg:#f5f3ff;--sug-tx:#5b21b6;
   --fav:#b45309;--fav-bg:#fffbeb;--fav-tx:#92400e;
   --ok:#16a34a;--ok-bg:#f0fdf4;--ok-tx:#15803d;
@@ -28,7 +28,7 @@
   --tx:#eae6e0;--tx2:#a8a39d;--tx3:#807872;
   --bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.13);
   --sel:#eae6e0;--sel-tx:#111110;
-  --acc:#34d399;--acc-bg:#07301f;--acc-tx:#a7f3d0;
+  --acc:#2ee6a0;--acc-bg:#0a3f29;--acc-tx:#b8ffe3;
   --sug:#a78bfa;--sug-bg:#1e1340;--sug-tx:#c4b5fd;
   --fav:#fbbf24;--fav-bg:#2a1f00;--fav-tx:#fde68a;
   --ok:#4ade80;--ok-bg:#052e16;--ok-tx:#86efac;
@@ -77,13 +77,13 @@ body{font-family:var(--ff);background:var(--bg);color:var(--tx);min-height:100vh
 .snl{font-size:.54rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.22);padding:.75rem .5rem .2rem;margin-top:.15rem}
 .ni{display:flex;align-items:center;gap:.46rem;padding:.5rem .65rem;border-radius:var(--r);font-size:.83rem;color:rgba(255,255,255,.52);cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:background .12s,color .12s;font-family:var(--ff);position:relative}
 .ni:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.88)}
-.ni.active{background:rgba(16,185,129,.16);color:#3ddfa0;font-weight:500}
+.ni.active{background:rgba(0,229,151,.18);color:#36f0a8;font-weight:500}
 .ni.active::before{display:none}
 .ni .ico{width:20px;height:20px;display:flex;align-items:center;justify-content:center;opacity:.5;flex-shrink:0;transition:opacity .12s}
 .ni:hover .ico,.ni.active .ico{opacity:1}
 .ni .ico svg{width:16px;height:16px;display:block}
 .nbadge{margin-left:auto;font-size:.56rem;background:rgba(255,255,255,.1);color:rgba(255,255,255,.38);padding:1px 7px;border-radius:99px;min-width:18px;text-align:center}
-.ni.active .nbadge{background:rgba(16,185,129,.26);color:#3ddfa0}
+.ni.active .nbadge{background:rgba(0,229,151,.26);color:#36f0a8}
 /* keep tbtn available for settings, hide orphan footer */
 .sfooter{display:none}
 .themetog{display:flex;border:1px solid var(--bd2);border-radius:var(--r);overflow:hidden}
@@ -448,21 +448,21 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .fold-add-btn:hover{background:rgba(255,255,255,.1);color:rgba(255,255,255,.8)}
 .fold-item{display:flex;align-items:center;gap:.3rem;padding:.45rem .6rem;border-radius:var(--r);cursor:pointer;font-size:.82rem;color:rgba(255,255,255,.5);transition:background .12s,color .12s;position:relative;user-select:none}
 .fold-item:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.88)}
-.fold-item.active{background:rgba(16,185,129,.16);color:#3ddfa0;font-weight:500}
+.fold-item.active{background:rgba(0,229,151,.18);color:#36f0a8;font-weight:500}
 .fold-item.active::before{display:none}
 .fold-toggle{font-size:.56rem;width:12px;text-align:center;opacity:.38;flex-shrink:0;transition:transform .15s;cursor:pointer;color:rgba(255,255,255,.6)}
 .fold-toggle.open{transform:rotate(90deg)}
 .fold-ico{font-size:.78rem;flex-shrink:0;opacity:.7}
 .fold-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fold-badge{font-size:.55rem;background:rgba(255,255,255,.1);color:rgba(255,255,255,.38);padding:1px 6px;border-radius:99px;min-width:16px;text-align:center}
-.fold-item.active .fold-badge{background:rgba(16,185,129,.26);color:#3ddfa0}
+.fold-item.active .fold-badge{background:rgba(0,229,151,.26);color:#36f0a8}
 .fold-menu-btn{font-size:.6rem;opacity:0;background:none;border:none;cursor:pointer;padding:2px 3px;border-radius:3px;color:rgba(255,255,255,.4);font-family:var(--ff);transition:opacity .1s}
 .fold-item:hover .fold-menu-btn{opacity:.6}
 .fold-menu-btn:hover{opacity:1!important;background:rgba(255,255,255,.1)}
 .fold-sub{padding-left:1.1rem;overflow:hidden;transition:all .18s}
 .fold-item.all-filter .ico{font-size:.72rem;width:16px;text-align:center;opacity:.5}
 .fold-item.fold-dragging{opacity:.3;pointer-events:none}
-.fold-item.fold-drag-over{background:rgba(16,185,129,.20)!important;outline:1px dashed rgba(61,223,160,.55);outline-offset:-2px;border-radius:var(--r)}
+.fold-item.fold-drag-over{background:rgba(0,229,151,.20)!important;outline:1px dashed rgba(54,240,168,.6);outline-offset:-2px;border-radius:var(--r)}
 .fold-drag-handle{font-size:.55rem;color:rgba(255,255,255,.2);cursor:grab;flex-shrink:0;padding:0 2px;line-height:1;user-select:none;transition:color .12s}
 .fold-item:hover .fold-drag-handle{color:rgba(255,255,255,.4)}
 .fold-drag-handle:active{cursor:grabbing}
@@ -1146,7 +1146,7 @@ button:focus-visible{outline:2px solid color-mix(in srgb,var(--acc) 55%,transpar
 body{position:relative}
 body::after{
   content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(720px 380px at 72% -10%, color-mix(in srgb,var(--acc) 7%,transparent), transparent 70%);
+  background:radial-gradient(720px 380px at 72% -10%, color-mix(in srgb,var(--acc) 10%,transparent), transparent 70%);
 }
 .app,.main,.sidebar{position:relative;z-index:1}
 
@@ -1166,15 +1166,15 @@ body::after{
   margin:0 auto .3rem;
   transition:background .18s,color .18s,transform .18s cubic-bezier(.16,1,.3,1);
 }
-.cat-card:hover .cc-icon{background:var(--acc);color:#fff;transform:scale(1.06)}
-.cat-card.active .cc-icon{background:var(--acc);color:#fff}
+.cat-card:hover .cc-icon{background:var(--acc);color:#02130c;transform:scale(1.06)}
+.cat-card.active .cc-icon{background:var(--acc);color:#02130c}
 
 /* Cabeceras de grupo: subrayado ámbar corto sobre la línea existente */
 .cat-group-hdr{position:relative}
 .cat-group-hdr::after{content:"";position:absolute;left:0;bottom:-1px;width:32px;height:2px;background:var(--acc);border-radius:2px}
 
 /* CTA principal de IA en ámbar (una sola intención primaria, mismo botón) */
-.abtn.em{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+.abtn.em{background:var(--acc);border-color:var(--acc);color:#02130c;font-weight:600}
 .abtn.em:hover{background:color-mix(in srgb,var(--acc) 88%,#000);box-shadow:0 4px 14px color-mix(in srgb,var(--acc) 35%,transparent)}
 [data-theme=dark] .abtn.em{color:#06130d}
 
