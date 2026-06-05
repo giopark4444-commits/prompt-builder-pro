@@ -17,8 +17,11 @@
 ### Arquitectura
 ```
 S{}            — State object central
-CATS[]         — 10 categorías (image, app, brand_design, character, location,
-                 storyboard, video, music, sound, voice) + combinator (herramienta)
+CATS[]         — 38 categorías en 8 grupos (HOME_GROUPS): Creación de Contenido
+                 (image, app, brand_design, character, location, storyboard, video,
+                 music, sound, voice + combinator), Finanzas & Negocio (5), Marketing
+                 & Copywriting (4), Desarrollo de Equipo (4), Networking & Social (4),
+                 Código & Desarrollo (4), Investigación & Análisis (3), Soporte (3)
 SECS{}         — Secciones por categoría: key, label{ES/FR/EN}, single, ch[], impact(0-100)
 T{} + t(k)     — Traducciones de interfaz: ES/FR/EN completas + ZH/HI/AR/BN/PT/RU/JA
                  parciales (lo no traducido cae a EN)
@@ -30,7 +33,7 @@ escHtml()/safeUrl() — Helpers de seguridad: escapar HTML y validar URLs (solo 
 ```
 
 ### Features implementadas
-- [x] 10 categorías de prompt (imagen, app/ui, diseño de marca, personaje, locación, storyboard, video, música, sonido, voz)
+- [x] 38 categorías de prompt en 8 grupos: creación de contenido (imagen, app/ui, diseño de marca, personaje, locación, storyboard, video, música, sonido, voz), finanzas/negocio, marketing, equipo, networking, código, investigación y soporte
 - [x] Brand Design: 14 secciones (entregable, industria, tipo de logo, composición, estilo, tipografía, paleta, personalidad, slogan, voz de marca, formas, inspiración, aplicaciones, formato) + toolbar IA propia (Ideogram, Recraft, Midjourney, FLUX…)
 - [x] Sistema de impacto visual por sección (1–100) con color coding
 - [x] Framework de dirección visual completo (Art Style, Render, Character Identity, Clothing, Skin Texture, FX, Linework, Era, Reference DNA, Typography, Quality Control)
@@ -46,6 +49,7 @@ escHtml()/safeUrl() — Helpers de seguridad: escapar HTML y validar URLs (solo 
 - [x] Comunidad, Perfil y panel Admin — **solo locales** (localStorage; sin backend, no hay datos compartidos reales)
 - [x] Centro de ayuda con inicio rápido, índice navegable y 5 diagramas SVG que siguen el tema claro/oscuro; traducido ES/EN/FR
 - [x] Interfaz en 10 idiomas (ES/FR/EN completos; ZH/HI/AR/BN/PT/RU/JA parciales con fallback a EN)
+- [x] Login/registro local (gate de entrada, modo invitado, logout) y biblioteca por usuario
 - [x] Tema claro/oscuro/auto, panel de control (tipografía, tamaños, densidad, plataforma y ratio favoritos)
 
 ### Features pendientes / ideas

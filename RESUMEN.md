@@ -65,10 +65,22 @@ Se hizo una revisión profunda (7 ángulos + verificación) de todo el trabajo. 
 - 🟠 **seedSuperUser:** ya no sobreescribe la contraseña del admin en cada carga — solo la siembra si falta (antes, cualquier cambio se revertía solo). La contraseña pasó a una constante única (`SUPER_SEED_PASS`).
 - 🟡 **Escape HTML:** 3 sitios (Perfil reciente ×2 y panel Admin) usaban un escape incompleto (`<` solamente); ahora usan `escHtml()` — nombres con `&`, `>` o `"` se ven bien.
 - 🟢 **Traducciones unificadas:** 12 textos de los diagramas de ayuda que duplicaban claves de la interfaz ahora se leen de `T{}` vía un alias (`HT_ALIAS`) — una sola fuente de verdad. Bonus: los diagramas ahora aprovechan las traducciones parciales de los otros 7 idiomas en vez de caer siempre a inglés.
-- 📝 **README.md** reescrito: reflejaba la v3.0 (decía 9 categorías, 3 idiomas, ~122KB); ahora describe el estado real (10 categorías, 10 idiomas, ~535KB, Comunidad/Admin, centro de ayuda, helpers de seguridad).
+- 📝 **README.md** reescrito: reflejaba la v3.0 (decía 9 categorías, 3 idiomas, ~122KB); ahora describe el estado real (38 categorías en 8 grupos, 10 idiomas, ~535KB, Comunidad/Admin, centro de ayuda, helpers de seguridad).
 - ✅ Verificado en navegador (carga sin errores, ayuda renderiza, contraseña personalizada se conserva) y sintaxis JS validada con Node.
 
 Verificados como **seguros** (no eran bugs): el patrón `escHtml(JSON.stringify())` en onclick, los colores de los SVG al cambiar tema (usan variables CSS) y el fallback de idiomas de la ayuda.
+
+Además: `conversation_history.txt` (800KB de historial privado) y `.claude/` salieron del repo público (siguen en disco; persisten en commits antiguos), y se añadió un favicon inline (adiós al 404 de consola).
+
+### 8. QA completo de la app + fixes de i18n/UX (4 jun 2026)
+Se probó la app **página por página y botón por botón** con Playwright (navegador real, sin API key): las 38 categorías construyen prompt, navegación completa, Biblioteca (guardar/buscar/ordenar/carpetas/editar/renombrar/duplicar/mover/eliminar/añadir manual/export), Referencias, Estadísticas, Ayuda (5 diagramas + índice + cambio de idioma), Comunidad (registro, login, publicar, like, comentar, "Usar prompt →", filtros), Perfil (editar), Admin (login superusuario, panel), Panel de control (10 idiomas, temas claro/oscuro/auto, 6 sliders, selects, presets, gestor ⊞), acciones IA sin clave (copian instrucciones, no llaman a la API). **0 errores de consola en todo el recorrido.**
+
+Bugs encontrados y corregidos (todos de i18n/UX, ninguno funcional):
+- 🟡 **Textos hardcodeados en español** que ignoraban el idioma de la UI: menú del prompt en Biblioteca (Editar/Renombrar/Duplicar/Mover a carpeta/Cambiar categoría), cabecera del modal añadir/editar prompt, botones "Cancelar"/"Eliminar"/"Crear" de los diálogos, placeholders del modal de Comunidad → ahora todo usa `t()`.
+- 🟡 **Modal "Edit Profile" hardcodeado en inglés** (título, labels y botones) → ahora usa `t()`.
+- 🟠 **Diálogo de cerrar sesión confuso**: decía "Sign out?" (inglés fijo) con botón rojo **"Eliminar"** → ahora "¿Cerrar sesión?" / botón "Salir", traducido.
+- 🟠 **Eliminar un prompt era instantáneo y sin deshacer** (carpetas y referencias sí confirmaban) → ahora pide confirmación.
+- 🟢 **nav_r añadido a los 7 idiomas parciales** (ZH/HI/AR/BN/PT/RU/JA): "Referencias" ya no aparece en inglés en esos idiomas.
 
 ---
 
