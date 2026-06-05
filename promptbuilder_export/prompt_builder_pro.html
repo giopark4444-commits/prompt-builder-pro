@@ -4611,7 +4611,7 @@ function renderProfile(){
       rl.innerHTML=recent.map(it=>`
         <div class="profile-recent-item">
           <span style="font-size:.82rem">📄</span>
-          <span class="profile-recent-name">${(it.name||"Sin nombre").replace(/</g,"&lt;")}</span>
+          <span class="profile-recent-name">${escHtml(it.name||"Sin nombre")}</span>
           <span class="profile-recent-meta">${it.date||""}</span>
           <button class="admin-action-btn primary" style="font-size:.66rem;padding:.17rem .45rem" onclick="loadLibItem_profile(${escHtml(JSON.stringify(it.prompt))})">Cargar</button>
         </div>`).join("");
@@ -4627,7 +4627,7 @@ function renderProfile(){
       rp.innerHTML=myPosts.slice(0,4).map(p=>`
         <div class="profile-recent-item">
           <span style="font-size:.82rem">${p.mediaType==="upload"||p.mediaType==="image"?"🖼":"📝"}</span>
-          <span class="profile-recent-name">${p.title.replace(/</g,"&lt;")}</span>
+          <span class="profile-recent-name">${escHtml(p.title)}</span>
           <span class="profile-recent-meta">♥${p.likes.length} 💬${p.comments.length}</span>
           <span class="profile-recent-meta">${timeAgo(p.timestamp)}</span>
         </div>`).join("");
@@ -4664,7 +4664,9 @@ function loadLibItem_profile(prompt){
 }
 
 // ════ HELP CENTER (multilingüe ES/EN/FR) ═════════════════════════
-function ht(k){const L=getLang();const o=HELP_STR[k];return o?(o[L]||o.EN||o.ES):k;}
+// Claves de ayuda que ya existen en T{} (UI): se delegan a t() para una sola fuente de verdad
+const HT_ALIAS={f_profile:"profile",f_comm:"community",f_home:"nav_home",f_builder:"nav_b",f_refs:"nav_r",f_lib:"nav_l",f_stats:"stats_title",f_panel:"nav_s",f_buildtitle:"ph_h",f_copy:"copy",f_save:"sv_b",lf_load:"lib_lo"};
+function ht(k){if(HT_ALIAS[k])return t(HT_ALIAS[k]);const L=getLang();const o=HELP_STR[k];return o?(o[L]||o.EN||o.ES):k;}
 function hStep(n,b){return `<div class="help-step"><div class="help-step-num">${n}</div><div class="help-step-body">${b}</div></div>`;}
 function hTip(ic,b){return `<div class="help-tip"><span class="help-tip-icon">${ic}</span>${b}</div>`;}
 function hWarn(b){return `<div class="help-warn"><span class="help-tip-icon">⚠️</span>${b}</div>`;}
@@ -4840,19 +4842,10 @@ function HELP_STRINGS(){return {
   toc_cfg:{ES:`⚙ Configuración`,EN:`⚙ Settings`,FR:`⚙ Réglages`},
   toc_tips:{ES:`💡 Consejos pro`,EN:`💡 Pro tips`,FR:`💡 Astuces pro`},
   f_pro:{ES:`PRO BETA`,EN:`PRO BETA`,FR:`PRO BETA`},
-  f_profile:{ES:`Mi Perfil`,EN:`My Profile`,FR:`Mon Profil`},
-  f_comm:{ES:`Comunidad`,EN:`Community`,FR:`Communauté`},
   f_create:{ES:`CREAR`,EN:`CREATE`,FR:`CRÉER`},
-  f_home:{ES:`Inicio`,EN:`Home`,FR:`Accueil`},
-  f_builder:{ES:`Builder`,EN:`Builder`,FR:`Builder`},
   f_libsec:{ES:`BIBLIOTECA`,EN:`LIBRARY`,FR:`BIBLIOTHÈQUE`},
-  f_refs:{ES:`Referencias`,EN:`References`,FR:`Références`},
-  f_lib:{ES:`Biblioteca`,EN:`Library`,FR:`Bibliothèque`},
   f_sys:{ES:`SISTEMA`,EN:`SYSTEM`,FR:`SYSTÈME`},
-  f_stats:{ES:`Estadísticas`,EN:`Statistics`,FR:`Statistiques`},
-  f_panel:{ES:`Panel de control`,EN:`Control Panel`,FR:`Panneau`},
   f_help:{ES:`Ayuda`,EN:`Help`,FR:`Aide`},
-  f_buildtitle:{ES:`Construye tu prompt`,EN:`Build your prompt`,FR:`Construisez votre prompt`},
   f_choosecat:{ES:`Elige una categoría para empezar`,EN:`Pick a category to start`,FR:`Choisissez une catégorie pour commencer`},
   card_image:{ES:`Imagen`,EN:`Image`,FR:`Image`},
   card_video:{ES:`Video`,EN:`Video`,FR:`Vidéo`},
@@ -4862,8 +4855,6 @@ function HELP_STRINGS(){return {
   card_app:{ES:`App`,EN:`App`,FR:`App`},
   f_morebelow:{ES:`↓ Más abajo: el cuadro del prompt, botones Copiar / ★ Guardar y las acciones de IA`,EN:`↓ Below: the prompt box, Copy / ★ Save buttons and the AI actions`,FR:`↓ Plus bas : la zone du prompt, les boutons Copier / ★ Enregistrer et les actions IA`},
   f_prompthere:{ES:`Tu prompt aparece aquí…`,EN:`Your prompt appears here…`,FR:`Votre prompt apparaît ici…`},
-  f_copy:{ES:`Copiar`,EN:`Copy`,FR:`Copier`},
-  f_save:{ES:`★ Guardar`,EN:`★ Save`,FR:`★ Enregistrer`},
   s0_cap:{ES:`El menú de la izquierda con sus zonas (números) y la zona de trabajo a la derecha.`,EN:`The left menu with its zones (numbers) and the work area on the right.`,FR:`Le menu de gauche avec ses zones (numéros) et l'espace de travail à droite.`},
   l1:{ES:`<b>Mi Perfil:</b> tus estadísticas y datos.`,EN:`<b>My Profile:</b> your stats and data.`,FR:`<b>Mon Profil :</b> vos statistiques et données.`},
   l2:{ES:`<b>Comunidad:</b> prompts de otros usuarios.`,EN:`<b>Community:</b> prompts from other users.`,FR:`<b>Communauté :</b> les prompts d'autres utilisateurs.`},
@@ -4944,7 +4935,6 @@ function HELP_STRINGS(){return {
   lf_c2m:{ES:`Video · hace 5 días`,EN:`Video · 5 days ago`,FR:`Vidéo · il y a 5 jours`},
   lf_c3:{ES:`🏷 Banda sonora épica`,EN:`🏷 Epic soundtrack`,FR:`🏷 Bande-son épique`},
   lf_c3m:{ES:`Música · hace 1 semana`,EN:`Music · 1 week ago`,FR:`Musique · il y a 1 semaine`},
-  lf_load:{ES:`Cargar`,EN:`Load`,FR:`Charger`},
   s4_1:{ES:`<strong>Guardar un prompt:</strong> En el cuadro del prompt escribe un nombre en el campo <em>"Nombre para guardar…"</em> y haz clic en <span class="help-kbd">★ Guardar</span>. También puedes pulsar <em>＋ Añadir prompt</em> dentro de la Biblioteca para pegar uno a mano.`,EN:`<strong>Save a prompt:</strong> In the prompt box, type a name in the <em>"Name to save…"</em> field and click <span class="help-kbd">★ Save</span>. You can also press <em>＋ Add prompt</em> inside the Library to paste one by hand.`,FR:`<strong>Enregistrer un prompt :</strong> Dans la zone du prompt, saisissez un nom dans le champ <em>« Nom à enregistrer… »</em> et cliquez sur <span class="help-kbd">★ Enregistrer</span>. Vous pouvez aussi cliquer sur <em>＋ Ajouter un prompt</em> dans la Bibliothèque pour en coller un à la main.`},
   s4_2:{ES:`<strong>Ver tus prompts:</strong> Haz clic en <em>Biblioteca</em> en el menú lateral. Verás todos tus prompts guardados, con buscador y ordenamiento (más reciente, nombre A→Z, etc.).`,EN:`<strong>See your prompts:</strong> Click <em>Library</em> in the side menu. You'll see all your saved prompts, with search and sorting (newest, name A→Z, etc.).`,FR:`<strong>Voir vos prompts :</strong> Cliquez sur <em>Bibliothèque</em> dans le menu. Vous verrez tous vos prompts enregistrés, avec recherche et tri (plus récent, nom A→Z, etc.).`},
   s4_3:{ES:`<strong>Cargar un prompt:</strong> Haz clic en <em>Cargar</em> en cualquier prompt para traerlo de vuelta al Builder.`,EN:`<strong>Load a prompt:</strong> Click <em>Load</em> on any prompt to bring it back to the Builder.`,FR:`<strong>Charger un prompt :</strong> Cliquez sur <em>Charger</em> sur n'importe quel prompt pour le ramener dans le Builder.`},
@@ -5048,6 +5038,7 @@ function onCommFileChosen(evt){
 const SUPER_ID = "su_giopark_root";
 const SUPER_USERNAME = "giopark";
 const SUPER_EMAIL = "admin@promptbuilder.app";
+const SUPER_SEED_PASS = "gioPBP-r7k2-admin"; // contraseña inicial; solo se siembra si falta
 
 function seedSuperUser(){
   const users = getUsers();
@@ -5057,17 +5048,16 @@ function seedSuperUser(){
       id: SUPER_ID,
       username: SUPER_USERNAME,
       email: SUPER_EMAIL,
-      passHash: hashPass("gioPBP-r7k2-admin"),
+      passHash: hashPass(SUPER_SEED_PASS),
       isAdmin: true,
       createdAt: new Date().toISOString()
     });
     saveUsers(users);
   } else {
-    // Ensure admin flag and current seed password are always in sync
+    // Ensure admin flag; seed the password only if missing (never overwrite a changed one)
     let changed = false;
     if(!exists.isAdmin){ exists.isAdmin = true; changed = true; }
-    const targetHash = hashPass("gioPBP-r7k2-admin");
-    if(exists.passHash !== targetHash){ exists.passHash = targetHash; changed = true; }
+    if(!exists.passHash){ exists.passHash = hashPass(SUPER_SEED_PASS); changed = true; }
     if(changed) saveUsers(users);
   }
 }
@@ -5122,7 +5112,7 @@ function adminViewUserLib(userId){
     } else {
       let html = `<div class="admin-drawer-title">Biblioteca (${lib.length} prompts)</div>`;
       lib.forEach((item,i)=>{
-        html += `<div class="admin-drawer-prompt"><strong style="color:var(--tx2)">${i+1}. ${(item.name||"Sin nombre").replace(/</g,"&lt;")}</strong><br>${(item.prompt||"").slice(0,200).replace(/</g,"&lt;")}${item.prompt?.length>200?"…":""}</div>`;
+        html += `<div class="admin-drawer-prompt"><strong style="color:var(--tx2)">${i+1}. ${escHtml(item.name||"Sin nombre")}</strong><br>${escHtml((item.prompt||"").slice(0,200))}${item.prompt?.length>200?"…":""}</div>`;
       });
       drawer.innerHTML = html;
     }

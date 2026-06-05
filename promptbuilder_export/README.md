@@ -1,95 +1,73 @@
-# Prompt Builder Pro v3.0
+# Prompt Builder Pro
 ## Para Claude Code — contexto completo del proyecto
 
+### Enlaces
+- **App en vivo:** https://giopark4444-commits.github.io/prompt-builder-pro/
+- **Repo:** https://github.com/giopark4444-commits/prompt-builder-pro (público — nunca subir claves reales)
+
 ### Archivo principal
-`prompt_builder_pro.html` — app standalone HTML/CSS/JS, ~122KB, sin dependencias externas excepto Google Fonts y Anthropic API.
+`prompt_builder_pro.html` — app standalone HTML/CSS/JS, ~535 KB, sin dependencias externas excepto Google Fonts y la API de Anthropic.
 
 ### Stack
-- HTML + CSS variables (light/dark auto)
+- HTML + CSS variables (light/dark/auto)
 - Vanilla JS (sin frameworks)
 - Anthropic API: claude-sonnet-4-6 (análisis de archivos/imágenes) y claude-haiku-4-5-20251001 (refinar prompt y traducción)
-- localStorage para persistencia
+- localStorage para persistencia (key `pbpv3`; usuarios/comunidad en keys `pbpv3_*`)
 
 ### Arquitectura
 ```
-S{}                    — State object central
-CATS[]                 — 9 categorías (image, app, character, location, storyboard, video, music, sound, voice)
-SECS{}                 — Secciones por categoría, cada una con: key, label{ES/FR/EN}, single, ch[], impact(0-100)
-T{}                    — Traducciones completas ES/FR/EN (interfaz + prompts)
-COLS[]                 — 10 colores de tag
-TL_OPTS{}              — Opciones de timeline (shots, moves, lights, emotions, lenses, transitions)
+S{}            — State object central
+CATS[]         — 10 categorías (image, app, brand_design, character, location,
+                 storyboard, video, music, sound, voice) + combinator (herramienta)
+SECS{}         — Secciones por categoría: key, label{ES/FR/EN}, single, ch[], impact(0-100)
+T{} + t(k)     — Traducciones de interfaz: ES/FR/EN completas + ZH/HI/AR/BN/PT/RU/JA
+                 parciales (lo no traducido cae a EN)
+HELP_STR + ht(k) — Textos del centro de ayuda (ES/EN/FR; los otros 7 idiomas caen a EN).
+                 HT_ALIAS delega en t() las claves que ya existen en T{} (fuente única)
+COLS[]         — 10 colores de tag
+TL_OPTS{}      — Opciones de timeline (shots, moves, lights, emotions, lenses, transitions)
+escHtml()/safeUrl() — Helpers de seguridad: escapar HTML y validar URLs (solo http(s)/data:image)
 ```
 
 ### Features implementadas
-- [x] 9 categorías de prompt (imagen, video, música, sonido, voz, personaje, locación, storyboard, app/ui)
+- [x] 10 categorías de prompt (imagen, app/ui, diseño de marca, personaje, locación, storyboard, video, música, sonido, voz)
+- [x] Brand Design: 14 secciones (entregable, industria, tipo de logo, composición, estilo, tipografía, paleta, personalidad, slogan, voz de marca, formas, inspiración, aplicaciones, formato) + toolbar IA propia (Ideogram, Recraft, Midjourney, FLUX…)
 - [x] Sistema de impacto visual por sección (1–100) con color coding
 - [x] Framework de dirección visual completo (Art Style, Render, Character Identity, Clothing, Skin Texture, FX, Linework, Era, Reference DNA, Typography, Quality Control)
-- [x] 26 LUTs analógicos de film clásico (Kodak, Fuji, Agfa, Cinestill, Ilford)
-- [x] 19 cámaras cinematográficas (ARRI, RED, Sony, Blackmagic, analógicas)
-- [x] 34 ángulos de cámara (Camera Angle completo)
-- [x] 31 movimientos de cámara
-- [x] Apertura de diafragma f/1.2–f/22
-- [x] 17 focales con descripción
-- [x] 10 grados de grano de film (ISO)
+- [x] 26 LUTs analógicos, 19 cámaras cinematográficas, 34 ángulos, 31 movimientos de cámara, apertura f/1.2–f/22, 17 focales, 10 grados de grano
 - [x] Director Reference DNA (Villeneuve, Kubrick, Wong Kar-wai, Tarkovsky, etc.)
-- [x] Descripción visual + narrativa para video (bloques dedicados)
-- [x] Timeline segundo a segundo con beats (shot, move, light, emotion, lens, transition, notes)
-- [x] Sistema de favoritos por sección (★ barra dorada)
-- [x] Ordenamiento: Orig / A-Z / Z-A / ★ Favs / Color
-- [x] Color por sección (10 colores, tiñe tags seleccionados)
-- [x] Color individual por tag (menú flotante ⬤)
-- [x] Drag & drop para reordenar tags
-- [x] Tags custom por sección
-- [x] Analizador de archivos (imagen/video/audio/texto → detecta tags + sugerencias)
-- [x] Traducción de prompt ES/FR/EN vía API
-- [x] Biblioteca persistente (localStorage, hasta 80 prompts)
-- [x] Export/Import JSON de biblioteca
-- [x] Panel de control: idioma UI, tipografía, tamaño de tags (3 sliders), densidad, tema, plataforma favorita, ratio favorito
-- [x] Tema claro/oscuro/auto (auto según hora del día)
-- [x] Multiidioma completo de interfaz (ES/FR/EN)
-- [x] Acciones IA: Refinar, 3 Variaciones, Optimizar EN
+- [x] Timeline segundo a segundo con beats (shot, move, light, emotion, lens, transition, notas)
+- [x] Favoritos, ordenamiento (Orig/A-Z/Z-A/★/Color), color por sección y por tag, drag & drop, tags custom
+- [x] Combos (selección de opciones reutilizable) y Presets (configuración de la app)
+- [x] Analizador de archivos (imagen/video/audio/texto → tags + sugerencias) vía API
+- [x] Acciones IA: Refinar, 3 Variaciones, Optimizar EN; traducción del prompt
+- [x] Biblioteca persistente con carpetas/subcarpetas, buscador, export/import JSON y packs
+- [x] Referencias (banco de inspiración), Estadísticas de uso
+- [x] Comunidad, Perfil y panel Admin — **solo locales** (localStorage; sin backend, no hay datos compartidos reales)
+- [x] Centro de ayuda con inicio rápido, índice navegable y 5 diagramas SVG que siguen el tema claro/oscuro; traducido ES/EN/FR
+- [x] Interfaz en 10 idiomas (ES/FR/EN completos; ZH/HI/AR/BN/PT/RU/JA parciales con fallback a EN)
+- [x] Tema claro/oscuro/auto, panel de control (tipografía, tamaños, densidad, plataforma y ratio favoritos)
 
-### Features pendientes / ideas para Claude Code
-- [ ] Preview de imagen generada al lado del prompt (integración directa con FLUX/MJ API)
-- [ ] Sistema de pesos/weights por tag (slider 0.1–2.0)
+### Features pendientes / ideas
+- [ ] Traducir el centro de ayuda a los otros 7 idiomas
+- [ ] Backend real (p. ej. Supabase) para que Comunidad/Perfil/Admin sean compartidos
+- [ ] Validación robusta de JSON/packs importados
+- [ ] Pesos por tag (slider 0.1–2.0)
 - [ ] Historial de versiones del prompt (diff visible)
-- [ ] Modo "Fórmula cinematográfica" — combina automáticamente las top categorías en orden óptimo
-- [ ] Galería de prompts compartidos (communidad)
-- [ ] Exportar prompt en sintaxis nativa de cada plataforma (--ar, --chaos para MJ; cfg_scale para SD)
-- [ ] Colaboración en tiempo real (shared prompts)
-- [ ] Modo "Director" — selecciona director y pre-carga su estética completa
-- [ ] Tags con preview tooltip de imagen ejemplo
+- [ ] Modo "Director" — pre-carga la estética completa de un director
+- [ ] Exportar en sintaxis nativa de cada plataforma (--ar, --chaos para MJ; cfg_scale para SD)
+- [ ] Preview de imagen generada junto al prompt
 
 ### Orden de secciones por impacto (imagen)
-1. Iluminación ★98 — más poderosa
-2. Character Identity ★96
-3. Reference DNA ★94
-4. Color Palette ★92
-5. Mood / Emoción ★91
-6. Camera Language ★90
-7. Art Style ★95
-8. Render/Shading ★88
-9. Composition ★87
-10. Lens/Focal ★85
-11. Environment ★84
-12. Era Reference ★83
-13. Clothing System ★82
-14. Camera Angle ★80 (video)
-15. Skin Texture ★78
-16. FX System ★76
-17. Linework ★72
-18. Quality Control ★68
-19. Typography/UI ★55
-20. Aspect Ratio ★40
-21. Generador ★15
+1. Iluminación ★98 · 2. Character Identity ★96 · 3. Art Style ★95 · 4. Reference DNA ★94 · 5. Color Palette ★92 · 6. Mood ★91 · 7. Camera Language ★90 · 8. Render/Shading ★88 · 9. Composition ★87 · 10. Lens/Focal ★85 · 11. Environment ★84 · 12. Era ★83 · 13. Clothing ★82 · 14. Camera Angle ★80 · 15. Skin Texture ★78 · 16. FX ★76 · 17. Linework ★72 · 18. Quality Control ★68 · 19. Typography/UI ★55 · 20. Aspect Ratio ★40 · 21. Generador ★15
 
-### Notas para continuación en Claude Code
-- El archivo HTML es standalone, ábrelo en cualquier browser
-- Para deploy: arrastrarlo a netlify.com/drop
-- La API key de Anthropic no se pasa en el frontend (el fetch a /v1/messages está en el HTML, necesita proxy o configuración CORS para producción real)
-- Los datos persisten en localStorage con key "pbpv3"
-- El sistema de colores usa CSS variables y clases .tc-{color} en cada sección
-- La lógica de buildTV() reconstruye el mapa de valores en cada interacción para manejar orden dinámico
+### Seguridad y notas para continuación
+- El HTML es standalone: ábrelo en cualquier navegador, o sirve la carpeta con `serve.py` (puerto 7432).
+- Deploy: push a `main` → GitHub Pages se actualiza solo en 1-2 minutos (`index.html` de la raíz redirige aquí).
+- **Clave API:** el usuario pega su `sk-ant-…` en *Panel de control → Clave API Anthropic*; se guarda solo en su localStorage. Sin clave, las instrucciones se copian al portapapeles para usarlas en Claude. **Nunca** escribir una clave real en el código (repo público).
+- Construcción de HTML dinámico: usar siempre `escHtml()` para texto/atributos y `safeUrl()` para URLs; en `onclick` con datos, el patrón es `onclick="fn(${escHtml(JSON.stringify(data))})"`.
+- `seedSuperUser()` crea el superusuario si no existe y solo siembra la contraseña (`SUPER_SEED_PASS`) cuando falta — no sobreescribe una contraseña cambiada. Todo el "Admin" es client-side: no es seguridad real.
+- `buildTV()` reconstruye el mapa de valores en cada interacción para manejar el orden dinámico.
 
-### Conversación de contexto
-Ver `conversation_history.txt` — historial completo del desarrollo iterativo desde v1 hasta v3.
+### Historial
+Ver `RESUMEN.md` (raíz del repo) para el seguimiento del proyecto y `conversation_history.txt` para el desarrollo iterativo v1→v3.

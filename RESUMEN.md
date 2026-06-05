@@ -1,6 +1,6 @@
 # 📋 Resumen del proyecto — Prompt Builder Pro
 
-Documento de seguimiento de todo lo trabajado. Última actualización: **3 de junio de 2026**.
+Documento de seguimiento de todo lo trabajado. Última actualización: **4 de junio de 2026**.
 
 ---
 
@@ -60,6 +60,16 @@ Se revisó toda la app. Hallazgos y arreglos aplicados:
 
 **Nota importante sobre la "Comunidad" y el "Admin":** la app **no tiene servidor (backend)**. Usuarios, comunidad y panel Admin viven solo en el navegador de cada visitante (localStorage). No es seguridad real ni datos compartidos — es local. Para que fueran reales haría falta un backend (p. ej. Supabase).
 
+### 7. Code review completo + correcciones (4 jun 2026)
+Se hizo una revisión profunda (7 ángulos + verificación) de todo el trabajo. Arreglos aplicados:
+- 🟠 **seedSuperUser:** ya no sobreescribe la contraseña del admin en cada carga — solo la siembra si falta (antes, cualquier cambio se revertía solo). La contraseña pasó a una constante única (`SUPER_SEED_PASS`).
+- 🟡 **Escape HTML:** 3 sitios (Perfil reciente ×2 y panel Admin) usaban un escape incompleto (`<` solamente); ahora usan `escHtml()` — nombres con `&`, `>` o `"` se ven bien.
+- 🟢 **Traducciones unificadas:** 12 textos de los diagramas de ayuda que duplicaban claves de la interfaz ahora se leen de `T{}` vía un alias (`HT_ALIAS`) — una sola fuente de verdad. Bonus: los diagramas ahora aprovechan las traducciones parciales de los otros 7 idiomas en vez de caer siempre a inglés.
+- 📝 **README.md** reescrito: reflejaba la v3.0 (decía 9 categorías, 3 idiomas, ~122KB); ahora describe el estado real (10 categorías, 10 idiomas, ~535KB, Comunidad/Admin, centro de ayuda, helpers de seguridad).
+- ✅ Verificado en navegador (carga sin errores, ayuda renderiza, contraseña personalizada se conserva) y sintaxis JS validada con Node.
+
+Verificados como **seguros** (no eran bugs): el patrón `escHtml(JSON.stringify())` en onclick, los colores de los SVG al cambiar tema (usan variables CSS) y el fallback de idiomas de la ayuda.
+
 ---
 
 ## 🕓 Historial de commits
@@ -72,6 +82,8 @@ Se revisó toda la app. Hallazgos y arreglos aplicados:
 | `eab8746` | Añade index.html de entrada para GitHub Pages |
 | `83e552d` | Añade RESUMEN.md con el resumen del proyecto |
 | `ed74e5c` | Seguridad y bugs: repara botones rotos y cierra XSS |
+| `be6d369` | Admin: contraseña por defecto no obvia + actualiza RESUMEN.md |
+| `b655b2f` | Code review: fix seedSuperUser, escapes completos, traducciones unificadas, README al día |
 
 ---
 
