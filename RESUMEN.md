@@ -83,7 +83,7 @@ Verificados como **seguros** (no eran bugs): el patrón `escHtml(JSON.stringify(
 | `83e552d` | Añade RESUMEN.md con el resumen del proyecto |
 | `ed74e5c` | Seguridad y bugs: repara botones rotos y cierra XSS |
 | `be6d369` | Admin: contraseña por defecto no obvia + actualiza RESUMEN.md |
-| `b655b2f` | Code review: fix seedSuperUser, escapes completos, traducciones unificadas, README al día |
+| `114c7d4` | Code review: fix seedSuperUser, escapes completos, traducciones unificadas, README al día |
 
 ---
 
