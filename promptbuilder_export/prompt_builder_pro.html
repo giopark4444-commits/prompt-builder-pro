@@ -1132,6 +1132,55 @@ button:focus-visible{outline:2px solid color-mix(in srgb,var(--acc) 55%,transpar
   .cat-card:hover,.tag:hover,.abtn:hover,.pbtn:hover,.cpt:hover,.gbtn:hover,.upload-slot:hover,.model-pill:hover,.help-toc-btn:hover{transform:none}
   .apm-ov,.fdlg-ov,.apm,.fdlg{animation:none}
 }
+
+/* ════════════════════════════════════════════════════════════════
+   AMPLIFICACIÓN DE IDENTIDAD (jun 2026) — solo CSS, cero cambios
+   de arquitectura: mismos elementos, mismo layout, misma lógica.
+   Amplifica la identidad existente: stone cálido + ámbar + serif.
+   Borrar este bloque revierte el aspecto.
+   ════════════════════════════════════════════════════════════════ */
+
+/* Atmósfera: una fuga de luz ámbar muy sutil arriba, en ambos temas */
+body{position:relative}
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(720px 380px at 72% -10%, color-mix(in srgb,var(--acc) 7%,transparent), transparent 70%);
+}
+.app,.main,.sidebar{position:relative;z-index:1}
+
+/* Titular con más presencia (misma serif, misma posición) */
+.ph h1{font-size:1.95rem;letter-spacing:-.03em}
+
+/* Sidebar: profundidad con gradiente sobre su mismo color (respeta presets) */
+.sidebar{background-image:linear-gradient(180deg,rgba(255,255,255,.035),transparent 26%,rgba(0,0,0,.18) 100%)}
+.slogo-sub{color:color-mix(in srgb,var(--acc) 62%,rgba(255,255,255,.3))}
+/* Item activo: barra ámbar a la izquierda + texto más vivo */
+.ni.active{box-shadow:inset 2.5px 0 0 var(--acc)}
+
+/* Tarjetas de categoría: el icono vive en un chip ámbar del tema */
+.cc-icon{
+  background:var(--acc-bg);color:var(--acc-tx);
+  width:2.1em;height:2.1em;border-radius:12px;
+  margin:0 auto .3rem;
+  transition:background .18s,color .18s,transform .18s cubic-bezier(.16,1,.3,1);
+}
+.cat-card:hover .cc-icon{background:var(--acc);color:#fff;transform:scale(1.06)}
+.cat-card.active .cc-icon{background:var(--acc);color:#fff}
+
+/* Cabeceras de grupo: subrayado ámbar corto sobre la línea existente */
+.cat-group-hdr{position:relative}
+.cat-group-hdr::after{content:"";position:absolute;left:0;bottom:-1px;width:32px;height:2px;background:var(--acc);border-radius:2px}
+
+/* CTA principal de IA en ámbar (una sola intención primaria, mismo botón) */
+.abtn.em{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+.abtn.em:hover{background:color-mix(in srgb,var(--acc) 88%,#000);box-shadow:0 4px 14px color-mix(in srgb,var(--acc) 35%,transparent)}
+[data-theme=dark] .abtn.em{color:#1a1208}
+
+/* Cuadro del prompt: superficie con elevación propia */
+#prompt-area{background:var(--bg2);box-shadow:var(--sh)}
+
+/* El badge de idioma del prompt hereda el acento */
+#prompt-lang-badge,.lang-badge{border-color:color-mix(in srgb,var(--acc) 35%,transparent)}
 </style>
 </head>
 <body>
