@@ -1,2 +1,6 @@
 .DS_Store
 **/.DS_Store
+
+# Privado / local — no publicar en el repo público
+promptbuilder_export/conversation_history.txt
+.claude/

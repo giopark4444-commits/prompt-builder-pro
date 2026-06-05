@@ -70,4 +70,4 @@ escHtml()/safeUrl() — Helpers de seguridad: escapar HTML y validar URLs (solo 
 - `buildTV()` reconstruye el mapa de valores en cada interacción para manejar el orden dinámico.
 
 ### Historial
-Ver `RESUMEN.md` (raíz del repo) para el seguimiento del proyecto y `conversation_history.txt` para el desarrollo iterativo v1→v3.
+Ver `RESUMEN.md` (raíz del repo) para el seguimiento del proyecto. El desarrollo iterativo v1→v3 está en `conversation_history.txt` (archivo **local**, fuera del repo público).
