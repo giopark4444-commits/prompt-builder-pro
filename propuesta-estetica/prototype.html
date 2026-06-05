@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es" data-proposal="directors-cut">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Builder Pro · Propuesta "Director's Cut"</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+<!-- Tipografías: Clash Display + Switzer (Fontshare) y JetBrains Mono (prototipo; en producción se auto-hospedan) -->
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=switzer@400,500,600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+<!-- Iconos: Phosphor (web font), versión fijada + SRI -->
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"
+        integrity="sha384-cPFV+/abYd3INVFHPmSKpBmcnH+Q+bTZW7dv/EiuShUNPkHyFmRF8PsL7Ibfvunk"
+        crossorigin="anonymous"></script>
+<style>
+/* ───────────────────────── Tokens ───────────────────────── */
+:root{
+  --bg-0:#0C0B09;
+  --bg-1:#14120E;
+  --bg-2:#1D1A14;
+  --bg-3:#262218;
+  --line:rgba(236,231,221,.08);
+  --line-strong:rgba(236,231,221,.16);
+  --text:#ECE7DD;
+  --muted:#97907F;
+  --accent:#E2A33B;
+  --accent-ink:#171204;
+  --r-surface:10px;
+  --ff-display:"Clash Display",sans-serif;
+  --ff-ui:"Switzer",sans-serif;
+  --ff-mono:"JetBrains Mono",monospace;
+  --rail-w:72px;
+  --console-h:88px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--bg-0);
+  color:var(--text);
+  font-family:var(--ff-ui);
+  font-size:15px;
+  line-height:1.5;
+  overflow-x:hidden;
+}
+/* Fuga de luz tungsteno: única decoración global, fija y sin coste de scroll */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(620px 420px at 88% -8%, rgba(226,163,59,.10), transparent 64%);
+}
+::selection{background:rgba(226,163,59,.32)}
+
+/* ───────────────────────── Riel de navegación ───────────────────────── */
+.rail{
+  position:fixed;inset:0 auto 0 0;width:var(--rail-w);z-index:40;
+  background:var(--bg-1);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;
+  padding:14px 0;gap:4px;
+}
+.rail .mark{
+  width:40px;height:40px;border-radius:var(--r-surface);
+  background:var(--accent);color:var(--accent-ink);
+  display:grid;place-items:center;
+  font-family:var(--ff-display);font-weight:600;font-size:18px;
+  margin-bottom:14px;
+}
+.rail-btn{
+  position:relative;width:44px;height:44px;border:0;border-radius:var(--r-surface);
+  background:transparent;color:var(--muted);cursor:pointer;
+  display:grid;place-items:center;font-size:21px;
+  transition:background .18s var(--ease),color .18s var(--ease),transform .18s var(--ease);
+}
+.rail-btn:hover{background:var(--bg-2);color:var(--text)}
+.rail-btn:active{transform:scale(.94)}
+.rail-btn.on{background:var(--bg-3);color:var(--accent)}
+.rail-btn .tip{
+  position:absolute;left:calc(100% + 10px);top:50%;translate:0 -50%;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  padding:4px 10px;font-size:12.5px;color:var(--text);white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .15s var(--ease);
+}
+.rail-btn:hover .tip{opacity:1}
+.rail .spacer{flex:1}
+.rail .avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--bg-3);border:1px solid var(--line-strong);
+  display:grid;place-items:center;font-size:12px;
+  font-family:var(--ff-mono);color:var(--muted);
+}
+
+/* ───────────────────────── Lienzo ───────────────────────── */
+.stage{
+  margin-left:var(--rail-w);
+  min-height:100dvh;
+  padding:0 clamp(20px,4vw,56px) calc(var(--console-h) + 40px);
+  position:relative;z-index:1;
+  max-width:1480px;
+}
+.topline{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:22px 0 0;
+}
+.topline .word{
+  font-family:var(--ff-display);font-weight:600;font-size:17px;letter-spacing:.01em;
+}
+.topline .word em{font-style:normal;color:var(--accent)}
+.topline .session{font-family:var(--ff-mono);font-size:11.5px;color:var(--muted)}
+
+.view{display:none}
+.view.on{display:block}
+
+/* Cascada de entrada */
+.cascade>*{opacity:0;transform:translateY(14px);animation:rise .6s var(--ease) forwards}
+.cascade>*:nth-child(1){animation-delay:.04s}
+.cascade>*:nth-child(2){animation-delay:.12s}
+.cascade>*:nth-child(3){animation-delay:.20s}
+.cascade>*:nth-child(4){animation-delay:.28s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* ───────────────────────── Vista: Inicio ───────────────────────── */
+.hero{padding:clamp(36px,6vh,72px) 0 8px;max-width:760px}
+.hero h1{
+  font-family:var(--ff-display);font-weight:600;
+  font-size:clamp(38px,5vw,62px);line-height:1.02;letter-spacing:-.02em;
+}
+.hero h1 .lit{color:var(--accent)}
+.hero p{margin-top:14px;color:var(--muted);font-size:16.5px;max-width:46ch}
+
+.reel{
+  display:flex;gap:8px;flex-wrap:wrap;
+  padding:26px 0 18px;border-bottom:1px solid var(--line);margin-bottom:26px;
+}
+.reel button{
+  border:1px solid var(--line);background:transparent;color:var(--muted);
+  font-family:var(--ff-ui);font-size:13.5px;font-weight:500;
+  padding:8px 16px;border-radius:999px;cursor:pointer;
+  transition:all .18s var(--ease);
+}
+.reel button:hover{color:var(--text);border-color:var(--line-strong)}
+.reel button:active{transform:scale(.97)}
+.reel button.on{background:var(--text);border-color:var(--text);color:var(--bg-0)}
+
+/* Bento: 11 celdas exactas para las 11 entradas del grupo */
+.bento{
+  display:grid;gap:14px;
+  grid-template-columns:repeat(4,1fr);
+  grid-auto-rows:148px;
+}
+.tile{
+  position:relative;overflow:hidden;border-radius:var(--r-surface);
+  border:1px solid var(--line);background:var(--bg-1);
+  cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:18px;text-align:left;color:var(--text);font-family:var(--ff-ui);
+  transition:transform .22s var(--ease),border-color .22s var(--ease);
+}
+.tile:hover{transform:translateY(-3px);border-color:var(--line-strong)}
+.tile:active{transform:scale(.985)}
+.tile .t-ico{font-size:22px;color:var(--accent);margin-bottom:auto}
+.tile h3{font-family:var(--ff-display);font-weight:500;font-size:19px;letter-spacing:-.01em}
+.tile small{color:var(--muted);font-size:12.5px;margin-top:3px}
+.tile.photo{justify-content:flex-end}
+.tile.photo img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:.52;transition:opacity .25s var(--ease),transform .6s var(--ease);
+}
+.tile.photo:hover img{opacity:.66;transform:scale(1.03)}
+.tile.photo::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(12,11,9,.86) 12%, rgba(12,11,9,.10) 58%);
+}
+.tile.photo>*:not(img){position:relative;z-index:1}
+.tile.glow{background:linear-gradient(140deg, var(--bg-2), rgba(226,163,59,.12))}
+.t-imagen{grid-column:span 2;grid-row:span 2}
+.t-video{grid-column:span 2}
+.t-comb{grid-column:span 2;flex-direction:row;align-items:center;justify-content:flex-start;gap:14px}
+.t-comb .t-ico{margin:0}
+.t-comb h3{font-size:17px}
+
+/* ───────────────────────── Vista: Builder ───────────────────────── */
+.bhead{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding:clamp(28px,5vh,52px) 0 22px}
+.bhead h1{font-family:var(--ff-display);font-weight:600;font-size:clamp(30px,3.6vw,44px);letter-spacing:-.02em;line-height:1}
+.bhead .meta{font-family:var(--ff-mono);font-size:12px;color:var(--muted);margin-top:8px}
+.bhead .meta b{color:var(--accent);font-weight:500}
+.ghost{
+  border:1px solid var(--line-strong);background:transparent;color:var(--text);
+  font-family:var(--ff-ui);font-weight:500;font-size:13.5px;
+  padding:10px 18px;border-radius:999px;cursor:pointer;white-space:nowrap;
+  transition:all .18s var(--ease);
+}
+.ghost:hover{background:var(--bg-2)}
+.ghost:active{transform:scale(.97)}
+
+.blayout{display:grid;grid-template-columns:2.2fr 1fr;gap:36px;align-items:start}
+
+/* Consola de secciones */
+.strip{border-top:1px solid var(--line);padding:20px 0 24px}
+.strip:last-child{border-bottom:1px solid var(--line)}
+.strip-h{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}
+.impact{
+  font-family:var(--ff-mono);font-size:12px;color:var(--accent);
+  min-width:34px;
+}
+.strip-h h2{font-family:var(--ff-display);font-weight:500;font-size:19px;letter-spacing:-.01em}
+.strip-h .count{margin-left:auto;font-family:var(--ff-mono);font-size:11.5px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  border:1px solid var(--line);background:var(--bg-1);color:var(--text);
+  font-family:var(--ff-ui);font-size:13.5px;
+  padding:8px 15px;border-radius:999px;cursor:pointer;
+  transition:all .16s var(--ease);
+}
+.chip:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+.chip:active{transform:scale(.96)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:500}
+
+/* Panel de dirección */
+.direction{
+  border:1px solid var(--line);border-radius:var(--r-surface);
+  background:var(--bg-1);padding:20px;position:sticky;top:24px;
+}
+.direction h2{font-family:var(--ff-display);font-weight:500;font-size:17px;margin-bottom:16px}
+.dgroup{margin-bottom:18px}
+.dgroup label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.dgroup select{
+  width:100%;appearance:none;
+  background:var(--bg-2);border:1px solid var(--line);border-radius:8px;
+  color:var(--text);font-family:var(--ff-ui);font-size:14px;padding:10px 12px;cursor:pointer;
+}
+.dgroup select:focus{outline:2px solid rgba(226,163,59,.5);outline-offset:1px}
+.ratios{display:flex;gap:8px;flex-wrap:wrap}
+.ratios button{
+  border:1px solid var(--line);background:var(--bg-2);color:var(--muted);
+  font-family:var(--ff-mono);font-size:12px;padding:7px 12px;border-radius:999px;cursor:pointer;
+  transition:all .16s var(--ease);
+}
+.ratios button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.direction .note{font-size:12.5px;color:var(--muted);line-height:1.55;border-top:1px solid var(--line);padding-top:14px}
+
+/* ───────────────────────── Consola del prompt ───────────────────────── */
+.console{
+  position:fixed;left:var(--rail-w);right:0;bottom:0;z-index:30;
+  height:var(--console-h);
+  background:rgba(20,18,14,.88);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border-top:1px solid var(--line-strong);
+  display:flex;align-items:center;gap:18px;
+  padding:0 clamp(20px,4vw,56px);
+}
+.console .label{font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.14em;color:var(--muted)}
+.console .line{
+  flex:1;font-family:var(--ff-mono);font-size:13px;color:var(--text);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.console .line .ph-empty{color:var(--muted)}
+.console .actions{display:flex;gap:10px;align-items:center}
+.cta{
+  border:0;background:var(--accent);color:var(--accent-ink);
+  font-family:var(--ff-ui);font-weight:600;font-size:14px;
+  padding:11px 22px;border-radius:999px;cursor:pointer;white-space:nowrap;
+  transition:all .18s var(--ease);opacity:.45;
+}
+.cta.ready{opacity:1}
+.cta.ready:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(226,163,59,.25)}
+.cta:active{transform:scale(.97)}
+
+/* ───────────────────────── Responsive ───────────────────────── */
+@media (max-width:1024px){
+  .blayout{grid-template-columns:1fr}
+  .direction{position:static}
+}
+@media (max-width:768px){
+  :root{--rail-w:0px}
+  .rail{inset:auto 0 0 0;width:100%;height:64px;flex-direction:row;justify-content:center;
+        border-right:0;border-top:1px solid var(--line);padding:0 8px}
+  .rail .mark,.rail .spacer,.rail .avatar,.rail .tip{display:none}
+  .stage{margin-left:0;padding-left:16px;padding-right:16px;padding-bottom:170px}
+  .console{left:0;bottom:64px;height:auto;flex-wrap:wrap;padding:12px 16px;gap:10px}
+  .console .line{flex-basis:100%;order:-1}
+  .bento{grid-template-columns:1fr 1fr;grid-auto-rows:130px}
+  .t-imagen,.t-video,.t-comb{grid-column:span 2}
+}
+
+/* ───────────────────────── Reduced motion ───────────────────────── */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .cascade>*{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Riel -->
+<nav class="rail" aria-label="Navegación principal">
+  <div class="mark">P</div>
+  <button class="rail-btn on" data-view="home" aria-label="Inicio"><i class="ph ph-house"></i><span class="tip">Inicio</span></button>
+  <button class="rail-btn" data-view="builder" aria-label="Builder"><i class="ph ph-sliders-horizontal"></i><span class="tip">Builder</span></button>
+  <button class="rail-btn" aria-label="Biblioteca"><i class="ph ph-books"></i><span class="tip">Biblioteca</span></button>
+  <button class="rail-btn" aria-label="Referencias"><i class="ph ph-image-square"></i><span class="tip">Referencias</span></button>
+  <button class="rail-btn" aria-label="Comunidad"><i class="ph ph-users-three"></i><span class="tip">Comunidad</span></button>
+  <button class="rail-btn" aria-label="Estadísticas"><i class="ph ph-chart-bar"></i><span class="tip">Estadísticas</span></button>
+  <div class="spacer"></div>
+  <button class="rail-btn" aria-label="Ajustes"><i class="ph ph-gear-six"></i><span class="tip">Panel de control</span></button>
+  <div class="avatar">GP</div>
+</nav>
+
+<main class="stage">
+  <div class="topline">
+    <div class="word">Prompt Builder <em>Pro</em></div>
+    <div class="session">propuesta · director's cut</div>
+  </div>
+
+  <!-- ───────── Vista Inicio ───────── -->
+  <section class="view on" id="view-home">
+    <div class="cascade">
+      <div class="hero">
+        <h1>¿Qué vas a <span class="lit">crear</span> hoy?</h1>
+        <p>Elige una categoría y construye tu prompt parámetro a parámetro, con control de dirección total.</p>
+      </div>
+
+      <div class="reel" role="tablist" aria-label="Grupos de categorías">
+        <button class="on">Creación de Contenido</button>
+        <button>Finanzas y Negocio</button>
+        <button>Marketing</button>
+        <button>Equipo</button>
+        <button>Networking</button>
+        <button>Código</button>
+        <button>Investigación</button>
+        <button>Soporte</button>
+      </div>
+
+      <div class="bento">
+        <button class="tile photo t-imagen">
+          <img src="https://picsum.photos/seed/cinematic-portrait-tungsten/900/760" alt="">
+          <i class="ph ph-image t-ico"></i>
+          <h3>Imagen</h3><small>Fotografía, arte, retrato, producto</small>
+        </button>
+        <button class="tile photo t-video">
+          <img src="https://picsum.photos/seed/film-set-night-city/900/360" alt="">
+          <i class="ph ph-film-slate t-ico"></i>
+          <h3>Video cinematográfico</h3><small>Timeline segundo a segundo</small>
+        </button>
+        <button class="tile glow">
+          <i class="ph ph-diamond t-ico"></i>
+          <h3>Marca</h3><small>Logo e identidad</small>
+        </button>
+        <button class="tile photo">
+          <img src="https://picsum.photos/seed/character-studio-bw/420/340" alt="">
+          <i class="ph ph-user-focus t-ico"></i>
+          <h3>Personaje</h3><small>Identidad y vestuario</small>
+        </button>
+        <button class="tile photo">
+          <img src="https://picsum.photos/seed/location-fog-valley/420/340" alt="">
+          <i class="ph ph-mountains t-ico"></i>
+          <h3>Locación</h3><small>Ambientes y mundos</small>
+        </button>
+        <button class="tile">
+          <i class="ph ph-squares-four t-ico"></i>
+          <h3>Storyboard</h3><small>Planos y secuencias</small>
+        </button>
+        <button class="tile">
+          <i class="ph ph-music-notes t-ico"></i>
+          <h3>Música</h3><small>Bandas y temas</small>
+        </button>
+        <button class="tile">
+          <i class="ph ph-waveform t-ico"></i>
+          <h3>Sonido</h3><small>FX y ambientes</small>
+        </button>
+        <button class="tile">
+          <i class="ph ph-microphone t-ico"></i>
+          <h3>Voz</h3><small>Narración y locución</small>
+        </button>
+        <button class="tile">
+          <i class="ph ph-app-window t-ico"></i>
+          <h3>App / UI</h3><small>Interfaces y producto</small>
+        </button>
+        <button class="tile t-comb">
+          <i class="ph ph-intersect t-ico"></i>
+          <div><h3>Combinar prompts</h3><small>Une varios en uno</small></div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── Vista Builder ───────── -->
+  <section class="view" id="view-builder">
+    <div class="cascade">
+      <div class="bhead">
+        <div>
+          <h1>Imagen</h1>
+          <div class="meta">impacto medio <b>91</b> · <span id="selcount">0 selecciones</span></div>
+        </div>
+        <button class="ghost"><i class="ph ph-magic-wand"></i>&nbsp; Analizar archivo</button>
+      </div>
+
+      <div class="blayout">
+        <div>
+          <div class="strip">
+            <div class="strip-h"><span class="impact">98</span><h2>Iluminación</h2><span class="count">34 opciones</span></div>
+            <div class="chips">
+              <button class="chip">Golden hour</button>
+              <button class="chip">Rembrandt</button>
+              <button class="chip">Contraluz</button>
+              <button class="chip">Neón práctico</button>
+              <button class="chip">Luz de vela</button>
+              <button class="chip">Tungsteno cálido</button>
+              <button class="chip">Claroscuro</button>
+              <button class="chip">Luz de ventana</button>
+            </div>
+          </div>
+          <div class="strip">
+            <div class="strip-h"><span class="impact">95</span><h2>Estilo de arte</h2><span class="count">28 opciones</span></div>
+            <div class="chips">
+              <button class="chip">Fotorrealista</button>
+              <button class="chip">Cine analógico</button>
+              <button class="chip">Editorial de moda</button>
+              <button class="chip">Documental</button>
+              <button class="chip">Pintura al óleo</button>
+              <button class="chip">Anime 90s</button>
+            </div>
+          </div>
+          <div class="strip">
+            <div class="strip-h"><span class="impact">90</span><h2>Cámara y lente</h2><span class="count">51 opciones</span></div>
+            <div class="chips">
+              <button class="chip">ARRI Alexa 65</button>
+              <button class="chip">85mm f/1.4</button>
+              <button class="chip">Plano medio</button>
+              <button class="chip">Picado suave</button>
+              <button class="chip">35mm anamórfico</button>
+              <button class="chip">Macro 100mm</button>
+            </div>
+          </div>
+          <div class="strip">
+            <div class="strip-h"><span class="impact">88</span><h2>Película y LUT</h2><span class="count">26 opciones</span></div>
+            <div class="chips">
+              <button class="chip">Kodak Portra 400</button>
+              <button class="chip">CineStill 800T</button>
+              <button class="chip">Fuji Velvia 50</button>
+              <button class="chip">Ilford HP5</button>
+              <button class="chip">Kodak Vision3</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="direction">
+          <h2>Dirección</h2>
+          <div class="dgroup">
+            <label for="dna">Reference DNA</label>
+            <select id="dna">
+              <option>Denis Villeneuve</option>
+              <option>Wong Kar-wai</option>
+              <option>Stanley Kubrick</option>
+              <option>Andrei Tarkovsky</option>
+            </select>
+          </div>
+          <div class="dgroup">
+            <label>Aspect ratio</label>
+            <div class="ratios">
+              <button class="on">16:9</button>
+              <button>2.39:1</button>
+              <button>4:5</button>
+              <button>9:16</button>
+              <button>1:1</button>
+            </div>
+          </div>
+          <p class="note">El DNA del director precarga paleta, lente y atmósfera. Puedes pisar cualquier valor con tus chips.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Consola del prompt -->
+<footer class="console">
+  <span class="label">PROMPT</span>
+  <div class="line" id="prompt-line"><span class="ph-empty">Selecciona chips para empezar a construir…</span></div>
+  <div class="actions">
+    <button class="ghost" id="copy-btn">Copiar</button>
+    <button class="ghost">Guardar</button>
+    <button class="cta" id="ai-btn">Refinar con IA</button>
+  </div>
+</footer>
+
+<script>
+// Prototipo: navegación entre vistas + chips que alimentan la consola del prompt.
+const views = { home: document.getElementById('view-home'), builder: document.getElementById('view-builder') };
+document.querySelectorAll('.rail-btn[data-view]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.rail-btn').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    Object.values(views).forEach(v => v.classList.remove('on'));
+    views[btn.dataset.view].classList.add('on');
+    // reinicia la cascada de entrada
+    const c = views[btn.dataset.view].querySelector('.cascade');
+    c.classList.remove('cascade'); void c.offsetWidth; c.classList.add('cascade');
+  });
+});
+// Las tarjetas del bento llevan al Builder
+document.querySelectorAll('.tile').forEach(t => t.addEventListener('click', () =>
+  document.querySelector('[data-view="builder"]').click()));
+
+// Chips → prompt
+const selected = [];
+const line = document.getElementById('prompt-line');
+const aiBtn = document.getElementById('ai-btn');
+const selCount = document.getElementById('selcount');
+function renderPrompt(){
+  line.innerHTML = selected.length
+    ? selected.join(', ')
+    : '<span class="ph-empty">Selecciona chips para empezar a construir…</span>';
+  aiBtn.classList.toggle('ready', selected.length > 0);
+  if (selCount) selCount.textContent = selected.length + (selected.length === 1 ? ' selección' : ' selecciones');
+}
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    chip.classList.toggle('on');
+    const v = chip.textContent.trim();
+    const i = selected.indexOf(v);
+    i > -1 ? selected.splice(i, 1) : selected.push(v);
+    renderPrompt();
+  });
+});
+// Ratios (selección única)
+document.querySelectorAll('.ratios button').forEach(r => r.addEventListener('click', () => {
+  document.querySelectorAll('.ratios button').forEach(b => b.classList.remove('on'));
+  r.classList.add('on');
+}));
+document.getElementById('copy-btn').addEventListener('click', () => {
+  if (selected.length) navigator.clipboard?.writeText(selected.join(', '));
+});
+</script>
+</body>
+</html>
