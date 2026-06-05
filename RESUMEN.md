@@ -82,6 +82,13 @@ Bugs encontrados y corregidos (todos de i18n/UX, ninguno funcional):
 - 🟠 **Eliminar un prompt era instantáneo y sin deshacer** (carpetas y referencias sí confirmaban) → ahora pide confirmación.
 - 🟢 **nav_r añadido a los 7 idiomas parciales** (ZH/HI/AR/BN/PT/RU/JA): "Referencias" ya no aparece en inglés en esos idiomas.
 
+### 9. Refinamiento visual + nueva paleta esmeralda (5 jun 2026)
+Sin tocar arquitectura ni funcionalidad (solo CSS, en bloques reversibles al final del estilo):
+- **Pulido**: sombras cálidas en capas con lift al hover, respuesta táctil en tags/botones, foco con anillo del acento, modales con entrada suave, scrollbars del tema, modo oscuro con más profundidad. Respeta `prefers-reduced-motion`.
+- **Amplificación**: fuga de luz sutil, titular con más presencia, iconos de categoría en chips del acento, subrayado corto en cabeceras de grupo, CTA de IA en el color del acento, barra lateral con gradiente y barra de acento en el item activo.
+- **Paleta**: el ámbar pasó a **esmeralda** (#059669 claro / #34d399 oscuro) en ambos temas, elegida entre 3 candidatas previsualizadas en vivo (violeta, cobalto, esmeralda). Todos los ámbar hardcodeados migrados (sidebar activo, drag de carpetas, engine badge, botones de orden); las **estrellas ★ de favoritos siguen doradas** (semántico). Los presets de tema y los colores personalizados de tags no se tocaron.
+- Una propuesta de rediseño completo ("Director's Cut", `propuesta-estetica/`) fue descartada por perder la esencia; quedó en el repo como referencia.
+
 ---
 
 ## 🕓 Historial de commits
