@@ -1,6 +1,6 @@
 # 📋 Resumen del proyecto — Prompt Builder Pro
 
-Documento de seguimiento de todo lo trabajado. Última actualización: **4 de junio de 2026**.
+Documento de seguimiento de todo lo trabajado. Última actualización: **5 de junio de 2026**.
 
 ---
 
@@ -86,8 +86,10 @@ Bugs encontrados y corregidos (todos de i18n/UX, ninguno funcional):
 Sin tocar arquitectura ni funcionalidad (solo CSS, en bloques reversibles al final del estilo):
 - **Pulido**: sombras cálidas en capas con lift al hover, respuesta táctil en tags/botones, foco con anillo del acento, modales con entrada suave, scrollbars del tema, modo oscuro con más profundidad. Respeta `prefers-reduced-motion`.
 - **Amplificación**: fuga de luz sutil, titular con más presencia, iconos de categoría en chips del acento, subrayado corto en cabeceras de grupo, CTA de IA en el color del acento, barra lateral con gradiente y barra de acento en el item activo.
-- **Paleta**: el ámbar pasó a **esmeralda** (#059669 claro / #34d399 oscuro) en ambos temas, elegida entre 3 candidatas previsualizadas en vivo (violeta, cobalto, esmeralda). Todos los ámbar hardcodeados migrados (sidebar activo, drag de carpetas, engine badge, botones de orden); las **estrellas ★ de favoritos siguen doradas** (semántico). Los presets de tema y los colores personalizados de tags no se tocaron.
+- **Paleta**: el ámbar pasó a **esmeralda**, elegida entre 3 candidatas previsualizadas en vivo (violeta, cobalto, esmeralda), y luego se intensificó a pedido (**#00a56d claro / #2ee6a0 oscuro**, tintes más saturados, fuga de luz al 10%, tinta oscura sobre el verde vivo para contraste WCAG). Todos los ámbar hardcodeados migrados a `color-mix(var(--acc))` (sidebar activo, drag de carpetas, engine badge, botones de orden) — cambiar de paleta a futuro es tocar 6 variables. Las **estrellas ★ de favoritos siguen doradas** (semántico). Los presets de tema y los colores personalizados de tags no se tocaron.
 - Una propuesta de rediseño completo ("Director's Cut", `propuesta-estetica/`) fue descartada por perder la esencia; quedó en el repo como referencia.
+
+> 🎨 **Estado de la dirección visual:** EN REVISIÓN. La paleta esmeralda intensa quedó aplicada, pero no convence del todo — está pendiente definir una nueva dirección estética con referencias del usuario. Volver al ámbar original es revertir 2 commits (`a96f4db` y `600cb1f`); los bloques "REFINAMIENTO" y "AMPLIFICACIÓN" al final del CSS son independientes de la paleta.
 
 ---
 
@@ -103,6 +105,13 @@ Sin tocar arquitectura ni funcionalidad (solo CSS, en bloques reversibles al fin
 | `ed74e5c` | Seguridad y bugs: repara botones rotos y cierra XSS |
 | `be6d369` | Admin: contraseña por defecto no obvia + actualiza RESUMEN.md |
 | `114c7d4` | Code review: fix seedSuperUser, escapes completos, traducciones unificadas, README al día |
+| `b23dd9f` | Privacidad: saca conversation_history.txt y .claude/ del repo público + favicon |
+| `e419aa7` | QA completo + fixes i18n/UX tras probar la app botón por botón |
+| `e47c9b7` | Propuesta estética "Director's Cut" (descartada, queda como referencia) |
+| `7938763` | Refinamiento estético conservador: misma UI, más pulida |
+| `d819985` | Amplificación de identidad visual: solo CSS, arquitectura intacta |
+| `a96f4db` | Paleta esmeralda: mismo diseño, nuevo color en ambos temas |
+| `600cb1f` | Esmeralda más intenso: acento vivo en ambos temas |
 
 ---
 
