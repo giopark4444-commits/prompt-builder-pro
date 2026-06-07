@@ -1,6 +1,6 @@
 # 📋 Resumen del proyecto — Prompt Builder Pro
 
-Documento de seguimiento de todo lo trabajado. Última actualización: **5 de junio de 2026**.
+Documento de seguimiento de todo lo trabajado. Última actualización: **7 de junio de 2026**.
 
 ---
 
@@ -89,7 +89,15 @@ Sin tocar arquitectura ni funcionalidad (solo CSS, en bloques reversibles al fin
 - **Paleta**: el ámbar pasó a **esmeralda**, elegida entre 3 candidatas previsualizadas en vivo (violeta, cobalto, esmeralda), y luego se intensificó a pedido (**#00a56d claro / #2ee6a0 oscuro**, tintes más saturados, fuga de luz al 10%, tinta oscura sobre el verde vivo para contraste WCAG). Todos los ámbar hardcodeados migrados a `color-mix(var(--acc))` (sidebar activo, drag de carpetas, engine badge, botones de orden) — cambiar de paleta a futuro es tocar 6 variables. Las **estrellas ★ de favoritos siguen doradas** (semántico). Los presets de tema y los colores personalizados de tags no se tocaron.
 - Una propuesta de rediseño completo ("Director's Cut", `propuesta-estetica/`) fue descartada por perder la esencia; quedó en el repo como referencia.
 
-> 🎨 **Estado de la dirección visual:** EN REVISIÓN. La paleta esmeralda intensa quedó aplicada, pero no convence del todo — está pendiente definir una nueva dirección estética con referencias del usuario. Volver al ámbar original es revertir 2 commits (`a96f4db` y `600cb1f`); los bloques "REFINAMIENTO" y "AMPLIFICACIÓN" al final del CSS son independientes de la paleta.
+### 10. Dirección visual definida: grafito monocromo (7 jun 2026)
+Tras revisar la paleta esmeralda (no convencía), se eligió una dirección **grafito / monocromo sobrio** y se aplicó directamente (solo las variables de acento + los textos que iban sobre el acento sólido):
+- **Paleta** (sigue centralizada en 6 variables): acento grafito cálido que armoniza con la base piedra y no compite con el morado (sugerencias) ni el dorado (favoritos).
+  - Claro: `--acc #3f3a34` · `--acc-bg #e9e5df` · `--acc-tx #3a352f`
+  - Oscuro: `--acc #6e675e` · `--acc-bg #262219` · `--acc-tx #ddd6cc`
+- **Inversión de contraste:** como el acento pasó de verde brillante a grafito oscuro, los textos que se dibujan *sobre* el acento sólido (estaban hardcodeados en tinta oscura para el verde) se invirtieron a blanco: avatar de usuario, icono de categoría (hover/activo), CTA principal de IA (`.abtn.em`), y los 2 botones que usaban `--acc-tx` sobre `--acc` (diálogo de carpeta "ok", pill de pack activo). Contraste WCAG verificado (blanco sobre acento ≈10:1 claro / ≈4.9:1 oscuro).
+- Comentarios internos del CSS actualizados (ya no dicen "ámbar"). Las estrellas ★ de favoritos siguen doradas (semántico); los presets de tema y los colores de tags no se tocaron.
+
+> 🎨 **Estado de la dirección visual:** APLICADA (grafito monocromo). Volver al esmeralda es revertir 1 commit (`f7b1094`); volver al ámbar original son 3 (`f7b1094`, `600cb1f`, `a96f4db`). Los bloques "REFINAMIENTO" y "AMPLIFICACIÓN" al final del CSS son independientes de la paleta y siguen vigentes.
 
 ---
 
@@ -112,6 +120,7 @@ Sin tocar arquitectura ni funcionalidad (solo CSS, en bloques reversibles al fin
 | `d819985` | Amplificación de identidad visual: solo CSS, arquitectura intacta |
 | `a96f4db` | Paleta esmeralda: mismo diseño, nuevo color en ambos temas |
 | `600cb1f` | Esmeralda más intenso: acento vivo en ambos temas |
+| `f7b1094` | Paleta grafito monocromo: dirección visual sobria en ambos temas |
 
 ---
 

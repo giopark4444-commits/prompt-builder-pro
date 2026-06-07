@@ -12,7 +12,7 @@
   --tx:#1c1917;--tx2:#57534e;--tx3:#a8a29e;
   --bd:rgba(0,0,0,.07);--bd2:rgba(0,0,0,.12);
   --sel:#1c1917;--sel-tx:#faf9f7;
-  --acc:#00a56d;--acc-bg:#d7f7e9;--acc-tx:#01734c;
+  --acc:#3f3a34;--acc-bg:#e9e5df;--acc-tx:#3a352f;
   --sug:#7c3aed;--sug-bg:#f5f3ff;--sug-tx:#5b21b6;
   --fav:#b45309;--fav-bg:#fffbeb;--fav-tx:#92400e;
   --ok:#16a34a;--ok-bg:#f0fdf4;--ok-tx:#15803d;
@@ -28,7 +28,7 @@
   --tx:#eae6e0;--tx2:#a8a39d;--tx3:#807872;
   --bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.13);
   --sel:#eae6e0;--sel-tx:#111110;
-  --acc:#2ee6a0;--acc-bg:#0a3f29;--acc-tx:#b8ffe3;
+  --acc:#6e675e;--acc-bg:#262219;--acc-tx:#ddd6cc;
   --sug:#a78bfa;--sug-bg:#1e1340;--sug-tx:#c4b5fd;
   --fav:#fbbf24;--fav-bg:#2a1f00;--fav-tx:#fde68a;
   --ok:#4ade80;--ok-bg:#052e16;--ok-tx:#86efac;
@@ -68,7 +68,7 @@ body{font-family:var(--ff);background:var(--bg);color:var(--tx);min-height:100vh
 /* user pill (at top, dark-bg-aware) */
 #user-pill-wrap{padding:.75rem 1rem .5rem}
 .user-pill{display:flex;align-items:center;gap:.55rem;padding:.48rem .65rem;border-radius:var(--r);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);cursor:default}
-.user-avatar{width:27px;height:27px;border-radius:50%;background:var(--acc);color:#1c1a17;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-transform:uppercase;letter-spacing:.02em}
+.user-avatar{width:27px;height:27px;border-radius:50%;background:var(--acc);color:#fff;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-transform:uppercase;letter-spacing:.02em}
 .user-name{font-size:.77rem;font-weight:500;color:rgba(255,255,255,.72);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--ff)}
 .logout-btn{font-size:.68rem;color:rgba(255,255,255,.3);background:none;border:none;cursor:pointer;padding:.18rem .32rem;border-radius:5px;font-family:var(--ff);transition:all .13s;line-height:1}
 .logout-btn:hover{background:rgba(255,255,255,.1);color:rgba(255,255,255,.75)}
@@ -495,7 +495,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .fdlg-row{display:flex;gap:.42rem;justify-content:flex-end}
 .fdlg-btn{padding:.35rem .85rem;border-radius:var(--r);border:1px solid var(--bd2);background:none;color:var(--tx2);font-size:.78rem;cursor:pointer;font-family:var(--ff);transition:all .12s}
 .fdlg-btn:hover{background:var(--bg3);color:var(--tx)}
-.fdlg-btn.ok{background:var(--acc);color:var(--acc-tx);border-color:transparent;font-weight:600}
+.fdlg-btn.ok{background:var(--acc);color:#fff;border-color:transparent;font-weight:600}
 .fdlg-btn.ok:hover{opacity:.86}
 .fdlg-btn.del{background:#dc2626;color:#fff;border-color:transparent}
 .fdlg-btn.del:hover{opacity:.86}
@@ -512,7 +512,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .lib-pack-bar{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;margin-bottom:.9rem}
 .lib-pack-pill{padding:.28rem .75rem;border-radius:99px;border:1px solid var(--bd);background:none;color:var(--tx3);font-size:.72rem;cursor:pointer;font-family:var(--ff);transition:all .13s;white-space:nowrap}
 .lib-pack-pill:hover{border-color:var(--bd2);color:var(--tx);background:var(--bg3)}
-.lib-pack-pill.active{background:var(--acc);color:var(--acc-tx);border-color:transparent;font-weight:600}
+.lib-pack-pill.active{background:var(--acc);color:#fff;border-color:transparent;font-weight:600}
 .lib-pack-actions{display:flex;gap:.3rem;margin-left:auto}
 /* Pack category badge on each item */
 .lib-pcat-badge{display:inline-flex;align-items:center;gap:.18rem;font-size:.58rem;padding:.1rem .42rem;border-radius:99px;background:var(--bg3);border:1px solid var(--bd);color:var(--tx3);cursor:pointer;transition:all .12s;line-height:1.4;font-family:var(--ff)}
@@ -1142,7 +1142,7 @@ button:focus-visible{outline:2px solid color-mix(in srgb,var(--acc) 55%,transpar
    Borrar este bloque revierte el aspecto.
    ════════════════════════════════════════════════════════════════ */
 
-/* Atmósfera: una fuga de luz ámbar muy sutil arriba, en ambos temas */
+/* Atmósfera: una fuga de luz neutra muy sutil arriba, en ambos temas */
 body{position:relative}
 body::after{
   content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
@@ -1156,27 +1156,27 @@ body::after{
 /* Sidebar: profundidad con gradiente sobre su mismo color (respeta presets) */
 .sidebar{background-image:linear-gradient(180deg,rgba(255,255,255,.035),transparent 26%,rgba(0,0,0,.18) 100%)}
 .slogo-sub{color:color-mix(in srgb,var(--acc) 62%,rgba(255,255,255,.3))}
-/* Item activo: barra ámbar a la izquierda + texto más vivo */
+/* Item activo: barra de acento a la izquierda + texto más vivo */
 .ni.active{box-shadow:inset 2.5px 0 0 var(--acc)}
 
-/* Tarjetas de categoría: el icono vive en un chip ámbar del tema */
+/* Tarjetas de categoría: el icono vive en un chip del acento del tema */
 .cc-icon{
   background:var(--acc-bg);color:var(--acc-tx);
   width:2.1em;height:2.1em;border-radius:12px;
   margin:0 auto .3rem;
   transition:background .18s,color .18s,transform .18s cubic-bezier(.16,1,.3,1);
 }
-.cat-card:hover .cc-icon{background:var(--acc);color:#02130c;transform:scale(1.06)}
-.cat-card.active .cc-icon{background:var(--acc);color:#02130c}
+.cat-card:hover .cc-icon{background:var(--acc);color:#fff;transform:scale(1.06)}
+.cat-card.active .cc-icon{background:var(--acc);color:#fff}
 
-/* Cabeceras de grupo: subrayado ámbar corto sobre la línea existente */
+/* Cabeceras de grupo: subrayado de acento corto sobre la línea existente */
 .cat-group-hdr{position:relative}
 .cat-group-hdr::after{content:"";position:absolute;left:0;bottom:-1px;width:32px;height:2px;background:var(--acc);border-radius:2px}
 
-/* CTA principal de IA en ámbar (una sola intención primaria, mismo botón) */
-.abtn.em{background:var(--acc);border-color:var(--acc);color:#02130c;font-weight:600}
+/* CTA principal de IA en el acento (una sola intención primaria, mismo botón) */
+.abtn.em{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
 .abtn.em:hover{background:color-mix(in srgb,var(--acc) 88%,#000);box-shadow:0 4px 14px color-mix(in srgb,var(--acc) 35%,transparent)}
-[data-theme=dark] .abtn.em{color:#06130d}
+[data-theme=dark] .abtn.em{color:#fff}
 
 /* Cuadro del prompt: superficie con elevación propia */
 #prompt-area{background:var(--bg2);box-shadow:var(--sh)}
