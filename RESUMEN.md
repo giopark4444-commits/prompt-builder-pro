@@ -99,6 +99,14 @@ Tras revisar la paleta esmeralda (no convencía), se eligió una dirección **gr
 
 > 🎨 **Estado de la dirección visual:** APLICADA (grafito monocromo). Volver al esmeralda es revertir los commits de paleta; los bloques "REFINAMIENTO" y "AMPLIFICACIÓN" al final del CSS son independientes de la paleta y siguen vigentes.
 
+### 12. Adaptación a dispositivos (7 jun 2026)
+La app ya tenía buena base responsive (media queries para tablet 601–1024px y móvil ≤600px, barra superior y nav inferior móviles). Se auditó con Playwright en una matriz real (320, 390, 768, 1024, 1440 px × 7 vistas) y se corrigieron dos problemas concretos:
+- 🟠 **Barra de acciones del prompt recortada en tablet:** entre 601–1024px, la `.pf-bar` (idioma + IA + Copiar/Guardar/Reset) usaba `nowrap` + scroll horizontal y **recortaba "★ Guardar" y "Reset"**. Ahora **envuelve** a varias líneas (`flex-wrap:wrap` + `row-gap`); también ayuda en ventanas de escritorio estrechas.
+- 🔴 **Vistas inaccesibles en móvil:** Comunidad, Estadísticas y Ayuda solo vivían en el sidebar (oculto en móvil) y el avatar saltaba directo a Perfil → **no había forma de llegar a ellas en teléfono**. Se añadió un **menú desplegable desde el avatar** (`toggleMobMenu`) con Perfil, Comunidad, Estadísticas, Ayuda (+Admin si superusuario) y Cerrar sesión. Para invitados aparece un disparador ☰ con Estadísticas/Ayuda.
+- ✅ Verificado: 0 overflow horizontal en toda la matriz, los diagramas SVG de la ayuda escalan, y el menú móvil navega correctamente (probado con registro real). 0 errores de consola propios.
+
+> 🐞 **Hallazgos i18n (fuera del alcance "dispositivos", pendientes):** en el panel, `cp_lang_h` muestra la **clave cruda** en vez del texto (falta la traducción); y el subtítulo de **Comunidad** está hardcodeado en español (no sigue el idioma de la UI). Anotados para una pasada i18n futura.
+
 ### 11. Ayuda en 10 idiomas + imports robustos + sidebar monocromo (7 jun 2026)
 Tres frentes cerrados en una tanda (verificados con Playwright sobre el navegador real):
 - 🌍 **Centro de ayuda en los 10 idiomas:** los 176 textos de la ayuda se tradujeron a los 7 idiomas que antes caían a inglés (ZH, HI, AR, BN, PT, RU, JA). Se añadió un diccionario `HELP_X` (idioma → clave → texto) que `ht()` consulta antes del fallback a EN; las traducciones ES/EN/FR originales quedan intactas. **Árabe con RTL** *scoped* al contenedor de la ayuda (`dir=rtl` solo ahí; el resto de la app no se voltea). Verificado: la ayuda renderiza traducida en ZH/AR/RU y el árabe sale en RTL.
