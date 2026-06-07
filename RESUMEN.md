@@ -97,7 +97,14 @@ Tras revisar la paleta esmeralda (no convencía), se eligió una dirección **gr
 - **Inversión de contraste:** como el acento pasó de verde brillante a grafito oscuro, los textos que se dibujan *sobre* el acento sólido (estaban hardcodeados en tinta oscura para el verde) se invirtieron a blanco: avatar de usuario, icono de categoría (hover/activo), CTA principal de IA (`.abtn.em`), y los 2 botones que usaban `--acc-tx` sobre `--acc` (diálogo de carpeta "ok", pill de pack activo). Contraste WCAG verificado (blanco sobre acento ≈10:1 claro / ≈4.9:1 oscuro).
 - Comentarios internos del CSS actualizados (ya no dicen "ámbar"). Las estrellas ★ de favoritos siguen doradas (semántico); los presets de tema y los colores de tags no se tocaron.
 
-> 🎨 **Estado de la dirección visual:** APLICADA (grafito monocromo). Volver al esmeralda es revertir 1 commit (`f7b1094`); volver al ámbar original son 3 (`f7b1094`, `600cb1f`, `a96f4db`). Los bloques "REFINAMIENTO" y "AMPLIFICACIÓN" al final del CSS son independientes de la paleta y siguen vigentes.
+> 🎨 **Estado de la dirección visual:** APLICADA (grafito monocromo). Volver al esmeralda es revertir los commits de paleta; los bloques "REFINAMIENTO" y "AMPLIFICACIÓN" al final del CSS son independientes de la paleta y siguen vigentes.
+
+### 11. Ayuda en 10 idiomas + imports robustos + sidebar monocromo (7 jun 2026)
+Tres frentes cerrados en una tanda (verificados con Playwright sobre el navegador real):
+- 🌍 **Centro de ayuda en los 10 idiomas:** los 176 textos de la ayuda se tradujeron a los 7 idiomas que antes caían a inglés (ZH, HI, AR, BN, PT, RU, JA). Se añadió un diccionario `HELP_X` (idioma → clave → texto) que `ht()` consulta antes del fallback a EN; las traducciones ES/EN/FR originales quedan intactas. **Árabe con RTL** *scoped* al contenedor de la ayuda (`dir=rtl` solo ahí; el resto de la app no se voltea). Verificado: la ayuda renderiza traducida en ZH/AR/RU y el árabe sale en RTL.
+- 🛡 **Imports robustos** (`importLib` / `importPack`): límite de tamaño (8 MB), validación de forma y `sanitizeLibItem` que reconstruye cada prompt solo con campos conocidos y coerción de tipos (evita crashes por tipos raros y prototype pollution); `packName` capeado. Sin cambios de UX para archivos válidos.
+- 🎨 **Sidebar al grafito:** el estado activo del menú y de las carpetas tenía un **verde esmeralda hardcodeado** (`rgba(0,229,151)`/`#36f0a8`) que la migración previa no tocó — por eso seguía verde tras cambiar la paleta. Ahora usa un realce **blanco neutro** (sobrio y legible sobre el sidebar siempre-oscuro, independiente del tema). El sidebar quedó 100 % monocromo.
+- 🧪 QA visual: 0 errores de consola propios (solo un `ERR_CERT` del CDN de fuentes, bloqueado por la red del sandbox; la app cae a fuentes del sistema).
 
 ---
 
@@ -121,12 +128,14 @@ Tras revisar la paleta esmeralda (no convencía), se eligió una dirección **gr
 | `a96f4db` | Paleta esmeralda: mismo diseño, nuevo color en ambos temas |
 | `600cb1f` | Esmeralda más intenso: acento vivo en ambos temas |
 | `f7b1094` | Paleta grafito monocromo: dirección visual sobria en ambos temas |
+| `fe79176` | Imports robustos + infraestructura i18n de la ayuda |
+| *(este commit)* | Ayuda en 10 idiomas (HELP_X) + sidebar monocromo + QA |
 
 ---
 
 ## 💡 Posibles siguientes pasos
 
-- Traducir el centro de ayuda a los otros 7 idiomas de la interfaz (hoy caen a inglés).
+- ~~Traducir el centro de ayuda a los otros 7 idiomas~~ ✅ Hecho (ZH/HI/AR/BN/PT/RU/JA, con RTL en árabe). Pendiente opcional: revisión por hablantes nativos.
 - Añadir un **backend** (p. ej. Supabase) si se quiere que usuarios/Comunidad/Admin sean reales y compartidos.
 - Validación robusta de los archivos JSON/packs que se importan.
 - Ideas del propio proyecto: pesos por tag (0.1–2.0), historial de versiones del prompt, modo "Director" con estética precargada, exportar en sintaxis nativa de cada plataforma (`--ar`, `--chaos`…).

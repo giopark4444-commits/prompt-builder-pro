@@ -4,3 +4,8 @@
 # Privado / local — no publicar en el repo público
 promptbuilder_export/conversation_history.txt
 .claude/
+
+# Tooling local de QA (Playwright) — no forma parte de la app standalone
+node_modules/
+package.json
+package-lock.json
