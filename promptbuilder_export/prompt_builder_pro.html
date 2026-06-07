@@ -3770,7 +3770,64 @@ function shareLib(i){
 }
 function delItem(i){fdlgAsk(t("lib_delc"),function(){S.library.splice(i,1);persist();updateLibBadge();renderLib();toast(t("t_dl"));});}
 function exportLib(){const blob=new Blob([JSON.stringify(S.library,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="prompts-"+new Date().toISOString().slice(0,10)+".json";a.click();toast(t("t_ex"));}
-function importLib(){const inp=document.createElement("input");inp.type="file";inp.accept=".json";inp.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(Array.isArray(d)){S.library=[...d,...S.library].slice(0,80);persist();updateLibBadge();renderLib();toast(d.length+" "+t("t_im"));}}catch(err){toast(t("t_inv"));}};r.readAsText(f);};inp.click();}
+// ── Saneamiento de imports (biblioteca / packs) ──────────────────
+// Robustece la importación de JSON: límite de tamaño, validación de
+// forma y coerción de tipos. Construye items nuevos solo con campos
+// conocidos (evita prototype pollution y crashes por tipos raros).
+const LIB_MAX_ITEMS=80;
+const LIB_IMPORT_MAX_BYTES=8*1024*1024;   // 8 MB
+const LIB_IMPORT_MAX_ITEMS=2000;          // tope antes de filtrar
+function _libStr(v,max){return typeof v==="string"?v.slice(0,max):"";}
+function _libObj(v){return (v&&typeof v==="object"&&!Array.isArray(v))?v:{};}
+function sanitizeLibItem(raw){
+  if(!raw||typeof raw!=="object"||Array.isArray(raw))return null;
+  const name=_libStr(raw.name,200).trim();
+  const prompt=_libStr(raw.prompt,20000);
+  if(!name&&!prompt.trim())return null;   // descarta items vacíos
+  return {
+    name:name||"—",
+    prompt,
+    category:_libStr(raw.category,100),
+    lang:_libStr(raw.lang,20),
+    date:_libStr(raw.date,40)||new Date().toLocaleDateString("es",{day:"2-digit",month:"short"}),
+    folderId:typeof raw.folderId==="string"?raw.folderId.slice(0,80):null,
+    packCat:_libStr(raw.packCat,50),
+    vals:_libObj(raw.vals),
+    customs:_libObj(raw.customs),
+    secOrder:_libObj(raw.secOrder),
+    sortMode:_libObj(raw.sortMode),
+    timeline:Array.isArray(raw.timeline)?raw.timeline.slice(0,200):[],
+    vidVisual:_libStr(raw.vidVisual,5000),
+    vidNarr:_libStr(raw.vidNarr,5000)
+  };
+}
+function sanitizeLibImport(d){
+  let items=null;
+  if(Array.isArray(d))items=d;
+  else if(d&&typeof d==="object"&&Array.isArray(d.items))items=d.items;
+  if(!items)return null;                   // forma no reconocida
+  if(items.length>LIB_IMPORT_MAX_ITEMS)items=items.slice(0,LIB_IMPORT_MAX_ITEMS);
+  const clean=[];
+  for(const it of items){const s=sanitizeLibItem(it);if(s)clean.push(s);}
+  return clean;
+}
+function importLib(){
+  const inp=document.createElement("input");inp.type="file";inp.accept=".json";
+  inp.onchange=e=>{
+    const f=e.target.files[0];if(!f)return;
+    if(f.size>LIB_IMPORT_MAX_BYTES){toast(t("t_inv"));return;}
+    const r=new FileReader();
+    r.onload=ev=>{
+      try{
+        const clean=sanitizeLibImport(JSON.parse(ev.target.result));
+        if(!clean||!clean.length){toast(t("t_inv"));return;}
+        S.library=[...clean,...S.library].slice(0,LIB_MAX_ITEMS);
+        persist();updateLibBadge();renderLib();
+        toast(clean.length+" "+t("t_im"));
+      }catch(err){toast(t("t_inv"));}
+    };r.readAsText(f);
+  };inp.click();
+}
 function setPackCat(i,catId){
   if(S.library[i])S.library[i].packCat=catId;
   persist();renderLib();
@@ -3802,17 +3859,17 @@ function importPack(){
   const inp=document.createElement("input");inp.type="file";inp.accept=".json";
   inp.onchange=e=>{
     const f=e.target.files[0];if(!f)return;
+    if(f.size>LIB_IMPORT_MAX_BYTES){toast(t("t_inv"));return;}
     const r=new FileReader();
     r.onload=ev=>{
       try{
         const d=JSON.parse(ev.target.result);
-        let items=[];
-        if(Array.isArray(d))items=d;
-        else if(d.items&&Array.isArray(d.items))items=d.items;
-        else{toast(t("t_inv"));return;}
-        S.library=[...items,...S.library].slice(0,80);
+        const clean=sanitizeLibImport(d);
+        if(!clean||!clean.length){toast(t("t_inv"));return;}
+        S.library=[...clean,...S.library].slice(0,LIB_MAX_ITEMS);
         persist();updateLibBadge();renderLib();
-        toast(items.length+" "+t("t_im")+(d.packName?" · "+d.packName:""));
+        const pn=(d&&typeof d.packName==="string")?d.packName.slice(0,80):"";
+        toast(clean.length+" "+t("t_im")+(pn?" · "+pn:""));
       }catch(err){toast(t("t_inv"));}
     };r.readAsText(f);
   };inp.click();
@@ -4792,7 +4849,7 @@ function loadLibItem_profile(prompt){
 // ════ HELP CENTER (multilingüe ES/EN/FR) ═════════════════════════
 // Claves de ayuda que ya existen en T{} (UI): se delegan a t() para una sola fuente de verdad
 const HT_ALIAS={f_profile:"profile",f_comm:"community",f_home:"nav_home",f_builder:"nav_b",f_refs:"nav_r",f_lib:"nav_l",f_stats:"stats_title",f_panel:"nav_s",f_buildtitle:"ph_h",f_copy:"copy",f_save:"sv_b",lf_load:"lib_lo"};
-function ht(k){if(HT_ALIAS[k])return t(HT_ALIAS[k]);const L=getLang();const o=HELP_STR[k];return o?(o[L]||o.EN||o.ES):k;}
+function ht(k){if(HT_ALIAS[k])return t(HT_ALIAS[k]);const L=getLang();const x=(typeof HELP_X!=="undefined")&&HELP_X[L];if(x&&x[k]!=null)return x[k];const o=HELP_STR[k];return o?(o[L]||o.EN||o.ES):k;}
 function hStep(n,b){return `<div class="help-step"><div class="help-step-num">${n}</div><div class="help-step-body">${b}</div></div>`;}
 function hTip(ic,b){return `<div class="help-tip"><span class="help-tip-icon">${ic}</span>${b}</div>`;}
 function hWarn(b){return `<div class="help-warn"><span class="help-tip-icon">⚠️</span>${b}</div>`;}
@@ -4920,6 +4977,7 @@ function helpLegend(){
 }
 function renderHelp(){
   const el=eid("help-body");if(!el)return;
+  el.setAttribute("dir",getLang()==="AR"?"rtl":"ltr"); // RTL solo para el árabe, scoped a la ayuda
   el.innerHTML=`
     <div class="ph"><h1>${ht('h_title')}</h1><p>${ht('h_sub')}</p></div>
     <div class="help-hero">
