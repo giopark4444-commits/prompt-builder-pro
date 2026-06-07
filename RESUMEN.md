@@ -105,7 +105,10 @@ La app ya tenía buena base responsive (media queries para tablet 601–1024px y
 - 🔴 **Vistas inaccesibles en móvil:** Comunidad, Estadísticas y Ayuda solo vivían en el sidebar (oculto en móvil) y el avatar saltaba directo a Perfil → **no había forma de llegar a ellas en teléfono**. Se añadió un **menú desplegable desde el avatar** (`toggleMobMenu`) con Perfil, Comunidad, Estadísticas, Ayuda (+Admin si superusuario) y Cerrar sesión. Para invitados aparece un disparador ☰ con Estadísticas/Ayuda.
 - ✅ Verificado: 0 overflow horizontal en toda la matriz, los diagramas SVG de la ayuda escalan, y el menú móvil navega correctamente (probado con registro real). 0 errores de consola propios.
 
-> 🐞 **Hallazgos i18n (fuera del alcance "dispositivos", pendientes):** en el panel, `cp_lang_h` muestra la **clave cruda** en vez del texto (falta la traducción); y el subtítulo de **Comunidad** está hardcodeado en español (no sigue el idioma de la UI). Anotados para una pasada i18n futura.
+### 13. Fixes i18n (7 jun 2026)
+Dos bugs detectados durante el QA de dispositivos, corregidos y verificados (EN/ES):
+- 🟡 **`cp_lang_h` mostraba la clave cruda** bajo el selector de idioma del panel: la clave no existía en ningún idioma y `t()` devuelve la clave cuando falta (string truthy), así que el `||fallback` nunca entraba. Añadida la clave a ES/FR/EN (los 7 idiomas parciales caen a EN, como el resto).
+- 🟡 **Encabezado de Comunidad hardcodeado en español** (h1 + subtítulo): no seguían el idioma de la UI. Se le dio `id` al h1, se añadió la clave `comm_sub` y ambos se registraron en `applyUILang` (`community` / `comm_sub`) como los demás encabezados de vista.
 
 ### 11. Ayuda en 10 idiomas + imports robustos + sidebar monocromo (7 jun 2026)
 Tres frentes cerrados en una tanda (verificados con Playwright sobre el navegador real):
