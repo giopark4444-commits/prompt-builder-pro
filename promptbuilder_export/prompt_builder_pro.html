@@ -4970,7 +4970,7 @@ async function renderComm(){
     meId=sess?.id||"";
   }
   _commCache=posts;
-  const canModerate=!cloud&&isSuperUser();
+  const canModerate=isSuperUser();
   if(_commFilter==="popular")posts=[...posts].sort((a,b)=>b.likes.length-a.likes.length);
   else if(_commFilter==="mine")posts=posts.filter(p=>p.userId===meId);
   if(!posts.length){
@@ -5560,12 +5560,17 @@ function adminDeleteUser(userId){
   renderAdmin();
 }
 
-function adminDeletePost(postId){
+async function adminDeletePost(postId){
   if(!isSuperUser()){ toast(t("adm_no_perm")); return; }
-  if(!confirm("¿Eliminar esta publicación?")){ return; }
-  let posts = getCommPosts();
-  posts = posts.filter(p => p.id !== postId);
-  saveCommPosts(posts);
+  if(!confirm(t("comm_del_confirm"))){ return; }
+  if(await CLOUD.ensureReady()){
+    try{ await CLOUD.deletePost(postId); }
+    catch(e){ console.warn("[cloud] admin delete failed",e); toast(t("comm_net_err")); return; }
+  }else{
+    let posts = getCommPosts();
+    posts = posts.filter(p => p.id !== postId);
+    saveCommPosts(posts);
+  }
   toast(t("adm_post_del"));
   updateCommBadge();
   renderAdmin();
@@ -5613,11 +5618,13 @@ function adminRestoreSession(){
   }catch(e){}
 }
 
-function renderAdmin(){
+async function renderAdmin(){
   if(!isSuperUser()) return;
   const query = (document.getElementById("admin-search")?.value||"").toLowerCase().trim();
   const users = getUsers();
-  const posts = getCommPosts();
+  let posts;
+  if(await CLOUD.ensureReady()){ try{ posts=await CLOUD.listPosts(); }catch(e){ console.warn("[cloud] admin listPosts failed",e); posts=[]; } }
+  else{ posts = getCommPosts(); }
   // Stats
   const statsEl = document.getElementById("admin-stats-row");
   if(statsEl){
