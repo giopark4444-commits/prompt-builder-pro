@@ -1637,6 +1637,13 @@ const CLOUD={
     if(error)throw error;
     return (data||[]).map(p=>this._norm(p));
   },
+  async myPosts(uid){
+    const {data,error}=await _sb.from("posts")
+      .select("id,user_id,title,prompt,media_type,media_url,ai_engine,author_name,created_at,likes(user_id),comments(id)")
+      .eq("user_id",uid).order("created_at",{ascending:false});
+    if(error)throw error;
+    return (data||[]).map(p=>this._norm(p));
+  },
   async createPost(p){
     const uid=await this.ensureAuth();
     if(!uid)throw new Error("no-auth");
@@ -5010,14 +5017,19 @@ ${mediaHtml}
 // ════════════════════════════════════════════════════════════════
 // ════ PROFILE VIEW ═══════════════════════════════════════════════
 // ════════════════════════════════════════════════════════════════
-function renderProfile(){
+async function renderProfile(){
   const sess=getSession();
   if(!sess)return;
   const users=getUsers();
   const u=users.find(x=>x.id===sess.id)||{};
   const lib=getUserLib(sess.id);
-  const posts=getCommPosts();
-  const myPosts=posts.filter(p=>p.userId===sess.id);
+  let myPosts=[];
+  if(await CLOUD.ensureReady()){
+    try{const myUid=await CLOUD.myUid();myPosts=myUid?await CLOUD.myPosts(myUid):[];}
+    catch(e){console.warn("[cloud] myPosts failed",e);myPosts=[];}
+  }else{
+    myPosts=getCommPosts().filter(p=>p.userId===sess.id);
+  }
   const likesReceived=myPosts.reduce((s,p)=>s+p.likes.length,0);
   const commentsReceived=myPosts.reduce((s,p)=>s+p.comments.length,0);
 
@@ -5094,7 +5106,9 @@ function renderProfile(){
     if(isSuperUser()){
       globalSec.style.display="";
       const allUsers=getUsers();
-      const allPosts=getCommPosts();
+      let allPosts;
+      if(CLOUD._ready===true){try{allPosts=await CLOUD.listPosts();}catch(e){allPosts=[];}}
+      else{allPosts=getCommPosts();}
       const totalLib=allUsers.reduce((s,u)=>s+getUserLib(u.id).length,0);
       const gsEl=eid("profile-global-stats");
       if(gsEl) gsEl.innerHTML=`
