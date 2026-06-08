@@ -140,14 +140,59 @@ Tres frentes cerrados en una tanda (verificados con Playwright sobre el navegado
 | `600cb1f` | Esmeralda más intenso: acento vivo en ambos temas |
 | `f7b1094` | Paleta grafito monocromo: dirección visual sobria en ambos temas |
 | `fe79176` | Imports robustos + infraestructura i18n de la ayuda |
-| *(este commit)* | Ayuda en 10 idiomas (HELP_X) + sidebar monocromo + QA |
+| `fe79176` | Ayuda en 10 idiomas (HELP_X) + sidebar monocromo + QA |
+| — | UI completa en 10 idiomas (UI_T: 298 claves × ZH/HI/AR/BN/PT/RU/JA) |
+| — | Backend Supabase: Comunidad compartida (posts/likes/comentarios) con fallback a localStorage |
+| — | Perfil con estadísticas de posts cloud + fallback |
 
 ---
+
+## ☁️ Backend de Comunidad (Supabase)
+
+La Comunidad estaba **rota de raíz**: cada navegador guardaba los posts en su
+propio `localStorage`, así que ningún usuario veía las publicaciones de otro.
+Ahora hay un backend real que hace el feed, los likes y los comentarios
+**compartidos entre todos**.
+
+- **Proyecto Supabase:** `prompt-builder-pro` (`qjsggiodeuaxchxhjxxg`, región
+  us-east-1, plan gratuito — **0 USD/mes**).
+- **Tablas:** `profiles`, `posts`, `comments`, `likes` con **RLS** (lectura
+  pública, escritura solo del dueño). `author_name` desnormalizado para mostrar
+  exactamente el nombre escrito. Advisors de seguridad **limpios**.
+- **Auth transparente:** el login/registro local **no cambió** (cero riesgo de
+  regresión). La primera vez que un usuario publica/da like/comenta, se le crea
+  por detrás una cuenta cloud con credenciales sintéticas (trigger de
+  auto-confirmación en SQL, sin correos reales).
+- **Cliente:** bundle `supabase-js` v2.107 **incrustado** en el HTML (la app
+  sigue siendo un único archivo, sin depender de ningún CDN).
+- **Fallback a prueba de balas:** un sondeo de conexión (memoizado, con timeout
+  de 3 s para no colgarse offline) decide si usar la nube o `localStorage`. Si
+  el backend no está disponible, la app se comporta **exactamente igual que
+  antes**. Comprobado en navegador headless: las 8 vistas cargan sin errores y,
+  con la red bloqueada, Comunidad y Perfil caen a `localStorage` (publicar /
+  like / comentar funcionan, 0 errores). El camino cloud se activa solo en un
+  navegador con red (GitHub Pages).
+- **Pendiente:** moderación de posts cloud desde el panel Admin (requiere una
+  política RLS de moderador); revisión por hablantes nativos de las traducciones.
+
+> Nota: para liberar un hueco en el plan gratuito (máx. 2 proyectos activos) se
+> **pausó** el proyecto vacío "Loopapp" (0 tablas) — es reversible y no se borró
+> nada. El proyecto "dashboard-social" (con datos reales) quedó intacto.
+
+## ✅ UI en 10 idiomas (completa)
+
+Las 298 cadenas de la interfaz están traducidas a los 7 idiomas que faltaban
+(ZH/HI/AR/BN/PT/RU/JA) vía el bloque `UI_T`, fusionado como
+`T.EN < NAV_T < UI_T`. Antes solo 17 claves de navegación estaban traducidas y
+el resto caía a inglés. Verificado en navegador: solo 7–15 claves por idioma
+coinciden con inglés y son cognados/símbolos legítimos (Builder, URL, App…).
 
 ## 💡 Posibles siguientes pasos
 
 - ~~Traducir el centro de ayuda a los otros 7 idiomas~~ ✅ Hecho (ZH/HI/AR/BN/PT/RU/JA, con RTL en árabe). Pendiente opcional: revisión por hablantes nativos.
-- Añadir un **backend** (p. ej. Supabase) si se quiere que usuarios/Comunidad/Admin sean reales y compartidos.
+- ~~Añadir un **backend** (p. ej. Supabase) para que la Comunidad sea real y compartida~~ ✅ Hecho (ver sección "Backend de Comunidad").
+- ~~Completar la **traducción de la UI** a los 10 idiomas~~ ✅ Hecho (ver "UI en 10 idiomas").
+- Moderación de posts cloud desde el panel Admin (política RLS de moderador).
 - Validación robusta de los archivos JSON/packs que se importan.
 - Ideas del propio proyecto: pesos por tag (0.1–2.0), historial de versiones del prompt, modo "Director" con estética precargada, exportar en sintaxis nativa de cada plataforma (`--ar`, `--chaos`…).
 
