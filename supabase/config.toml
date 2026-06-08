@@ -1,0 +1,7 @@
+# Supabase project config for the GitHub integration.
+# Links this repo to the hosted project that backs the shared Community.
+project_id = "qjsggiodeuaxchxhjxxg"
+
+[db]
+# Postgres major version of the linked project.
+major_version = 17
