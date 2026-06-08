@@ -1592,6 +1592,39 @@ const CLOUD={
     };
   },
 
+  // Cross-device credentials: the cloud account is keyed by username+password,
+  // so the same user gets the same cloud identity (and owns their posts) on
+  // every device. Derived from the real password the user types at login.
+  _credProm:null,
+  _userEmail(username){const slug=(username||"user").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"user";return slug+"@users.pbp.local";},
+  _userPw(username,password){return hashPass("pbpcloud2::"+(username||"").toLowerCase()+"::"+(password||""));},
+  // Establish (or create) the cross-device cloud session. Best-effort; never
+  // blocks or breaks local login if the backend is unreachable.
+  async authWithCredentials(username,password){
+    if(!await this.ensureReady())return false;
+    try{
+      const email=this._userEmail(username);
+      const cpw=this._userPw(username,password);
+      let {data,error}=await _sb.auth.signInWithPassword({email,password:cpw});
+      if(error){
+        const su=await _sb.auth.signUp({email,password:cpw,options:{data:{username}}});
+        if(su.error){console.warn("[cloud] cred signUp failed",su.error.message);return false;}
+        const re=await _sb.auth.signInWithPassword({email,password:cpw});
+        if(re.error){console.warn("[cloud] cred signIn failed",re.error.message);return false;}
+        data=re.data;
+      }
+      this._authedFor="cred:"+username;
+      return true;
+    }catch(e){console.warn("[cloud] authWithCredentials error",e);return false;}
+  },
+  // Called from doLogin/doRegister; tracks the in-flight auth so community
+  // writes wait for it instead of racing into a per-device provision.
+  beginCredentialAuth(username,password){
+    if(!this.on)return;
+    this._credProm=this.authWithCredentials(username,password).finally(()=>{this._credProm=null;});
+  },
+  async signOut(){if(!this.on)return;try{await _sb.auth.signOut();}catch(e){}this._authedFor=null;},
+
   // Cloud uid for the current session WITHOUT provisioning (for read-side
   // ownership checks). Returns null if no cloud session yet.
   async myUid(){
@@ -1606,8 +1639,13 @@ const CLOUD={
     const sess=getSession();
     if(!sess)return null;
     try{
+      // Wait for an in-flight credential login so we don't race into a
+      // per-device provision and split the identity.
+      if(this._credProm){try{await this._credProm;}catch(e){}}
       const {data:cur}=await _sb.auth.getSession();
-      if(cur&&cur.session&&this._authedFor===sess.id)return cur.session.user.id;
+      // Reuse any existing session (the cross-device credential session takes
+      // precedence over the legacy per-device transparent scheme).
+      if(cur&&cur.session)return cur.session.user.id;
       const u=getUsers().find(x=>x.id===sess.id)||sess;
       const {email,password}=this._creds(u);
       let {data,error}=await _sb.auth.signInWithPassword({email,password});
@@ -4661,6 +4699,7 @@ function doLogin(){
   const u=users.find(x=>(x.username.toLowerCase()===userVal.toLowerCase()||x.email.toLowerCase()===userVal.toLowerCase())&&x.passHash===hashPass(pass));
   if(!u){showAuthErr("login","Usuario o contraseña incorrectos.");return;}
   saveSession({id:u.id,username:u.username,email:u.email});
+  CLOUD.beginCredentialAuth(u.username,pass); // cross-device cloud identity (best-effort)
   onAuthSuccess(u.id);
 }
 function doRegister(){
@@ -4680,10 +4719,12 @@ function doRegister(){
   users.push(newUser);
   saveUsers(users);
   saveSession({id:newUser.id,username:newUser.username,email:newUser.email});
+  CLOUD.beginCredentialAuth(uname,pass); // cross-device cloud identity (best-effort)
   onAuthSuccess(newUser.id);
 }
 function skipAuth(){
   clearSession();
+  try{CLOUD.signOut&&CLOUD.signOut();localStorage.removeItem("pbp_sb_auth");}catch(e){} // guests carry no cloud identity
   eid("auth-overlay").classList.add("hidden");
   loadState(null);
   renderSidebar();renderCats();renderUploadSlots();updateLibBadge();applyUILang();
@@ -4691,6 +4732,7 @@ function skipAuth(){
 }
 function doLogout(){
   fdlgAsk(t("logout_q"),function(){
+  try{CLOUD.signOut&&CLOUD.signOut();localStorage.removeItem("pbp_sb_auth");}catch(e){} // drop cloud session so the next user doesn't inherit it
   clearSession();
   S.library=[];S.configPresets=[];S.favs={};S.folders=[];S.combos={};
   location.reload();
