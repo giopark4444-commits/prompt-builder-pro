@@ -5,6 +5,11 @@
 promptbuilder_export/conversation_history.txt
 .claude/
 
+# Secretos / entorno (repo público) — nunca subir claves reales
+.env
+.env.*
+!.env.example
+
 # Tooling local de QA (Playwright) — no forma parte de la app standalone
 node_modules/
 package.json
