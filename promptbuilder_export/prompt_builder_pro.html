@@ -9,10 +9,11 @@
 <style>
 :root{
   --bg:#faf9f7;--bg2:#ffffff;--bg3:#f5f3f0;--bg4:#ece9e4;
-  --tx:#1c1917;--tx2:#57534e;--tx3:#a8a29e;
+  --tx:#1c1917;--tx2:#57534e;--tx3:#78716c;
   --bd:rgba(0,0,0,.07);--bd2:rgba(0,0,0,.12);
   --sel:#1c1917;--sel-tx:#faf9f7;
-  --acc:#3f3a34;--acc-bg:#e9e5df;--acc-tx:#3a352f;
+  --acc:#3f3a34;--acc-bg:#e9e5df;--acc-tx:#3a352f;--acc-on:#fff;
+  --danger:#dc2626;--danger-bg:#fef2f2;--danger-tx:#b91c1c;--danger-bd:#fecaca;
   --sug:#7c3aed;--sug-bg:#f5f3ff;--sug-tx:#5b21b6;
   --fav:#b45309;--fav-bg:#fffbeb;--fav-tx:#92400e;
   --ok:#16a34a;--ok-bg:#f0fdf4;--ok-tx:#15803d;
@@ -28,7 +29,8 @@
   --tx:#eae6e0;--tx2:#a8a39d;--tx3:#807872;
   --bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.13);
   --sel:#eae6e0;--sel-tx:#111110;
-  --acc:#6e675e;--acc-bg:#262219;--acc-tx:#ddd6cc;
+  --acc:#6e675e;--acc-bg:#262219;--acc-tx:#ddd6cc;--acc-on:#fff;
+  --danger:#f87171;--danger-bg:#2a1414;--danger-tx:#fca5a5;--danger-bd:#7f2222;
   --sug:#a78bfa;--sug-bg:#1e1340;--sug-tx:#c4b5fd;
   --fav:#fbbf24;--fav-bg:#2a1f00;--fav-tx:#fde68a;
   --ok:#4ade80;--ok-bg:#052e16;--ok-tx:#86efac;
@@ -53,23 +55,30 @@
 .tag[data-tc=purple]{border-color:#7c3aed;color:#7c3aed}
 .tag[data-tc=green]{border-color:#15803d;color:#15803d}
 .tag[data-tc=orange]{border-color:#ea580c;color:#ea580c}
+/* lighter variants so unselected colored tags stay legible on dark backgrounds */
+[data-theme=dark] .tag[data-tc=blue]{border-color:#3b82f6;color:#93c5fd}
+[data-theme=dark] .tag[data-tc=coral]{border-color:#ef4444;color:#fca5a5}
+[data-theme=dark] .tag[data-tc=purple]{border-color:#8b5cf6;color:#c4b5fd}
+[data-theme=dark] .tag[data-tc=green]{border-color:#22c55e;color:#86efac}
+[data-theme=dark] .tag[data-tc=orange]{border-color:#f97316;color:#fdba74}
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:var(--fz)}
-body{font-family:var(--ff);background:var(--bg);color:var(--tx);min-height:100vh;line-height:1.5;transition:background .25s,color .25s}
+body{font-family:var(--ff);background:var(--bg);color:var(--tx);min-height:100vh;min-height:100dvh;line-height:1.5;transition:background .25s,color .25s}
 /* ─── LAYOUT ─────────────────────────────────────── */
-.shell{display:flex;min-height:100vh}
-.sidebar{width:244px;min-width:244px;background:var(--sidebar-bg,#1c1a17);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;transition:background .25s;flex-shrink:0}
+.shell{display:flex;min-height:100vh;min-height:100dvh}
+.sidebar{width:244px;min-width:244px;background:var(--sidebar-bg,#1c1a17);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;height:100dvh;overflow-y:auto;transition:background .25s;flex-shrink:0}
 [data-theme=dark] .sidebar{background:var(--sidebar-bg,#111009)}
-.main{flex:1;max-width:880px;padding:2rem 2.4rem;overflow-x:hidden}
+.main{flex:1;max-width:880px;margin:0 auto;padding:2rem 2.4rem;overflow-x:hidden}
 /* ─── SIDEBAR — dark warm shell ───────────────────── */
 .slogo{padding:1.55rem 1.35rem 1.1rem;border-bottom:1px solid rgba(255,255,255,.07)}
 .slogo-mark{font-family:var(--fd);font-size:1.08rem;font-weight:300;color:#ede9e3;letter-spacing:-.025em;line-height:1.25}
 .slogo-sub{font-size:.6rem;color:rgba(255,255,255,.28);margin-top:4px;letter-spacing:.07em;text-transform:uppercase}
 /* user pill (at top, dark-bg-aware) */
 #user-pill-wrap{padding:.75rem 1rem .5rem}
-.user-pill{display:flex;align-items:center;gap:.55rem;padding:.48rem .65rem;border-radius:var(--r);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);cursor:default}
-.user-avatar{width:27px;height:27px;border-radius:50%;background:var(--acc);color:#fff;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-transform:uppercase;letter-spacing:.02em}
-.user-name{font-size:.77rem;font-weight:500;color:rgba(255,255,255,.72);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--ff)}
+/* Scoped to the (always-dark) sidebar so these win over the generic light .user-pill below */
+#user-pill-wrap .user-pill{display:flex;align-items:center;gap:.55rem;padding:.48rem .65rem;border-radius:var(--r);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);cursor:default}
+#user-pill-wrap .user-avatar{width:27px;height:27px;border-radius:50%;background:var(--acc);color:var(--acc-on);font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-transform:uppercase;letter-spacing:.02em}
+#user-pill-wrap .user-name{font-size:.77rem;font-weight:500;color:rgba(255,255,255,.72);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--ff)}
 .logout-btn{font-size:.68rem;color:rgba(255,255,255,.3);background:none;border:none;cursor:pointer;padding:.18rem .32rem;border-radius:5px;font-family:var(--ff);transition:all .13s;line-height:1}
 .logout-btn:hover{background:rgba(255,255,255,.1);color:rgba(255,255,255,.75)}
 /* nav */
@@ -129,7 +138,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .upload-slot:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-bg)}
 .upload-slot.loaded{border-style:solid;border-color:var(--ok);background:var(--ok-bg);color:var(--ok-tx)}
 .analyze-btn{padding:.3rem .9rem;border-radius:var(--r);border:1px solid var(--acc);font-size:.74rem;cursor:pointer;background:var(--acc-bg);color:var(--acc-tx);font-family:var(--ff);font-weight:500;transition:all .13s;white-space:nowrap}
-.analyze-btn:hover{background:var(--acc);color:#fff}
+.analyze-btn:hover{background:var(--acc);color:var(--acc-on)}
 .analyze-btn:disabled{opacity:.38;pointer-events:none}
 .analysis-result{margin-bottom:.9rem;padding:.7rem .9rem;background:var(--acc-bg);border:1px solid var(--acc);border-radius:var(--rl);font-size:.8rem;color:var(--acc-tx);line-height:1.6}
 .sug-bar{margin-bottom:.9rem;padding:.6rem .8rem;background:var(--sug-bg);border:1px solid var(--sug);border-radius:var(--rl)}
@@ -200,12 +209,12 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .tg-eye-btn{background:none;border:none;cursor:pointer;padding:.06rem .25rem;border-radius:4px;font-size:.74rem;color:var(--tx3);font-family:var(--ff);transition:all .12s;display:inline-flex;align-items:center;line-height:1}
 .tg-eye-btn:hover{color:var(--tx);background:var(--bg3)}
 .tg-eye-btn.active{color:var(--acc)}
-.tag-em{display:inline-flex;align-items:center;gap:.2rem;padding:.22rem .32rem .22rem .48rem;border-radius:var(--tag-r,6px);border:1px solid var(--bd2);background:var(--bg2);font-size:var(--tag-fz,13px);font-family:var(--ff);color:var(--tx);white-space:nowrap;line-height:1.3}
+.tag-em{display:inline-flex;align-items:center;gap:.2rem;padding:.22rem .32rem .22rem .48rem;border-radius:var(--tag-radius,6px);border:1px solid var(--bd2);background:var(--bg2);font-size:var(--tag-fz,13px);font-family:var(--ff);color:var(--tx);white-space:nowrap;line-height:1.3}
 .tag-em.tag-em-off{opacity:.38;text-decoration:line-through}
 .tag-em-lbl{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
 .tag-em-eye,.tag-em-del{background:none;border:none;cursor:pointer;padding:.08rem .22rem;border-radius:3px;font-size:.72rem;color:var(--tx3);line-height:1;flex-shrink:0;transition:all .1s;font-family:var(--ff)}
 .tag-em-eye:hover{color:var(--tx);background:var(--bg3)}
-.tag-em-del:hover{color:#ef4444;background:#ef444420}
+.tag-em-del:hover{color:var(--danger);background:color-mix(in srgb,var(--danger) 13%,transparent)}
 .tag-em.tag-em-off .tag-em-eye{color:var(--acc)}
 .tg.collapsed>.tg-hdr>.tg-clps{transform:rotate(-90deg)}
 .tg.collapsed>.tg-hdr{margin-bottom:0}
@@ -340,7 +349,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .cat-ctrl-row{display:flex;align-items:center;margin-top:.28rem}
 .cat-ctrl-btn{background:none;border:1px solid var(--bd2);border-radius:var(--r);padding:.24rem .7rem;font-size:.73rem;color:var(--tx2);cursor:pointer;font-family:var(--ff);transition:all .12s;display:flex;align-items:center;gap:.3rem}
 .cat-ctrl-btn:hover{background:var(--bg2);color:var(--tx)}
-.cat-ctrl-btn.open{background:var(--acc);color:#fff;border-color:var(--acc)}
+.cat-ctrl-btn.open{background:var(--acc);color:var(--acc-on);border-color:var(--acc)}
 .cat-mgr-panel{background:var(--bg2);border:1px solid var(--bd2);border-radius:var(--rl);padding:.65rem .75rem;margin-top:.3rem}
 .cat-mgr-grid{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.55rem}
 .cat-tog{display:inline-flex;align-items:center;gap:.28rem;padding:.26rem .6rem;border-radius:6px;border:1px solid var(--bd);background:var(--bg);font-size:.73rem;cursor:pointer;font-family:var(--ff);color:var(--tx2);transition:all .12s;white-space:nowrap}
@@ -353,18 +362,25 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .cat-add-icon:focus{border-color:var(--acc)}
 .cat-add-name{flex:1;background:var(--bg);border:1px solid var(--bd2);border-radius:6px;padding:.26rem .5rem;font-size:.74rem;color:var(--tx);font-family:var(--ff);outline:none}
 .cat-add-name:focus{border-color:var(--acc)}
-.cat-add-btn{padding:.26rem .65rem;background:var(--acc);color:#fff;border:none;border-radius:6px;font-size:.74rem;cursor:pointer;font-family:var(--ff);font-weight:600;flex-shrink:0;transition:opacity .12s}
+.cat-add-btn{padding:.26rem .65rem;background:var(--acc);color:var(--acc-on);border:none;border-radius:6px;font-size:.74rem;cursor:pointer;font-family:var(--ff);font-weight:600;flex-shrink:0;transition:opacity .12s}
 .cat-add-btn:hover{opacity:.85}
 .cp-hint{font-size:.63rem;color:var(--tx3);margin-top:.4rem;line-height:1.4}
 .cpr{width:100%;accent-color:var(--acc);margin-top:.4rem}
 .cpv{font-size:.66rem;font-family:var(--fm);color:var(--tx2);margin-top:.22rem}
 .cpbrow{display:flex;gap:.3rem;margin-top:.4rem;flex-wrap:wrap}
 /* ─── TOAST ──────────────────────────────────────── */
-.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--tx);color:var(--bg);padding:.5rem 1rem;border-radius:var(--rl);font-size:.76rem;font-family:var(--ff);z-index:9999;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;max-width:290px;transform:translateY(6px);box-shadow:var(--sh2)}
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--tx);color:var(--bg);padding:.5rem 1rem;border-radius:var(--rl);font-size:.76rem;font-family:var(--ff);z-index:100000;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;max-width:290px;transform:translateY(6px);box-shadow:var(--sh2);border-left:3px solid transparent}
+.toast.toast-err{background:var(--danger);color:#fff;border-left-color:rgba(0,0,0,.25)}
+.toast.toast-ok{border-left-color:var(--ok)}
 .toast.show{opacity:1;transform:translateY(0)}
 /* ─── COLOR MENU ─────────────────────────────────── */
 .cmenu{position:fixed;z-index:9998;background:var(--bg2);border:1px solid var(--bd2);border-radius:var(--rl);padding:.55rem .65rem;display:flex;flex-wrap:wrap;gap:.3rem;max-width:196px;box-shadow:var(--sh2)}
 .cmenu-lbl{font-size:.58rem;color:var(--tx3);width:100%;margin-bottom:.2rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.wt-row{display:flex;flex-wrap:wrap;gap:.22rem;width:100%}
+.wt-opt{font-family:var(--fm);font-size:.66rem;padding:.16rem .34rem;border:1px solid var(--bd2);border-radius:5px;background:var(--bg2);color:var(--tx2);cursor:pointer;transition:background .12s,color .12s,border-color .12s}
+.wt-opt:hover{border-color:var(--acc)}
+.wt-opt.on{background:var(--acc);color:var(--acc-on);border-color:var(--acc);font-weight:600}
+.tag-wt{font-family:var(--fm);font-size:.62em;font-weight:700;margin-left:.28em;padding:.02em .3em;border-radius:4px;background:color-mix(in srgb,var(--acc) 22%,transparent);color:var(--acc-tx,var(--tx));vertical-align:middle}
 /* ─── FAV ITEM ───────────────────────────────────── */
 .fav-item{display:inline-flex;align-items:center;gap:1px;flex-shrink:0}
 .fav-rm{background:none;border:none;cursor:pointer;color:var(--fav);font-size:.72rem;padding:3px 3px;line-height:1;flex-shrink:0;opacity:.75;font-family:var(--ff);transition:opacity .12s,transform .12s;border-radius:var(--r)}
@@ -396,7 +412,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .cte-sw{width:28px;height:28px;padding:1px;border:1px solid var(--bd2);border-radius:5px;cursor:pointer;background:none;flex-shrink:0}
 .cte-hex{flex:1;background:var(--bg2);border:1px solid var(--bd2);border-radius:5px;padding:.25rem .45rem;font-size:.73rem;color:var(--tx);font-family:var(--fm);outline:none}
 .cte-hex:focus{border-color:var(--acc)}
-.cte-apply{grid-column:1/-1;padding:.36rem;border-radius:var(--r);border:none;background:var(--acc);color:#fff;font-size:.74rem;font-weight:600;cursor:pointer;font-family:var(--ff);margin-top:.15rem;transition:opacity .12s}
+.cte-apply{grid-column:1/-1;padding:.36rem;border-radius:var(--r);border:none;background:var(--acc);color:var(--acc-on);font-size:.74rem;font-weight:600;cursor:pointer;font-family:var(--ff);margin-top:.15rem;transition:opacity .12s}
 .cte-apply:hover{opacity:.85}
 /* ─── PRESETS ────────────────────────────────────── */
 .preset-item{display:flex;align-items:center;gap:.38rem;padding:.35rem .52rem;border:1px solid var(--bd);border-radius:var(--r);margin-bottom:.32rem;font-size:.78rem;background:var(--bg3)}
@@ -417,14 +433,14 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .model-bar-lbl{font-size:.56rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--tx3);margin-right:.28rem;white-space:nowrap;flex-shrink:0}
 .model-pill{padding:.22rem .62rem;border-radius:99px;border:1px solid var(--bd2);font-size:.7rem;cursor:pointer;background:var(--bg);color:var(--tx2);font-family:var(--ff);transition:all .13s;white-space:nowrap}
 .model-pill:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-bg)}
-.model-pill.active{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:500}
+.model-pill.active{background:var(--acc);color:var(--acc-on);border-color:var(--acc);font-weight:500}
 /* ─── COMBINATOR ─────────────────────────────────── */
 .comb-list{display:flex;flex-direction:column;gap:.38rem;margin-bottom:.9rem}
 .comb-item{display:flex;align-items:flex-start;gap:.52rem;padding:.62rem .76rem;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rl);cursor:pointer;transition:all .14s;text-align:left;width:100%;box-shadow:var(--sh)}
 .comb-item:hover{border-color:var(--bd2);box-shadow:var(--sh2)}
 .comb-item.sel{border-color:var(--acc);background:var(--acc-bg)}
 .comb-item-check{width:16px;height:16px;border:2px solid var(--bd2);border-radius:4px;flex-shrink:0;margin-top:3px;display:flex;align-items:center;justify-content:center;font-size:.54rem;transition:all .13s;color:transparent}
-.comb-item.sel .comb-item-check{background:var(--acc);border-color:var(--acc);color:#fff}
+.comb-item.sel .comb-item-check{background:var(--acc);border-color:var(--acc);color:var(--acc-on)}
 .comb-item-body{flex:1;min-width:0}
 .comb-item-name{font-size:.82rem;font-weight:500;color:var(--tx);line-height:1.3}
 .comb-item-prev{font-size:.65rem;color:var(--tx3);font-family:var(--fm);margin-top:.2rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -475,7 +491,8 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .fold-popup{position:fixed;background:var(--bg2);border:1px solid var(--bd2);border-radius:var(--rl);box-shadow:var(--sh2);z-index:9999;min-width:140px;padding:.3rem 0;font-family:var(--ff)}
 .fold-popup-item{display:block;width:100%;text-align:left;background:none;border:none;padding:.38rem .88rem;font-size:.76rem;color:var(--tx);cursor:pointer;transition:background .1s;font-family:var(--ff)}
 .fold-popup-item:hover{background:var(--bg3)}
-.fold-popup-item.danger{color:#ef4444}
+.fold-popup-item.active{background:var(--acc-bg);color:var(--acc-tx);font-weight:600}
+.fold-popup-item.danger{color:var(--danger)}
 .fold-popup-sep{border:none;border-top:1px solid var(--bd);margin:.25rem 0}
 /* Folder pill on library items */
 .lfolder-pill{display:inline-flex;align-items:center;gap:.22rem;font-size:.6rem;padding:.1rem .5rem;border-radius:99px;background:var(--bg3);border:1px solid var(--bd);color:var(--tx3);cursor:pointer;transition:all .12s;font-family:var(--ff);line-height:1.4}
@@ -495,7 +512,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .fdlg-row{display:flex;gap:.42rem;justify-content:flex-end}
 .fdlg-btn{padding:.35rem .85rem;border-radius:var(--r);border:1px solid var(--bd2);background:none;color:var(--tx2);font-size:.78rem;cursor:pointer;font-family:var(--ff);transition:all .12s}
 .fdlg-btn:hover{background:var(--bg3);color:var(--tx)}
-.fdlg-btn.ok{background:var(--acc);color:#fff;border-color:transparent;font-weight:600}
+.fdlg-btn.ok{background:var(--acc);color:var(--acc-on);border-color:transparent;font-weight:600}
 .fdlg-btn.ok:hover{opacity:.86}
 .fdlg-btn.del{background:#dc2626;color:#fff;border-color:transparent}
 .fdlg-btn.del:hover{opacity:.86}
@@ -512,7 +529,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .lib-pack-bar{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;margin-bottom:.9rem}
 .lib-pack-pill{padding:.28rem .75rem;border-radius:99px;border:1px solid var(--bd);background:none;color:var(--tx3);font-size:.72rem;cursor:pointer;font-family:var(--ff);transition:all .13s;white-space:nowrap}
 .lib-pack-pill:hover{border-color:var(--bd2);color:var(--tx);background:var(--bg3)}
-.lib-pack-pill.active{background:var(--acc);color:#fff;border-color:transparent;font-weight:600}
+.lib-pack-pill.active{background:var(--acc);color:var(--acc-on);border-color:transparent;font-weight:600}
 .lib-pack-actions{display:flex;gap:.3rem;margin-left:auto}
 /* Pack category badge on each item */
 .lib-pcat-badge{display:inline-flex;align-items:center;gap:.18rem;font-size:.58rem;padding:.1rem .42rem;border-radius:99px;background:var(--bg3);border:1px solid var(--bd);color:var(--tx3);cursor:pointer;transition:all .12s;line-height:1.4;font-family:var(--ff)}
@@ -572,7 +589,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .apm-actions{display:flex;justify-content:flex-end;gap:.45rem;padding:.75rem 1.1rem .9rem;border-top:1px solid var(--bd)}
 .apm-cancel{padding:.4rem .9rem;border-radius:var(--r);border:1px solid var(--bd);background:none;color:var(--tx2);font-size:.8rem;font-family:var(--ff);cursor:pointer;transition:all .12s}
 .apm-cancel:hover{background:var(--bg3);border-color:var(--bd2)}
-.apm-save{padding:.4rem 1.1rem;border-radius:var(--r);border:none;background:var(--acc);color:#fff;font-size:.8rem;font-weight:600;font-family:var(--ff);cursor:pointer;transition:all .12s}
+.apm-save{padding:.4rem 1.1rem;border-radius:var(--r);border:none;background:var(--acc);color:var(--acc-on);font-size:.8rem;font-weight:600;font-family:var(--ff);cursor:pointer;transition:all .12s}
 .apm-save:hover{filter:brightness(1.1)}
 
 
@@ -580,7 +597,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 #devprev-fab{
   position:fixed;top:12px;right:14px;z-index:9000;
   width:36px;height:36px;border-radius:50%;
-  background:var(--acc);color:#fff;border:none;
+  background:var(--acc);color:var(--acc-on);border:none;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.35);
   transition:transform .15s,box-shadow .15s;
@@ -609,7 +626,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
   transition:all .15s;display:flex;align-items:center;gap:4px;white-space:nowrap;
 }
 .devprev-tab:hover{background:rgba(255,255,255,.1);color:#fff}
-.devprev-tab.active{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+.devprev-tab.active{background:var(--acc);border-color:var(--acc);color:var(--acc-on);font-weight:600}
 .devprev-close{
   margin-left:auto;background:none;border:none;
   color:rgba(255,255,255,.5);font-size:1.2rem;cursor:pointer;
@@ -626,11 +643,10 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 [data-ui=glass] .home-ctrl-bar,[data-ui=glass] .upload-bar,
 [data-ui=glass] .beat,[data-ui=glass] .hci select,[data-ui=glass] .save-inp{
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  background:rgba(var(--bg2-rgb,255,255,255),.55)!important}
-[data-ui=glass] .cat-card{border:1px solid rgba(255,255,255,.25)}
-[data-ui=glass] .sidebar{background:rgba(255,255,255,.4)!important}
-[data-theme=dark][data-ui=glass] .cat-card{background:rgba(30,30,40,.55)!important;border:1px solid rgba(255,255,255,.1)}
-[data-theme=dark][data-ui=glass] .sidebar{background:rgba(15,15,20,.6)!important}
+  background:color-mix(in srgb,var(--bg2) 60%,transparent)!important}
+[data-ui=glass] .cat-card{border:1px solid var(--bd2)}
+/* Sidebar is always a dark shell — keep it dark+translucent in both light and dark so its white text stays legible */
+[data-ui=glass] .sidebar{background:color-mix(in srgb,var(--sidebar-bg,#1c1a17) 68%,transparent)!important}
 [data-ui=brutal] .cat-card,[data-ui=brutal] .litem,[data-ui=brutal] .tag,
 [data-ui=brutal] .home-ctrl-bar,[data-ui=brutal] .ni.active{
   border-width:2px!important;border-color:var(--tx)!important}
@@ -688,7 +704,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--bd)}
 /* ─── User pill in sidebar ─── */
 .user-pill{display:flex;align-items:center;gap:.48rem;padding:.42rem .55rem;border-radius:var(--r);background:var(--bg3);border:1px solid var(--bd);cursor:default;margin-bottom:.3rem}
-.user-avatar{width:26px;height:26px;border-radius:50%;background:var(--acc);color:#fff;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-transform:uppercase}
+.user-avatar{width:26px;height:26px;border-radius:50%;background:var(--acc);color:var(--acc-on);font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-transform:uppercase}
 .user-name{font-size:.76rem;font-weight:500;color:var(--tx);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .logout-btn{font-size:.62rem;color:var(--tx3);background:none;border:none;cursor:pointer;padding:.14rem .3rem;border-radius:var(--r);font-family:var(--ff);transition:all .12s}
 .logout-btn:hover{background:var(--bg4);color:#dc2626}
@@ -696,7 +712,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .comm-toolbar{display:flex;gap:.5rem;align-items:center;margin-bottom:1.2rem;flex-wrap:wrap}
 .comm-filter-btn{padding:.3rem .75rem;border-radius:99px;border:1px solid var(--bd2);font-size:.75rem;cursor:pointer;background:var(--bg2);color:var(--tx2);font-family:var(--ff);transition:all .13s;white-space:nowrap}
 .comm-filter-btn:hover{border-color:var(--acc);color:var(--acc)}
-.comm-filter-btn.active{background:var(--acc);color:#fff;border-color:var(--acc)}
+.comm-filter-btn.active{background:var(--acc);color:var(--acc-on);border-color:var(--acc)}
 .comm-post-btn{margin-left:auto;padding:.34rem .95rem;border-radius:var(--r);border:1px solid var(--tx);font-size:.78rem;font-weight:600;cursor:pointer;background:var(--tx);color:var(--bg);font-family:var(--ff);transition:all .14s;white-space:nowrap}
 .comm-post-btn:hover{opacity:.8}
 .comm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1rem}
@@ -706,7 +722,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .comm-card-media-placeholder{width:100%;height:80px;display:flex;align-items:center;justify-content:center;background:var(--bg3);color:var(--tx3);font-size:.7rem;border-bottom:1px solid var(--bd)}
 .comm-card-body{padding:.85rem .95rem;flex:1;display:flex;flex-direction:column}
 .comm-card-user{display:flex;align-items:center;gap:.38rem;margin-bottom:.55rem}
-.comm-card-avatar{width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-transform:uppercase}
+.comm-card-avatar{width:22px;height:22px;border-radius:50%;background:var(--acc);color:var(--acc-on);font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-transform:uppercase}
 .comm-card-username{font-size:.72rem;color:var(--tx2);font-weight:500}
 .comm-card-date{font-size:.62rem;color:var(--tx3);margin-left:auto;font-family:var(--fm)}
 .comm-card-title{font-size:.9rem;font-weight:600;color:var(--tx);margin-bottom:.38rem;line-height:1.3}
@@ -715,7 +731,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .comm-card-link:hover{text-decoration:underline}
 .comm-card-actions{display:flex;align-items:center;gap:.5rem;padding-top:.55rem;border-top:1px solid var(--bd);margin-top:auto}
 .comm-like-btn{display:flex;align-items:center;gap:.28rem;padding:.28rem .6rem;border-radius:99px;border:1px solid var(--bd2);font-size:.74rem;cursor:pointer;background:none;color:var(--tx2);font-family:var(--ff);transition:all .13s}
-.comm-like-btn:hover{border-color:#f43f5e;color:#f43f5e;background:#fff1f2}
+.comm-like-btn:hover{border-color:#f43f5e;color:#f43f5e;background:color-mix(in srgb,#f43f5e 12%,transparent)}
 .comm-like-btn.liked{background:#fff1f2;border-color:#f43f5e;color:#f43f5e}
 [data-theme=dark] .comm-like-btn.liked{background:#3a0f18;border-color:#f43f5e}
 .comm-like-heart{font-size:.88rem;transition:transform .15s}
@@ -726,7 +742,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .comm-use-btn{margin-left:auto;padding:.26rem .7rem;border-radius:var(--r);border:1px solid var(--bd2);font-size:.7rem;cursor:pointer;background:var(--bg3);color:var(--tx2);font-family:var(--ff);transition:all .13s;white-space:nowrap}
 .comm-use-btn:hover{background:var(--ok-bg);border-color:var(--ok);color:var(--ok-tx)}
 .comm-delete-btn{padding:.26rem .5rem;border-radius:var(--r);border:1px solid transparent;font-size:.7rem;cursor:pointer;background:none;color:var(--tx3);font-family:var(--ff);transition:all .13s}
-.comm-delete-btn:hover{color:#dc2626;background:#fee2e2;border-color:#fca5a5}
+.comm-delete-btn:hover{color:var(--danger);background:color-mix(in srgb,var(--danger) 13%,transparent);border-color:var(--danger-bd)}
 /* Comments panel */
 .comm-comments{border-top:1px solid var(--bd);padding:.65rem .95rem;background:var(--bg3)}
 .comm-comments.hidden{display:none}
@@ -740,7 +756,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .comm-comment-inp{flex:1;border:1px solid var(--bd2);border-radius:var(--r);padding:.38rem .6rem;font-size:.76rem;background:var(--bg2);color:var(--tx);font-family:var(--ff);resize:none;min-height:34px;transition:border-color .12s;line-height:1.4}
 .comm-comment-inp:focus{outline:none;border-color:var(--acc)}
 .comm-comment-inp::placeholder{color:var(--tx3)}
-.comm-comment-send{padding:.36rem .65rem;border-radius:var(--r);border:1px solid var(--acc);font-size:.72rem;cursor:pointer;background:var(--acc);color:#fff;font-family:var(--ff);white-space:nowrap;transition:all .13s;flex-shrink:0;margin-top:0}
+.comm-comment-send{padding:.36rem .65rem;border-radius:var(--r);border:1px solid var(--acc);font-size:.72rem;cursor:pointer;background:var(--acc);color:var(--acc-on);font-family:var(--ff);white-space:nowrap;transition:all .13s;flex-shrink:0;margin-top:0}
 .comm-comment-send:hover{opacity:.82}
 /* Post modal */
 .comm-modal-overlay{position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(2px)}
@@ -764,14 +780,14 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .cmt-btn.active{background:var(--sel);color:var(--sel-tx);border-color:var(--sel)}
 /* ═══ PROFILE VIEW ═══════════════════════════════════════════════ */
 .profile-hero{display:flex;align-items:center;gap:1.2rem;padding:1.4rem 1.6rem;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rl);margin-bottom:1.4rem;box-shadow:var(--sh)}
-.profile-avatar-lg{width:64px;height:64px;border-radius:50%;background:var(--acc);color:#fff;font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-transform:uppercase;box-shadow:0 2px 10px rgba(0,0,0,.15);overflow:hidden;cursor:default}
+.profile-avatar-lg{width:64px;height:64px;border-radius:50%;background:var(--acc);color:var(--acc-on);font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;text-transform:uppercase;box-shadow:0 2px 10px rgba(0,0,0,.15);overflow:hidden;cursor:default}
 .profile-avatar-lg img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .profile-edit-btn{padding:.35rem .85rem;border-radius:var(--r);border:1px solid var(--bd2);background:none;color:var(--tx2);font-size:.72rem;font-family:var(--ff);cursor:pointer;transition:all .12s;display:flex;align-items:center;gap:.3rem;white-space:nowrap}
 .profile-edit-btn:hover{background:var(--bg3);color:var(--tx);border-color:var(--bd2)}
 /* Photo upload area inside profile modal */
 .pem-photo-area{display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:.9rem;border:2px dashed var(--bd);border-radius:var(--rl);cursor:pointer;transition:border-color .15s;background:var(--bg3)}
 .pem-photo-area:hover{border-color:var(--acc)}
-.pem-avatar-preview{width:72px;height:72px;border-radius:50%;background:var(--acc);color:#fff;font-size:1.5rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.pem-avatar-preview{width:72px;height:72px;border-radius:50%;background:var(--acc);color:var(--acc-on);font-size:1.5rem;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
 .pem-avatar-preview img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .pem-photo-hint{font-size:.68rem;color:var(--tx3);text-align:center}
 .profile-info{flex:1;min-width:0}
@@ -804,7 +820,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .help-section p{font-size:.84rem;color:var(--tx2);line-height:1.75;margin-bottom:.6rem}
 .help-section p:last-child{margin-bottom:0}
 .help-step{display:flex;gap:.75rem;align-items:flex-start;margin-bottom:.65rem}
-.help-step-num{width:24px;height:24px;border-radius:50%;background:var(--acc);color:#fff;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.help-step-num{width:24px;height:24px;border-radius:50%;background:var(--acc);color:var(--acc-on);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
 .help-step-body{flex:1;font-size:.83rem;color:var(--tx2);line-height:1.65}
 .help-step-body strong{color:var(--tx)}
 .help-tip{display:flex;gap:.6rem;align-items:flex-start;background:var(--acc-bg);border:1px solid var(--acc);border-radius:var(--r);padding:.65rem .85rem;margin:.5rem 0;font-size:.8rem;color:var(--acc-tx);line-height:1.6}
@@ -816,7 +832,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .help-hero>p{font-size:.83rem;color:var(--tx2);line-height:1.6;margin-bottom:1rem}
 .help-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
 .help-quick-step{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:.85rem .9rem;display:flex;flex-direction:column;gap:.45rem}
-.help-quick-step .qn{width:26px;height:26px;border-radius:50%;background:var(--acc);color:#fff;font-weight:700;font-size:.78rem;display:flex;align-items:center;justify-content:center}
+.help-quick-step .qn{width:26px;height:26px;border-radius:50%;background:var(--acc);color:var(--acc-on);font-weight:700;font-size:.78rem;display:flex;align-items:center;justify-content:center}
 .help-quick-step b{font-size:.82rem;color:var(--tx)}
 .help-quick-step span{font-size:.76rem;color:var(--tx2);line-height:1.5}
 .help-fig{margin:.9rem 0;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:.9rem}
@@ -825,7 +841,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .help-legend{list-style:none;margin:.8rem 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.45rem}
 .help-legend li{display:flex;gap:.5rem;align-items:flex-start;font-size:.79rem;color:var(--tx2);line-height:1.45}
 .help-legend li b{color:var(--tx)}
-.help-legend .lg-n{width:20px;height:20px;border-radius:50%;background:var(--acc);color:#fff;font-size:.64rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.help-legend .lg-n{width:20px;height:20px;border-radius:50%;background:var(--acc);color:var(--acc-on);font-size:.64rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .help-sub{font-family:var(--fd);font-weight:400;font-size:.94rem;color:var(--tx);margin:1.1rem 0 .5rem;padding-top:.75rem;border-top:1px dashed var(--bd2)}
 @media(max-width:640px){.help-quick{grid-template-columns:1fr}}
 /* ═══ ADMIN PANEL ════════════════════════════════════════════════ */
@@ -849,9 +865,9 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .admin-action-btn{padding:.22rem .55rem;border-radius:var(--r);border:1px solid var(--bd2);font-size:.68rem;cursor:pointer;background:none;color:var(--tx2);font-family:var(--ff);transition:all .12s;margin-right:.2rem;white-space:nowrap}
 .admin-action-btn:hover{background:var(--bg3);color:var(--tx)}
 .admin-action-btn.danger{border-color:#fca5a5;color:#dc2626}
-.admin-action-btn.danger:hover{background:#fee2e2}
+.admin-action-btn.danger:hover{background:color-mix(in srgb,var(--danger) 13%,transparent)}
 .admin-action-btn.primary{border-color:var(--acc);color:var(--acc-tx);background:var(--acc-bg)}
-.admin-action-btn.primary:hover{background:var(--acc);color:#fff}
+.admin-action-btn.primary:hover{background:var(--acc);color:var(--acc-on)}
 .admin-user-drawer{display:none;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:.75rem .9rem;margin-top:.3rem;font-size:.74rem;color:var(--tx2);line-height:1.7}
 .admin-user-drawer.open{display:block}
 .admin-drawer-title{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);margin-bottom:.4rem}
@@ -882,7 +898,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
   letter-spacing:.06em;text-transform:uppercase;
 }
 .mob-bar-avatar{
-  width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;
+  width:30px;height:30px;border-radius:50%;background:var(--acc);color:var(--acc-on);
   font-size:.66rem;font-weight:700;display:flex;align-items:center;justify-content:center;
   cursor:pointer;flex-shrink:0;overflow:hidden;border:none;padding:0;
   -webkit-tap-highlight-color:transparent;
@@ -917,7 +933,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 .mob-ni:active{opacity:.65}
 .mob-ni .mnbadge{
   position:absolute;top:7px;right:calc(50% - 20px);
-  background:var(--acc);color:#fff;border-radius:99px;
+  background:var(--acc);color:var(--acc-on);border-radius:99px;
   font-size:.44rem;min-width:14px;height:14px;
   display:flex;align-items:center;justify-content:center;
   padding:0 3px;line-height:1;pointer-events:none;
@@ -1119,6 +1135,7 @@ h2{font-size:.62rem;font-weight:600;letter-spacing:.09em;text-transform:uppercas
 /* Inputs: mismo lenguaje de foco en toda la app */
 input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid color-mix(in srgb,var(--acc) 55%,transparent);outline-offset:1px}
 button:focus-visible{outline:2px solid color-mix(in srgb,var(--acc) 55%,transparent);outline-offset:2px}
+[role=button]:focus-visible,.fold-item:focus-visible,[tabindex]:focus-visible{outline:2px solid color-mix(in srgb,var(--acc) 55%,transparent);outline-offset:2px}
 
 /* Sidebar: profundidad sutil y transiciones en items (mismos colores) */
 .sidebar{box-shadow:inset -1px 0 0 rgba(255,255,255,.04)}
@@ -1136,11 +1153,14 @@ button:focus-visible{outline:2px solid color-mix(in srgb,var(--acc) 55%,transpar
 ::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:99px;border:2px solid var(--bg)}
 ::-webkit-scrollbar-thumb:hover{background:var(--tx3)}
 ::-webkit-scrollbar-track{background:transparent}
+/* Firefox scrollbar theming */
+html{scrollbar-width:thin;scrollbar-color:var(--bg4) transparent}
 
 /* Accesibilidad: si el usuario prefiere menos movimiento, todo queda quieto */
 @media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   .cat-card,.tag,.abtn,.pbtn,.cpt,.gbtn,.upload-slot,.model-pill,.tbtn,.fold-add-btn,.help-toc-btn,.analyze-btn,.sidebar button,#prompt-area{transition:none}
-  .cat-card:hover,.tag:hover,.abtn:hover,.pbtn:hover,.cpt:hover,.gbtn:hover,.upload-slot:hover,.model-pill:hover,.help-toc-btn:hover{transform:none}
+  .cat-card:hover,.tag:hover,.abtn:hover,.pbtn:hover,.cpt:hover,.gbtn:hover,.upload-slot:hover,.model-pill:hover,.help-toc-btn:hover,.hcc-swatch:hover,.cdot:hover,.fav-rm:hover,.col-swatch:hover,#devprev-fab:hover{transform:none}
   .apm-ov,.fdlg-ov,.apm,.fdlg{animation:none}
 }
 
@@ -1175,15 +1195,15 @@ body::after{
   margin:0 auto .3rem;
   transition:background .18s,color .18s,transform .18s cubic-bezier(.16,1,.3,1);
 }
-.cat-card:hover .cc-icon{background:var(--acc);color:#fff;transform:scale(1.06)}
-.cat-card.active .cc-icon{background:var(--acc);color:#fff}
+.cat-card:hover .cc-icon{background:var(--acc);color:var(--acc-on);transform:scale(1.06)}
+.cat-card.active .cc-icon{background:var(--acc);color:var(--acc-on)}
 
 /* Cabeceras de grupo: subrayado de acento corto sobre la línea existente */
 .cat-group-hdr{position:relative}
 .cat-group-hdr::after{content:"";position:absolute;left:0;bottom:-1px;width:32px;height:2px;background:var(--acc);border-radius:2px}
 
 /* CTA principal de IA en el acento (una sola intención primaria, mismo botón) */
-.abtn.em{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+.abtn.em{background:var(--acc);border-color:var(--acc);color:var(--acc-on);font-weight:600}
 .abtn.em:hover{background:color-mix(in srgb,var(--acc) 88%,#000);box-shadow:0 4px 14px color-mix(in srgb,var(--acc) 35%,transparent)}
 [data-theme=dark] .abtn.em{color:#fff}
 
@@ -1281,8 +1301,8 @@ body::after{
       <div class="engine-picker" id="comm-engine-picker"></div>
     </div>
     <div class="comm-modal-actions">
-      <button class="comm-modal-cancel" onclick="closeCommModal()">Cancelar</button>
-      <button class="comm-modal-submit" onclick="submitCommPost()">Publicar →</button>
+      <button class="comm-modal-cancel" id="comm-cancel-btn" onclick="closeCommModal()">Cancelar</button>
+      <button class="comm-modal-submit" id="comm-submit-btn" onclick="submitCommPost()">Publicar →</button>
     </div>
   </div>
 </div>
@@ -1363,6 +1383,8 @@ body::after{
       <button class="abtn em pf-abtn" id="pf-ai-o" onclick="aiAction('o')"></button>
       <span class="pf-vsep"></span>
       <button class="gbtn" id="copy-btn" onclick="copyPrompt()" style="flex-shrink:0;white-space:nowrap"></button>
+      <button class="gbtn" id="export-btn" onclick="showExportMenu(event)" style="flex-shrink:0;white-space:nowrap" title="Export to platform syntax"></button>
+      <button class="abtn pf-abtn" id="verhist-btn" onclick="showVerHist(event)" style="flex-shrink:0" title="Version history" aria-label="Version history">↶</button>
       <button class="pbtn pf-sbtn" id="save-btn" onclick="pfSaveToggle()"></button>
       <button class="gbtn" id="reset-btn" onclick="resetAll()" style="flex-shrink:0"></button>
     </div>
@@ -1379,13 +1401,13 @@ body::after{
     <div class="mob-pf-strip" id="mob-pf-strip">
       <button class="mob-pf-btn" id="mob-lang-btn" onclick="showLangPicker(event)">🌐 <span id="mob-lang-code">EN</span> ▾</button>
       <div class="mob-pf-sep"></div>
-      <button class="mob-pf-btn" onclick="aiAction('r')" title="Refine with AI">✨</button>
-      <button class="mob-pf-btn" onclick="aiAction('v')" title="3 Variations">⊞</button>
-      <button class="mob-pf-btn mob-pf-em" onclick="aiAction('o')" title="Optimize EN">→EN</button>
+      <button class="mob-pf-btn" onclick="aiAction('r')" title="Refine with AI" aria-label="Refine with AI">✨</button>
+      <button class="mob-pf-btn" onclick="aiAction('v')" title="3 Variations" aria-label="3 Variations">⊞</button>
+      <button class="mob-pf-btn mob-pf-em" onclick="aiAction('o')" title="Optimize EN" aria-label="Optimize to English">→EN</button>
       <div class="mob-pf-sep"></div>
-      <button class="mob-pf-btn" onclick="mobCopyPrompt()" id="mob-copy-btn" title="Copy">⧉</button>
-      <button class="mob-pf-btn" onclick="mobSaveToggle()" title="Save to library">💾</button>
-      <button class="mob-pf-btn" onclick="resetAll()" title="Reset">↺</button>
+      <button class="mob-pf-btn" onclick="mobCopyPrompt()" id="mob-copy-btn" title="Copy" aria-label="Copy prompt">⧉</button>
+      <button class="mob-pf-btn" onclick="mobSaveToggle()" title="Save to library" aria-label="Save to library">💾</button>
+      <button class="mob-pf-btn" onclick="resetAll()" title="Reset" aria-label="Reset">↺</button>
     </div>
     <div class="mob-save-panel" id="mob-save-panel" style="display:none">
       <input class="save-inp" id="mob-save-inp" onkeydown="if(event.key==='Enter')mobSaveSubmit()">
@@ -1504,7 +1526,7 @@ body::after{
 </main>
 </div>
 <nav id="mob-nav" class="mob-nav"></nav>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 <input type="file" id="file-input" style="display:none" multiple onchange="onFilesChosen(event)">
 <script>/* supabase-js v2.107.0 UMD bundle (inlined for standalone use) */
 var supabase=(function(e){function t(e,t){var n={};for(var r in e)Object.prototype.hasOwnProperty.call(e,r)&&t.indexOf(r)<0&&(n[r]=e[r]);if(e!=null&&typeof Object.getOwnPropertySymbols==`function`)for(var i=0,r=Object.getOwnPropertySymbols(e);i<r.length;i++)t.indexOf(r[i])<0&&Object.prototype.propertyIsEnumerable.call(e,r[i])&&(n[r[i]]=e[r[i]]);return n}function n(e,t,n,r){function i(e){return e instanceof n?e:new n(function(t){t(e)})}return new(n||=Promise)(function(n,a){function o(e){try{c(r.next(e))}catch(e){a(e)}}function s(e){try{c(r.throw(e))}catch(e){a(e)}}function c(e){e.done?n(e.value):i(e.value).then(o,s)}c((r=r.apply(e,t||[])).next())})}let r=e=>e?(...t)=>e(...t):(...e)=>fetch(...e);var i=class extends Error{constructor(e,t=`FunctionsError`,n){super(e),this.name=t,this.context=n}toJSON(){return{name:this.name,message:this.message,context:this.context}}},a=class extends i{constructor(e){super(`Failed to send a request to the Edge Function`,`FunctionsFetchError`,e)}},o=class extends i{constructor(e){super(`Relay Error invoking the Edge Function`,`FunctionsRelayError`,e)}},s=class extends i{constructor(e){super(`Edge Function returned a non-2xx status code`,`FunctionsHttpError`,e)}},c;(function(e){e.Any=`any`,e.ApNortheast1=`ap-northeast-1`,e.ApNortheast2=`ap-northeast-2`,e.ApSouth1=`ap-south-1`,e.ApSoutheast1=`ap-southeast-1`,e.ApSoutheast2=`ap-southeast-2`,e.CaCentral1=`ca-central-1`,e.EuCentral1=`eu-central-1`,e.EuWest1=`eu-west-1`,e.EuWest2=`eu-west-2`,e.EuWest3=`eu-west-3`,e.SaEast1=`sa-east-1`,e.UsEast1=`us-east-1`,e.UsWest1=`us-west-1`,e.UsWest2=`us-west-2`})(c||={});var l=class{constructor(e,{headers:t={},customFetch:n,region:i=c.Any}={}){this.url=e,this.headers=t,this.region=i,this.fetch=r(n)}setAuth(e){this.headers.Authorization=`Bearer ${e}`}invoke(e){return n(this,arguments,void 0,function*(e,t={}){let n,r;try{let{headers:i,method:c,body:l,signal:u,timeout:d}=t,f={},{region:p}=t;p||=this.region;let m=new URL(`${this.url}/${e}`);p&&p!==`any`&&(f[`x-region`]=p,m.searchParams.set(`forceFunctionRegion`,p));let h;l&&(i&&!Object.prototype.hasOwnProperty.call(i,`Content-Type`)||!i)?typeof Blob<`u`&&l instanceof Blob||l instanceof ArrayBuffer?(f[`Content-Type`]=`application/octet-stream`,h=l):typeof l==`string`?(f[`Content-Type`]=`text/plain`,h=l):typeof FormData<`u`&&l instanceof FormData?h=l:(f[`Content-Type`]=`application/json`,h=JSON.stringify(l)):h=l&&typeof l!=`string`&&!(typeof Blob<`u`&&l instanceof Blob)&&!(l instanceof ArrayBuffer)&&!(typeof FormData<`u`&&l instanceof FormData)?JSON.stringify(l):l;let ee=u;d&&(r=new AbortController,n=setTimeout(()=>r.abort(),d),u?(ee=r.signal,u.addEventListener(`abort`,()=>r.abort())):ee=r.signal);let g=yield this.fetch(m.toString(),{method:c||`POST`,headers:Object.assign(Object.assign(Object.assign({},f),this.headers),i),body:h,signal:ee}).catch(e=>{throw new a(e)}),te=g.headers.get(`x-relay-error`);if(te&&te===`true`)throw new o(g);if(!g.ok)throw new s(g);let _=(g.headers.get(`Content-Type`)??`text/plain`).split(`;`)[0].trim(),ne;return ne=_===`application/json`?yield g.json():_===`application/octet-stream`||_===`application/pdf`?yield g.blob():_===`text/event-stream`?g:_===`multipart/form-data`?yield g.formData():yield g.text(),{data:ne,error:null,response:g}}catch(e){return{data:null,error:e,response:e instanceof s||e instanceof o?e.context:void 0}}finally{n&&clearTimeout(n)}})}};let u=e=>Math.min(1e3*2**e,3e4),d=[520,503],f=[`GET`,`HEAD`,`OPTIONS`];var p=class extends Error{constructor(e){super(e.message),this.name=`PostgrestError`,this.details=e.details,this.hint=e.hint,this.code=e.code}toJSON(){return{name:this.name,message:this.message,details:this.details,hint:this.hint,code:this.code}}};function m(e,t){return new Promise(n=>{if(t?.aborted){n();return}let r=setTimeout(()=>{t?.removeEventListener(`abort`,i),n()},e);function i(){clearTimeout(r),n()}t?.addEventListener(`abort`,i)})}function h(e,t,n,r){return!(!r||n>=3||!f.includes(e)||!d.includes(t))}var ee=class{constructor(e){this.shouldThrowOnError=!1,this.retryEnabled=!0,this.method=e.method,this.url=e.url,this.headers=new Headers(e.headers),this.schema=e.schema,this.body=e.body,this.shouldThrowOnError=e.shouldThrowOnError??!1,this.signal=e.signal,this.isMaybeSingle=e.isMaybeSingle??!1,this.shouldStripNulls=e.shouldStripNulls??!1,this.urlLengthLimit=e.urlLengthLimit??8e3,this.retryEnabled=e.retry??!0,e.fetch?this.fetch=e.fetch:this.fetch=fetch}throwOnError(){return this.shouldThrowOnError=!0,this}stripNulls(){if(this.headers.get(`Accept`)===`text/csv`)throw Error(`stripNulls() cannot be used with csv()`);return this.shouldStripNulls=!0,this}setHeader(e,t){return this.headers=new Headers(this.headers),this.headers.set(e,t),this}retry(e){return this.retryEnabled=e,this}then(e,t){var n=this;if(this.schema===void 0||([`GET`,`HEAD`].includes(this.method)?this.headers.set(`Accept-Profile`,this.schema):this.headers.set(`Content-Profile`,this.schema)),this.method!==`GET`&&this.method!==`HEAD`&&this.headers.set(`Content-Type`,`application/json`),this.shouldStripNulls){let e=this.headers.get(`Accept`);e===`application/vnd.pgrst.object+json`?this.headers.set(`Accept`,`application/vnd.pgrst.object+json;nulls=stripped`):(!e||e===`application/json`)&&this.headers.set(`Accept`,`application/vnd.pgrst.array+json;nulls=stripped`)}let r=this.fetch,i=(async()=>{let e=0;for(;;){let t=new Headers(n.headers);e>0&&t.set(`X-Retry-Count`,String(e));let i;try{i=await r(n.url.toString(),{method:n.method,headers:t,body:JSON.stringify(n.body,(e,t)=>typeof t==`bigint`?t.toString():t),signal:n.signal})}catch(t){if(t?.name===`AbortError`||t?.code===`ABORT_ERR`||!f.includes(n.method))throw t;if(n.retryEnabled&&e<3){let t=u(e);e++,await m(t,n.signal);continue}throw t}if(h(n.method,i.status,e,n.retryEnabled)){let t=i.headers?.get(`Retry-After`)??null,r=t===null?u(e):Math.max(0,parseInt(t,10)||0)*1e3;await i.text(),e++,await m(r,n.signal);continue}return await n.processResponse(i)}})();return this.shouldThrowOnError||(i=i.catch(e=>{let t=``,n=``,r=``,i=e?.cause;if(i){let n=i?.message??``,r=i?.code??``;t=`${e?.name??`FetchError`}: ${e?.message}`,t+=`\n\nCaused by: ${i?.name??`Error`}: ${n}`,r&&(t+=` (${r})`),i?.stack&&(t+=`\n${i.stack}`)}else t=e?.stack??``;let a=this.url.toString().length;return e?.name===`AbortError`||e?.code===`ABORT_ERR`?(r=``,n=`Request was aborted (timeout or manual cancellation)`,a>this.urlLengthLimit&&(n+=`. Note: Your request URL is ${a} characters, which may exceed server limits. If selecting many fields, consider using views. If filtering with large arrays (e.g., .in('id', [many IDs])), consider using an RPC function to pass values server-side.`)):(i?.name===`HeadersOverflowError`||i?.code===`UND_ERR_HEADERS_OVERFLOW`)&&(r=``,n=`HTTP headers exceeded server limits (typically 16KB)`,a>this.urlLengthLimit&&(n+=`. Your request URL is ${a} characters. If selecting many fields, consider using views. If filtering with large arrays (e.g., .in('id', [200+ IDs])), consider using an RPC function instead.`)),{success:!1,error:{message:`${e?.name??`FetchError`}: ${e?.message}`,details:t,hint:n,code:r},data:null,count:null,status:0,statusText:``}})),i.then(e,t)}async processResponse(e){var t=this;let n=null,r=null,i=null,a=e.status,o=e.statusText;if(e.ok){if(t.method!==`HEAD`){let i=await e.text();if(i!==``)if(t.headers.get(`Accept`)===`text/csv`)r=i;else if(t.headers.get(`Accept`)&&t.headers.get(`Accept`)?.includes(`application/vnd.pgrst.plan+text`))r=i;else try{r=JSON.parse(i)}catch{if(n={message:i},r=null,t.shouldThrowOnError)throw new p({message:i,details:``,hint:``,code:``})}}let s=t.headers.get(`Prefer`)?.match(/count=(exact|planned|estimated)/),c=e.headers.get(`content-range`)?.split(`/`);s&&c&&c.length>1&&(i=parseInt(c[1])),t.isMaybeSingle&&Array.isArray(r)&&(r.length>1?(n={code:`PGRST116`,details:`Results contain ${r.length} rows, application/vnd.pgrst.object+json requires 1 row`,hint:null,message:`JSON object requested, multiple (or no) rows returned`},r=null,i=null,a=406,o=`Not Acceptable`):r=r.length===1?r[0]:null)}else{let i=await e.text();try{n=JSON.parse(i),Array.isArray(n)&&e.status===404&&(r=[],n=null,a=200,o=`OK`)}catch{e.status===404&&i===``?(a=204,o=`No Content`):n={message:i}}if(n&&t.shouldThrowOnError)throw new p(n)}return{success:n===null,error:n,data:r,count:i,status:a,statusText:o}}returns(){return this}overrideTypes(){return this}},g=class extends ee{select(e){let t=!1,n=(e??`*`).split(``).map(e=>/\s/.test(e)&&!t?``:(e===`"`&&(t=!t),e)).join(``);return this.url.searchParams.set(`select`,n),this.headers.append(`Prefer`,`return=representation`),this}order(e,{ascending:t=!0,nullsFirst:n,foreignTable:r,referencedTable:i=r}={}){let a=i?`${i}.order`:`order`,o=this.url.searchParams.get(a);return this.url.searchParams.set(a,`${o?`${o},`:``}${e}.${t?`asc`:`desc`}${n===void 0?``:n?`.nullsfirst`:`.nullslast`}`),this}limit(e,{foreignTable:t,referencedTable:n=t}={}){let r=n===void 0?`limit`:`${n}.limit`;return this.url.searchParams.set(r,`${e}`),this}range(e,t,{foreignTable:n,referencedTable:r=n}={}){let i=r===void 0?`offset`:`${r}.offset`,a=r===void 0?`limit`:`${r}.limit`;return this.url.searchParams.set(i,`${e}`),this.url.searchParams.set(a,`${t-e+1}`),this}abortSignal(e){return this.signal=e,this}single(){return this.headers.set(`Accept`,`application/vnd.pgrst.object+json`),this}maybeSingle(){return this.isMaybeSingle=!0,this}csv(){return this.headers.set(`Accept`,`text/csv`),this}geojson(){return this.headers.set(`Accept`,`application/geo+json`),this}explain({analyze:e=!1,verbose:t=!1,settings:n=!1,buffers:r=!1,wal:i=!1,format:a=`text`}={}){let o=[e?`analyze`:null,t?`verbose`:null,n?`settings`:null,r?`buffers`:null,i?`wal`:null].filter(Boolean).join(`|`),s=this.headers.get(`Accept`)??`application/json`;return this.headers.set(`Accept`,`application/vnd.pgrst.plan+${a}; for="${s}"; options=${o};`),this}rollback(){return this.headers.append(`Prefer`,`tx=rollback`),this}returns(){return this}maxAffected(e){return this.headers.append(`Prefer`,`handling=strict`),this.headers.append(`Prefer`,`max-affected=${e}`),this}};let te=RegExp(`[,()]`);var _=class extends g{eq(e,t){return this.url.searchParams.append(e,`eq.${t}`),this}neq(e,t){return this.url.searchParams.append(e,`neq.${t}`),this}gt(e,t){return this.url.searchParams.append(e,`gt.${t}`),this}gte(e,t){return this.url.searchParams.append(e,`gte.${t}`),this}lt(e,t){return this.url.searchParams.append(e,`lt.${t}`),this}lte(e,t){return this.url.searchParams.append(e,`lte.${t}`),this}like(e,t){return this.url.searchParams.append(e,`like.${t}`),this}likeAllOf(e,t){return this.url.searchParams.append(e,`like(all).{${t.join(`,`)}}`),this}likeAnyOf(e,t){return this.url.searchParams.append(e,`like(any).{${t.join(`,`)}}`),this}ilike(e,t){return this.url.searchParams.append(e,`ilike.${t}`),this}ilikeAllOf(e,t){return this.url.searchParams.append(e,`ilike(all).{${t.join(`,`)}}`),this}ilikeAnyOf(e,t){return this.url.searchParams.append(e,`ilike(any).{${t.join(`,`)}}`),this}regexMatch(e,t){return this.url.searchParams.append(e,`match.${t}`),this}regexIMatch(e,t){return this.url.searchParams.append(e,`imatch.${t}`),this}is(e,t){return this.url.searchParams.append(e,`is.${t}`),this}isDistinct(e,t){return this.url.searchParams.append(e,`isdistinct.${t}`),this}in(e,t){let n=Array.from(new Set(t)).map(e=>typeof e==`string`&&te.test(e)?`"${e}"`:`${e}`).join(`,`);return this.url.searchParams.append(e,`in.(${n})`),this}notIn(e,t){let n=Array.from(new Set(t)).map(e=>typeof e==`string`&&te.test(e)?`"${e}"`:`${e}`).join(`,`);return this.url.searchParams.append(e,`not.in.(${n})`),this}contains(e,t){return typeof t==`string`?this.url.searchParams.append(e,`cs.${t}`):Array.isArray(t)?this.url.searchParams.append(e,`cs.{${t.join(`,`)}}`):this.url.searchParams.append(e,`cs.${JSON.stringify(t)}`),this}containedBy(e,t){return typeof t==`string`?this.url.searchParams.append(e,`cd.${t}`):Array.isArray(t)?this.url.searchParams.append(e,`cd.{${t.join(`,`)}}`):this.url.searchParams.append(e,`cd.${JSON.stringify(t)}`),this}rangeGt(e,t){return this.url.searchParams.append(e,`sr.${t}`),this}rangeGte(e,t){return this.url.searchParams.append(e,`nxl.${t}`),this}rangeLt(e,t){return this.url.searchParams.append(e,`sl.${t}`),this}rangeLte(e,t){return this.url.searchParams.append(e,`nxr.${t}`),this}rangeAdjacent(e,t){return this.url.searchParams.append(e,`adj.${t}`),this}overlaps(e,t){return typeof t==`string`?this.url.searchParams.append(e,`ov.${t}`):this.url.searchParams.append(e,`ov.{${t.join(`,`)}}`),this}textSearch(e,t,{config:n,type:r}={}){let i=``;r===`plain`?i=`pl`:r===`phrase`?i=`ph`:r===`websearch`&&(i=`w`);let a=n===void 0?``:`(${n})`;return this.url.searchParams.append(e,`${i}fts${a}.${t}`),this}match(e){return Object.entries(e).filter(([e,t])=>t!==void 0).forEach(([e,t])=>{this.url.searchParams.append(e,`eq.${t}`)}),this}not(e,t,n){return this.url.searchParams.append(e,`not.${t}.${n}`),this}or(e,{foreignTable:t,referencedTable:n=t}={}){let r=n?`${n}.or`:`or`;return this.url.searchParams.append(r,`(${e})`),this}filter(e,t,n){return this.url.searchParams.append(e,`${t}.${n}`),this}},ne=class{constructor(e,{headers:t={},schema:n,fetch:r,urlLengthLimit:i=8e3,retry:a}){this.url=e,this.headers=new Headers(t),this.schema=n,this.fetch=r,this.urlLengthLimit=i,this.retry=a}cloneRequestState(){return{url:new URL(this.url.toString()),headers:new Headers(this.headers)}}select(e,t){let{head:n=!1,count:r}=t??{},i=n?`HEAD`:`GET`,a=!1,o=(e??`*`).split(``).map(e=>/\s/.test(e)&&!a?``:(e===`"`&&(a=!a),e)).join(``),{url:s,headers:c}=this.cloneRequestState();return s.searchParams.set(`select`,o),r&&c.append(`Prefer`,`count=${r}`),new _({method:i,url:s,headers:c,schema:this.schema,fetch:this.fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}insert(e,{count:t,defaultToNull:n=!0}={}){let{url:r,headers:i}=this.cloneRequestState();if(t&&i.append(`Prefer`,`count=${t}`),n||i.append(`Prefer`,`missing=default`),Array.isArray(e)){let t=e.reduce((e,t)=>e.concat(Object.keys(t)),[]);if(t.length>0){let e=[...new Set(t)].map(e=>`"${e}"`);r.searchParams.set(`columns`,e.join(`,`))}}return new _({method:`POST`,url:r,headers:i,schema:this.schema,body:e,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}upsert(e,{onConflict:t,ignoreDuplicates:n=!1,count:r,defaultToNull:i=!0}={}){let{url:a,headers:o}=this.cloneRequestState();if(o.append(`Prefer`,`resolution=${n?`ignore`:`merge`}-duplicates`),t!==void 0&&a.searchParams.set(`on_conflict`,t),r&&o.append(`Prefer`,`count=${r}`),i||o.append(`Prefer`,`missing=default`),Array.isArray(e)){let t=e.reduce((e,t)=>e.concat(Object.keys(t)),[]);if(t.length>0){let e=[...new Set(t)].map(e=>`"${e}"`);a.searchParams.set(`columns`,e.join(`,`))}}return new _({method:`POST`,url:a,headers:o,schema:this.schema,body:e,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}update(e,{count:t}={}){let{url:n,headers:r}=this.cloneRequestState();return t&&r.append(`Prefer`,`count=${t}`),new _({method:`PATCH`,url:n,headers:r,schema:this.schema,body:e,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}delete({count:e}={}){let{url:t,headers:n}=this.cloneRequestState();return e&&n.append(`Prefer`,`count=${e}`),new _({method:`DELETE`,url:t,headers:n,schema:this.schema,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}};function re(e){"@babel/helpers - typeof";return re=typeof Symbol==`function`&&typeof Symbol.iterator==`symbol`?function(e){return typeof e}:function(e){return e&&typeof Symbol==`function`&&e.constructor===Symbol&&e!==Symbol.prototype?`symbol`:typeof e},re(e)}function ie(e,t){if(re(e)!=`object`||!e)return e;var n=e[Symbol.toPrimitive];if(n!==void 0){var r=n.call(e,t||`default`);if(re(r)!=`object`)return r;throw TypeError(`@@toPrimitive must return a primitive value.`)}return(t===`string`?String:Number)(e)}function ae(e){var t=ie(e,`string`);return re(t)==`symbol`?t:t+``}function oe(e,t,n){return(t=ae(t))in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function se(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter(function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable})),n.push.apply(n,r)}return n}function ce(e){for(var t=1;t<arguments.length;t++){var n=arguments[t]==null?{}:arguments[t];t%2?se(Object(n),!0).forEach(function(t){oe(e,t,n[t])}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):se(Object(n)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))})}return e}var le=class e{constructor(e,{headers:t={},schema:n,fetch:r,timeout:i,urlLengthLimit:a=8e3,retry:o}={}){this.url=e,this.headers=new Headers(t),this.schemaName=n,this.urlLengthLimit=a;let s=r??globalThis.fetch;i!==void 0&&i>0?this.fetch=(e,t)=>{let n=new AbortController,r=setTimeout(()=>n.abort(),i),a=t?.signal;if(a){if(a.aborted)return clearTimeout(r),s(e,t);let i=()=>{clearTimeout(r),n.abort()};return a.addEventListener(`abort`,i,{once:!0}),s(e,ce(ce({},t),{},{signal:n.signal})).finally(()=>{clearTimeout(r),a.removeEventListener(`abort`,i)})}return s(e,ce(ce({},t),{},{signal:n.signal})).finally(()=>clearTimeout(r))}:this.fetch=s,this.retry=o}from(e){if(!e||typeof e!=`string`||e.trim()===``)throw Error(`Invalid relation name: relation must be a non-empty string.`);return new ne(new URL(`${this.url}/${e}`),{headers:new Headers(this.headers),schema:this.schemaName,fetch:this.fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}schema(t){return new e(this.url,{headers:this.headers,schema:t,fetch:this.fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}rpc(e,t={},{head:n=!1,get:r=!1,count:i}={}){let a,o=new URL(`${this.url}/rpc/${e}`),s,c=e=>typeof e==`object`&&!!e&&(!Array.isArray(e)||e.some(c)),l=n&&Object.values(t).some(c);l?(a=`POST`,s=t):n||r?(a=n?`HEAD`:`GET`,Object.entries(t).filter(([e,t])=>t!==void 0).map(([e,t])=>[e,Array.isArray(t)?`{${t.join(`,`)}}`:`${t}`]).forEach(([e,t])=>{o.searchParams.append(e,t)})):(a=`POST`,s=t);let u=new Headers(this.headers);return l?u.set(`Prefer`,i?`count=${i},return=minimal`:`return=minimal`):i&&u.set(`Prefer`,`count=${i}`),new _({method:a,url:o,headers:u,schema:this.schemaName,body:s,fetch:this.fetch??fetch,urlLengthLimit:this.urlLengthLimit,retry:this.retry})}},ue=class{constructor(){}static detectEnvironment(){if(typeof WebSocket<`u`)return{type:`native`,wsConstructor:WebSocket};let e=globalThis;if(typeof globalThis<`u`&&e.WebSocket!==void 0)return{type:`native`,wsConstructor:e.WebSocket};let t=typeof global<`u`?global:void 0;if(t&&t.WebSocket!==void 0)return{type:`native`,wsConstructor:t.WebSocket};if(typeof globalThis<`u`&&e.WebSocketPair!==void 0&&globalThis.WebSocket===void 0)return{type:`cloudflare`,error:`Cloudflare Workers detected. WebSocket clients are not supported in Cloudflare Workers.`,workaround:`Use Cloudflare Workers WebSocket API for server-side WebSocket handling, or deploy to a different runtime.`};if(typeof globalThis<`u`&&e.EdgeRuntime||typeof navigator<`u`&&navigator.userAgent?.includes(`Vercel-Edge`))return{type:`unsupported`,error:`Edge runtime detected (Vercel Edge/Netlify Edge). WebSockets are not supported in edge functions.`,workaround:`Use serverless functions or a different deployment target for WebSocket functionality.`};let n=globalThis.process;if(n){let e=n.versions;if(e&&e.node){let t=e.node,n=parseInt(t.replace(/^v/,``).split(`.`)[0]);return n>=22?globalThis.WebSocket===void 0?{type:`unsupported`,error:`Node.js ${n} detected but native WebSocket not found.`,workaround:`Provide a WebSocket implementation via the transport option.`}:{type:`native`,wsConstructor:globalThis.WebSocket}:{type:`unsupported`,error:`Node.js ${n} detected without native WebSocket support.`,workaround:`For Node.js < 22, install "ws" package and provide it via the transport option:
@@ -1585,6 +1607,39 @@ const CLOUD={
     };
   },
 
+  // Cross-device credentials: the cloud account is keyed by username+password,
+  // so the same user gets the same cloud identity (and owns their posts) on
+  // every device. Derived from the real password the user types at login.
+  _credProm:null,
+  _userEmail(username){const slug=(username||"user").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"user";return slug+"@users.pbp.local";},
+  _userPw(username,password){return hashPass("pbpcloud2::"+(username||"").toLowerCase()+"::"+(password||""));},
+  // Establish (or create) the cross-device cloud session. Best-effort; never
+  // blocks or breaks local login if the backend is unreachable.
+  async authWithCredentials(username,password){
+    if(!await this.ensureReady())return false;
+    try{
+      const email=this._userEmail(username);
+      const cpw=this._userPw(username,password);
+      let {data,error}=await _sb.auth.signInWithPassword({email,password:cpw});
+      if(error){
+        const su=await _sb.auth.signUp({email,password:cpw,options:{data:{username}}});
+        if(su.error){console.warn("[cloud] cred signUp failed",su.error.message);return false;}
+        const re=await _sb.auth.signInWithPassword({email,password:cpw});
+        if(re.error){console.warn("[cloud] cred signIn failed",re.error.message);return false;}
+        data=re.data;
+      }
+      this._authedFor="cred:"+username;
+      return true;
+    }catch(e){console.warn("[cloud] authWithCredentials error",e);return false;}
+  },
+  // Called from doLogin/doRegister; tracks the in-flight auth so community
+  // writes wait for it instead of racing into a per-device provision.
+  beginCredentialAuth(username,password){
+    if(!this.on)return;
+    this._credProm=this.authWithCredentials(username,password).finally(()=>{this._credProm=null;});
+  },
+  async signOut(){if(!this.on)return;try{await _sb.auth.signOut();}catch(e){}this._authedFor=null;},
+
   // Cloud uid for the current session WITHOUT provisioning (for read-side
   // ownership checks). Returns null if no cloud session yet.
   async myUid(){
@@ -1599,8 +1654,13 @@ const CLOUD={
     const sess=getSession();
     if(!sess)return null;
     try{
+      // Wait for an in-flight credential login so we don't race into a
+      // per-device provision and split the identity.
+      if(this._credProm){try{await this._credProm;}catch(e){}}
       const {data:cur}=await _sb.auth.getSession();
-      if(cur&&cur.session&&this._authedFor===sess.id)return cur.session.user.id;
+      // Reuse any existing session (the cross-device credential session takes
+      // precedence over the legacy per-device transparent scheme).
+      if(cur&&cur.session)return cur.session.user.id;
       const u=getUsers().find(x=>x.id===sess.id)||sess;
       const {email,password}=this._creds(u);
       let {data,error}=await _sb.auth.signInWithPassword({email,password});
@@ -1687,9 +1747,9 @@ setTimeout(()=>{CLOUD.ensureReady&&CLOUD.ensureReady();},800);
 
 // ════ TRANSLATIONS ════════════════════════════════════════════
 const T={
-ES:{nav_b:"Builder",nav_l:"Biblioteca",nav_s:"Panel de control",nav_c:"Crear",nav_sys:"Sistema",th_li:"Claro",th_au:"Auto",th_dk:"Oscuro",ph_h:"Construye tu prompt",ph_p:"Selecciona una categoría y define cada parámetro.",cat_h:"Categoría",home_settings:"Ajustes",cat_mgr:"⊞ Categorías",ul_l:"Analizar:",ul_i:"Imagen",ul_v:"Video",ul_a:"Audio",ul_t:"Texto",an_btn:"Analizar",an_ing:"Analizando…",sug_l:"Sugerencias detectadas",sug_a:"+ añadir",back:"← cambiar",vd1:"Descripción visual del video",vd2:"Narrativa / Historia",vd1p:"Describe lo que se ve: colores, ambientes, personajes, acción…",vd2p:"La historia, arco narrativo, mensaje emocional del video…",tl_h:"Timeline segundo a segundo",add_b:"+ añadir beat",pr_l:"Prompt — editable",pr_p:"Selecciona una categoría para comenzar…",copy:"Copiar",copied:"Copiado ✓",reset:"Reset",sv_p:"Nombre para guardar…",sv_b:"★ Guardar",svd:"★ Guardado",ai_r:"Refinar con IA",ai_v:"3 Variaciones",ai_o:"Optimizar EN →",lib_h:"Biblioteca",lib_p:"Tus prompts guardados.",lib_e:"No hay prompts guardados.\nCrea uno y guárdalo con ★",lib_lo:"Cargar",lib_co:"Copiar",lib_de:"Eliminar",set_h:"Panel de control",set_p:"Personaliza comportamiento y apariencia.",cp_lang:"Idioma de la interfaz",cp_dlang:"Idioma del prompt",cp_plat:"Plataforma IA favorita",cp_rat:"Aspect ratio favorito",cp_cats:"Categorías activas",cp_ch:"Desactiva las que no uses",cp_font:"Tipografía",cp_tag:"Tamaño de botones / tags",cp_dens:"Densidad de la UI",den_c:"Compacta",den_n:"Normal",den_s:"Espaciada",cp_th:"Tema",cp_thh:"Auto: claro 7am–7pm, oscuro el resto",cp_lib:"Biblioteca",cp_lc:"prompts guardados",cp_ex:"↓ Exportar JSON",cp_im:"↑ Importar JSON",cp_cl:"Borrar biblioteca",cp_clc:"¿Borrar toda la biblioteca? No se puede deshacer.",s_orig:"Orig",s_az:"A–Z",s_za:"Z–A",s_fav:"★",s_col:"Color",multi:"múltiple",one:"uno",add_ph:"+ Añadir opción personalizada…",add_b2:"Añadir",bp:"¿Qué sucede aquí? Acción, movimiento, emoción…",bpn:"Notas: FX visual, color grade, sonido clave…",bs:"Plano",bm:"Mov. cámara",bl:"Iluminación",be:"Emoción",bls:"Lente",bt:"Transición",tc:"Color:",tc_an:"✓",t_cp:"Prompt copiado",t_sv:"Guardado en biblioteca",t_np:"Genera un prompt primero",t_nf:"Carga un archivo primero",t_an:"Análisis completado",t_fb:"Instrucción copiada — pégala en Claude",t_tr:"Traducido",t_ex:"Exportado",t_im:"prompts importados",t_inv:"Archivo inválido",t_dl:"Eliminado",t_ld:"Prompt cargado",t_cl:"Biblioteca borrada",fld_h:"Carpetas",fld_new:"Nueva carpeta",fld_sub:"Nueva subcarpeta",fld_name:"Nombre de la carpeta",fld_ren:"Renombrar",fld_del:"Eliminar carpeta",fld_delc:"¿Eliminar carpeta? Los prompts quedarán sin carpeta.",fld_all:"Todos los prompts",fld_none:"Sin carpeta",fld_move:"Mover a carpeta",fld_moved:"Prompt movido",fld_created:"Carpeta creada",fld_empty:"Sin prompts en esta carpeta",ai_rm:"Refina y expande este prompt para IA generativa con más especificidad técnica. Incluye términos de fotografía, dirección de arte y cinematografía. Dame la versión Pro completa:\n\n",ai_vm:"Dame 3 variaciones completamente distintas de este prompt, cada una con un enfoque estético diferente pero manteniendo la esencia. Numera claramente:\n\n",ai_om:"Translate to English and optimize technically for generative AI platforms (FLUX, Midjourney, Sora, Kling, Seedance, GPT Image). Include advanced technical parameters:\n\n",an_pr:'Analiza este archivo. Detecta parámetros visuales, técnicos, de estilo, iluminación, mood, movimiento de cámara, color grade relevantes para un prompt de IA generativa. Responde SOLO con JSON válido sin markdown: {"summary":"breve descripción","detected_tags":["tag1","tag2"],"new_suggestions":["sugerencia1"]}',nav_r:"Referencias",nav_home:"Inicio",profile:"Mi Perfil",community:"Comunidad",cp_lang_h:"Cambia el idioma de toda la interfaz al instante.",comm_sub:"Descubre prompts, inspírate y comparte tus creaciones.",ref_add:"＋ Añadir referencia",ref_save_btn:"Guardar referencia",ref_cancel:"Cancelar",ref_modal_title:"＋ Nueva referencia",ref_type_lbl:"Tipo",ref_title_lbl:"Título",ref_url_lbl:"URL",ref_url_opt:"(opcional)",ref_thumb_lbl:"Miniatura",ref_notes_lbl:"Notas",ref_name_ph:"Nombre de la referencia…",ref_notes_ph:"Qué me gusta, para qué sirve…",ref_thumb_ph:"https://… imagen",ref_url_ph:"https://…",ref_saved:"Referencia guardada ✓",ref_deleted:"Referencia eliminada",ref_del_confirm:"¿Eliminar esta referencia?",ref_type_img:"Imagen",ref_type_vid:"Video",ref_type_snd:"Sonido",ref_type_app:"App",ref_type_web:"Web",ref_type_oth:"Otro",ref_empty:"No hay referencias.",ref_empty_hint:"Añade imágenes, videos, sonidos, apps o webs que te inspiren.",ref_sub:"Banco de referencias visuales, sonoras y de apps para inspirarte.",cat_mgr_sel:"Selecciona una categoría para gestionar sus secciones.",cat_mgr_no_sec:"Esta categoría no tiene secciones configurables.",sec_visible:"Secciones visibles",lib_add_btn:"＋ Añadir prompt",lib_search_ph:"🔍 Buscar por nombre o contenido…",lib_sort_new:"Más reciente",lib_sort_old:"Más antiguo",lib_sort_az:"Nombre A→Z",lib_sort_za:"Nombre Z→A",lib_add_title:"＋ Añadir prompt",lib_edit_title:"✏️ Editar prompt",lib_name_ph:"Nombre del prompt…",lib_prompt_ph:"Escribe o pega tu prompt aquí…",lib_save:"Guardar",lib_cancel:"Cancelar",lib_rename_title:"Renombrar prompt",lib_name_req:"El nombre es requerido",lib_prompt_req:"El prompt no puede estar vacío",lib_updated:"Prompt actualizado ✓",lib_saved_ok:"Prompt guardado ✓",lib_edit_menu:"✏️ Editar",lib_rename_menu:"🔤 Renombrar",lib_dup_menu:"📋 Duplicar",lib_dup_suffix:" (copia)",lib_duped:"Duplicado ✓",lib_move_fld:"📁 Mover a carpeta",lib_chg_cat:"🏷 Cambiar categoría",lib_my_name:"Mi Biblioteca",pack_import:"↑ Importar pack",pack_export:"↓ Exportar pack",export_empty:"Sin prompts para exportar",set_fz_lbl:"Tamaño fuente — Interfaz / Builder",set_card_fz:"Tamaño fuente — Tarjetas Home",set_card_pad:"Tamaño botones Home",set_tag_fz:"Fuente del tag",set_tag_py:"Padding vertical",set_tag_px:"Padding horizontal",set_ui_style:"Estilo de interfaz",api_key_lbl:"Clave API Anthropic",api_key_hint:"Opcional. Con tu clave sk-ant-… la IA funciona directamente. Sin clave, las instrucciones se copian al portapapeles para usar en Claude.",theme_cust_saved:"Tema personalizado guardado ✓",color_invalid:"Color inválido — usa #RRGGBB",color_updated:"Color actualizado ✓",color_reset:"Color restablecido ✓",eng_none:"Sin especificar",eng_other:"Otro",comm_post_btn:"+ Publicar Prompt",comm_login_post:"Inicia sesión para publicar.",comm_title_req:"Escribe un título.",comm_prompt_req:"El prompt no puede estar vacío.",comm_media_err:"Elige una imagen o cambia a 'Sin media'.",comm_published:"¡Publicado en la comunidad! ✓",comm_login_like:"Inicia sesión para dar likes.",comm_login_cmt:"Inicia sesión para comentar.",comm_post_del:"Publicación eliminada.",comm_prompt_loaded:"Prompt cargado en el Builder ✓",comm_no_my_posts:"Aún no has publicado nada.<br>¡Comparte tu primer prompt!",comm_empty:"La comunidad está vacía. ¡Sé el primero en publicar!",comm_first_cmt:"Sé el primero en comentar.",comm_cmt_ph:"Añade un comentario…",comm_time_now:"ahora",comm_file_large:"Imagen demasiado grande. Máximo 1.5 MB.",comm_img_ph:"Clic para elegir imagen (máx. 1.5 MB)",comm_url_img_ph:"https://i.imgur.com/… (URL de imagen)",comm_url_lnk_ph:"https://… (link al resultado)",adm_no_perm:"Sin permisos.",adm_usr_not_found:"Usuario no encontrado.",adm_super_prot:"No puedes eliminar el superusuario.",adm_usr_del:"Usuario eliminado ✓",adm_post_del:"Publicación eliminada ✓",adm_role_usr:"Usuario",adm_protected:"Protegido",adm_no_results:"Sin resultados.",adm_no_posts:"Sin publicaciones.",adm_lib_lbl:"Biblioteca",adm_no_prompts:"Sin prompts guardados.",prof_edit_title:"Editar Perfil",prof_display_name:"Nombre a mostrar",prof_bio:"Biografía",prof_website:"Sitio web",prof_save:"Guardar cambios",prof_cancel:"Cancelar",prof_img_large:"Imagen demasiado grande (máx. 2 MB)",prof_updated:"Perfil actualizado ✓",prof_no_prompts:"Aún no has guardado prompts. ¡Construye tu primero en el Builder!",prof_no_posts:"Aún no has publicado nada en la Comunidad. ¡Comparte tu primer prompt!",prof_load:"Cargar",prof_since:"Miembro desde",prof_stat_saved:"Prompts guardados",prof_stat_posts:"Posts",prof_stat_likes:"♥ Recibidos",prof_stat_cmts:"💬 Recibidos",combo_name:"Nombre del combo:",combo_num:"Combo ",combo_lbl:"Combos",combo_save:"+ Guardar selección",combo_empty:"Selecciona opciones y guarda tu primer combo.",t_cfirst:"Primero selecciona opciones",t_csav:"Combo guardado",t_cld:"Combo cargado",t_cdl:"Combo eliminado",preset_lbl:"Ajustes guardados",preset_save:"+ Guardar configuración actual",preset_loaded:"Configuración cargada",preset_name_ph:"Nombre del preset…",stats_title:"Estadísticas",stats_sub:"Opciones y tags más utilizados",refs_title:"Referencias",hc_font:"Fuente",hc_text:"Texto",hc_buttons:"Botones",hc_icon_color:"Icono · Color de fondo · Color de texto",hc_reset_colors:"↺ Reset colores",hc_bg_color:"Color de fondo",hc_change_icon:"Cambiar icono",hc_text_auto:"Color de texto: Auto",hc_text_white:"Texto blanco",hc_text_black:"Texto negro",t_colors_reset:"Colores reseteados ✓",fld_create:"Crear",logout_q:"¿Cerrar sesión?",logout_b:"Salir",lib_delc:"¿Eliminar este prompt?",comm_title_ph:"Dale un nombre a tu creación…",comm_prompt_ph:"Pega aquí el prompt que usaste…",comm_net_err:"Error de conexión. Inténtalo de nuevo.",comm_del_confirm:"¿Eliminar esta publicación?"},
-FR:{nav_b:"Builder",nav_l:"Bibliothèque",nav_s:"Panneau",nav_c:"Créer",nav_sys:"Système",th_li:"Clair",th_au:"Auto",th_dk:"Sombre",ph_h:"Construisez votre prompt",ph_p:"Sélectionnez une catégorie et définissez chaque paramètre.",cat_h:"Catégorie",home_settings:"Réglages",cat_mgr:"⊞ Catégories",ul_l:"Analyser:",ul_i:"Image",ul_v:"Vidéo",ul_a:"Audio",ul_t:"Texte",an_btn:"Analyser",an_ing:"Analyse…",sug_l:"Suggestions détectées",sug_a:"+ ajouter",back:"← changer",vd1:"Description visuelle de la vidéo",vd2:"Narration / Histoire",vd1p:"Décrivez visuellement ce qu'on voit: couleurs, ambiances, personnages…",vd2p:"L'histoire, l'arc narratif, le message émotionnel de la vidéo…",tl_h:"Timeline seconde par seconde",add_b:"+ ajouter beat",pr_l:"Prompt — modifiable",pr_p:"Sélectionnez une catégorie pour commencer…",copy:"Copier",copied:"Copié ✓",reset:"Réinitialiser",sv_p:"Nom pour sauvegarder…",sv_b:"★ Sauvegarder",svd:"★ Sauvegardé",ai_r:"Affiner avec IA",ai_v:"3 Variations",ai_o:"Optimiser EN →",lib_h:"Bibliothèque",lib_p:"Vos prompts sauvegardés.",lib_e:"Aucun prompt sauvegardé.\nCréez-en un et sauvegardez avec ★",lib_lo:"Charger",lib_co:"Copier",lib_de:"Supprimer",set_h:"Panneau de contrôle",set_p:"Personnalisez le comportement et l'apparence.",cp_lang:"Langue de l'interface",cp_dlang:"Langue du prompt",cp_plat:"Plateforme IA favorite",cp_rat:"Format d'image favori",cp_cats:"Catégories actives",cp_ch:"Désactivez celles inutilisées",cp_font:"Typographie",cp_tag:"Taille des boutons / tags",cp_dens:"Densité de l'UI",den_c:"Compacte",den_n:"Normale",den_s:"Spacieuse",cp_th:"Thème",cp_thh:"Auto: clair 7h–19h, sombre le reste",cp_lib:"Bibliothèque",cp_lc:"prompts sauvegardés",cp_ex:"↓ Exporter JSON",cp_im:"↑ Importer JSON",cp_cl:"Vider la bibliothèque",cp_clc:"Vider toute la bibliothèque? Irréversible.",s_orig:"Orig",s_az:"A–Z",s_za:"Z–A",s_fav:"★",s_col:"Couleur",multi:"multiple",one:"unique",add_ph:"+ Ajouter option personnalisée…",add_b2:"Ajouter",bp:"Que se passe-t-il ici? Action, mouvement, émotion…",bpn:"Notes: FX visuel, color grade, son clé…",bs:"Plan",bm:"Mouvement cam",bl:"Éclairage",be:"Émotion",bls:"Objectif",bt:"Transition",tc:"Couleur:",tc_an:"✓",t_cp:"Prompt copié",t_sv:"Sauvegardé",t_np:"Générez d'abord un prompt",t_nf:"Chargez d'abord un fichier",t_an:"Analyse terminée",t_fb:"Instruction copiée — collez dans Claude",t_tr:"Traduit",t_ex:"Exporté",t_im:"prompts importés",t_inv:"Fichier invalide",t_dl:"Supprimé",t_ld:"Prompt chargé",t_cl:"Bibliothèque vidée",fld_h:"Dossiers",fld_new:"Nouveau dossier",fld_sub:"Sous-dossier",fld_name:"Nom du dossier",fld_ren:"Renommer",fld_del:"Supprimer",fld_delc:"Supprimer le dossier? Les prompts seront sans dossier.",fld_all:"Tous les prompts",fld_none:"Sans dossier",fld_move:"Déplacer",fld_moved:"Prompt déplacé",fld_created:"Dossier créé",fld_empty:"Aucun prompt dans ce dossier",ai_rm:"Raffine et développe ce prompt pour l'IA générative avec plus de spécificité technique:\n\n",ai_vm:"Donne 3 variations complètement différentes de ce prompt avec une approche esthétique différente:\n\n",ai_om:"Translate to English and optimize for generative AI platforms (FLUX, Midjourney, Sora, Kling, Seedance, GPT Image):\n\n",an_pr:'Analyse ce fichier. Détecte les paramètres visuels, techniques, de style pertinents pour un prompt IA. Réponds UNIQUEMENT avec JSON valide sans markdown: {"summary":"description","detected_tags":["tag1"],"new_suggestions":["suggestion1"]}',nav_r:"Références",nav_home:"Accueil",profile:"Mon Profil",community:"Communauté",cp_lang_h:"Changez instantanément la langue de toute l'interface.",comm_sub:"Découvrez des prompts, inspirez-vous et partagez vos créations.",ref_add:"＋ Ajouter une référence",ref_save_btn:"Sauvegarder",ref_cancel:"Annuler",ref_modal_title:"＋ Nouvelle référence",ref_type_lbl:"Type",ref_title_lbl:"Titre",ref_url_lbl:"URL",ref_url_opt:"(optionnel)",ref_thumb_lbl:"Miniature",ref_notes_lbl:"Notes",ref_name_ph:"Nom de la référence…",ref_notes_ph:"Ce que j'aime, à quoi ça sert…",ref_thumb_ph:"https://… image",ref_url_ph:"https://…",ref_saved:"Référence sauvegardée ✓",ref_deleted:"Référence supprimée",ref_del_confirm:"Supprimer cette référence?",ref_type_img:"Image",ref_type_vid:"Vidéo",ref_type_snd:"Son",ref_type_app:"App",ref_type_web:"Web",ref_type_oth:"Autre",ref_empty:"Pas encore de références.",ref_empty_hint:"Ajoutez des images, vidéos, sons, apps ou sites qui vous inspirent.",ref_sub:"Banque de références visuelles, sonores et apps pour vous inspirer.",cat_mgr_sel:"Sélectionnez une catégorie pour gérer ses sections.",cat_mgr_no_sec:"Cette catégorie n'a pas de sections configurables.",sec_visible:"Sections visibles",lib_add_btn:"＋ Ajouter prompt",lib_search_ph:"🔍 Rechercher par nom ou contenu…",lib_sort_new:"Plus récent",lib_sort_old:"Plus ancien",lib_sort_az:"Nom A→Z",lib_sort_za:"Nom Z→A",lib_add_title:"＋ Ajouter prompt",lib_edit_title:"✏️ Modifier prompt",lib_name_ph:"Nom du prompt…",lib_prompt_ph:"Écrivez ou collez votre prompt ici…",lib_save:"Sauvegarder",lib_cancel:"Annuler",lib_rename_title:"Renommer le prompt",lib_name_req:"Le nom est requis",lib_prompt_req:"Le prompt ne peut pas être vide",lib_updated:"Prompt mis à jour ✓",lib_saved_ok:"Prompt sauvegardé ✓",lib_edit_menu:"✏️ Modifier",lib_rename_menu:"🔤 Renommer",lib_dup_menu:"📋 Dupliquer",lib_dup_suffix:" (copie)",lib_duped:"Dupliqué ✓",lib_move_fld:"📁 Déplacer dans dossier",lib_chg_cat:"🏷 Changer catégorie",lib_my_name:"Ma Bibliothèque",pack_import:"↑ Importer pack",pack_export:"↓ Exporter pack",export_empty:"Aucun prompt à exporter",set_fz_lbl:"Taille police — Interface / Builder",set_card_fz:"Taille police — Cartes Home",set_card_pad:"Taille boutons Home",set_tag_fz:"Police du tag",set_tag_py:"Padding vertical",set_tag_px:"Padding horizontal",set_ui_style:"Style d'interface",api_key_lbl:"Clé API Anthropic",api_key_hint:"Optionnel. Avec votre clé sk-ant-… l'IA fonctionne directement. Sans clé, les instructions sont copiées dans le presse-papiers pour Claude.",theme_cust_saved:"Thème personnalisé sauvegardé ✓",color_invalid:"Couleur invalide — utilisez #RRGGBB",color_updated:"Couleur mise à jour ✓",color_reset:"Couleur réinitialisée ✓",eng_none:"Non spécifié",eng_other:"Autre",comm_post_btn:"+ Publier Prompt",comm_login_post:"Connectez-vous pour publier.",comm_title_req:"Écrivez un titre.",comm_prompt_req:"Le prompt ne peut pas être vide.",comm_media_err:"Choisissez une image ou passez à 'Sans média'.",comm_published:"Publié dans la communauté! ✓",comm_login_like:"Connectez-vous pour liker.",comm_login_cmt:"Connectez-vous pour commenter.",comm_post_del:"Publication supprimée.",comm_prompt_loaded:"Prompt chargé dans le Builder ✓",comm_no_my_posts:"Vous n'avez encore rien publié.<br>Partagez votre premier prompt!",comm_empty:"La communauté est vide. Soyez le premier à publier!",comm_first_cmt:"Soyez le premier à commenter.",comm_cmt_ph:"Ajouter un commentaire…",comm_time_now:"maintenant",comm_file_large:"Image trop grande. Maximum 1.5 MB.",comm_img_ph:"Cliquez pour choisir une image (max 1.5 MB)",comm_url_img_ph:"https://i.imgur.com/… (URL image)",comm_url_lnk_ph:"https://… (lien vers le résultat)",adm_no_perm:"Permissions insuffisantes.",adm_usr_not_found:"Utilisateur introuvable.",adm_super_prot:"Impossible de supprimer le superutilisateur.",adm_usr_del:"Utilisateur supprimé ✓",adm_post_del:"Publication supprimée ✓",adm_role_usr:"Utilisateur",adm_protected:"Protégé",adm_no_results:"Aucun résultat.",adm_no_posts:"Aucune publication.",adm_lib_lbl:"Bibliothèque",adm_no_prompts:"Aucun prompt sauvegardé.",prof_edit_title:"Modifier le Profil",prof_display_name:"Nom d'affichage",prof_bio:"Bio",prof_website:"Site web",prof_save:"Sauvegarder",prof_cancel:"Annuler",prof_img_large:"Image trop grande (max 2 MB)",prof_updated:"Profil mis à jour ✓",prof_no_prompts:"Vous n'avez pas encore sauvegardé de prompts. Créez votre premier dans le Builder!",prof_no_posts:"Vous n'avez encore rien publié dans la Communauté. Partagez votre premier prompt!",prof_load:"Charger",prof_since:"Membre depuis",prof_stat_saved:"Prompts sauvegardés",prof_stat_posts:"Publications",prof_stat_likes:"♥ Reçus",prof_stat_cmts:"💬 Reçus",combo_name:"Nom du combo:",combo_num:"Combo ",combo_lbl:"Combos",combo_save:"+ Sauvegarder la sélection",combo_empty:"Sélectionnez des options et sauvegardez votre premier combo.",t_cfirst:"Sélectionnez d'abord des options",t_csav:"Combo sauvegardé",t_cld:"Combo chargé",t_cdl:"Combo supprimé",preset_lbl:"Réglages sauvegardés",preset_save:"+ Sauvegarder la config actuelle",preset_loaded:"Configuration chargée",preset_name_ph:"Nom du preset…",stats_title:"Statistiques",stats_sub:"Options et tags les plus utilisés",refs_title:"Références",hc_font:"Police",hc_text:"Texte",hc_buttons:"Boutons",hc_icon_color:"Icône · Couleur de fond · Couleur du texte",hc_reset_colors:"↺ Réinitialiser couleurs",hc_bg_color:"Couleur de fond",hc_change_icon:"Changer icône",hc_text_auto:"Couleur texte: Auto",hc_text_white:"Texte blanc",hc_text_black:"Texte noir",t_colors_reset:"Couleurs réinitialisées ✓",fld_create:"Créer",logout_q:"Se déconnecter ?",logout_b:"Sortir",lib_delc:"Supprimer ce prompt ?",comm_title_ph:"Donnez un nom à votre création…",comm_prompt_ph:"Collez ici le prompt utilisé…",comm_net_err:"Erreur de connexion. Réessayez.",comm_del_confirm:"Supprimer cette publication ?"},
-EN:{nav_b:"Builder",nav_l:"Library",nav_s:"Control Panel",nav_c:"Create",nav_sys:"System",th_li:"Light",th_au:"Auto",th_dk:"Dark",ph_h:"Build your prompt",ph_p:"Select a category and define each parameter with precision.",cat_h:"Category",home_settings:"Settings",cat_mgr:"⊞ Categories",ul_l:"Analyze:",ul_i:"Image",ul_v:"Video",ul_a:"Audio",ul_t:"Text",an_btn:"Analyze",an_ing:"Analyzing…",sug_l:"Detected suggestions",sug_a:"+ add",back:"← change",vd1:"Visual description of the video",vd2:"Narrative / Story",vd1p:"Visually describe what is seen: colors, environments, characters, action…",vd2p:"The story, narrative arc, emotional message of the video…",tl_h:"Second-by-second timeline",add_b:"+ add beat",pr_l:"Prompt — editable",pr_p:"Select a category to begin…",copy:"Copy",copied:"Copied ✓",reset:"Reset",sv_p:"Name to save in library…",sv_b:"★ Save",svd:"★ Saved",ai_r:"Refine with AI",ai_v:"3 Variations",ai_o:"Optimize EN →",lib_h:"Library",lib_p:"Your saved prompts.",lib_e:"No prompts saved yet.\nCreate one and save with ★",lib_lo:"Load",lib_co:"Copy",lib_de:"Delete",set_h:"Control Panel",set_p:"Customize behavior and appearance.",cp_lang:"Interface language",cp_dlang:"Prompt language",cp_plat:"Favorite AI platform",cp_rat:"Favorite aspect ratio",cp_cats:"Active categories",cp_ch:"Disable categories you don't use",cp_font:"Typography",cp_tag:"Button / tag size",cp_dens:"UI density",den_c:"Compact",den_n:"Normal",den_s:"Spacious",cp_th:"Theme",cp_thh:"Auto: light 7am–7pm, dark otherwise",cp_lib:"Library",cp_lc:"prompts saved",cp_ex:"↓ Export JSON",cp_im:"↑ Import JSON",cp_cl:"Clear library",cp_clc:"Clear entire library? Cannot be undone.",s_orig:"Orig",s_az:"A–Z",s_za:"Z–A",s_fav:"★",s_col:"Color",multi:"multiple",one:"single",add_ph:"+ Add custom option…",add_b2:"Add",bp:"What happens here? Action, movement, emotion…",bpn:"Notes: visual FX, color grade, key sound…",bs:"Shot",bm:"Cam movement",bl:"Lighting",be:"Emotion",bls:"Lens",bt:"Transition",tc:"Color:",tc_an:"✓",t_cp:"Prompt copied",t_sv:"Saved to library",t_np:"Generate a prompt first",t_nf:"Load a file first",t_an:"Analysis complete",t_fb:"Instruction copied — paste it in Claude",t_tr:"Translated",t_ex:"Exported",t_im:"prompts imported",t_inv:"Invalid file",t_dl:"Deleted",t_ld:"Prompt loaded",t_cl:"Library cleared",fld_h:"Folders",fld_new:"New folder",fld_sub:"New subfolder",fld_name:"Folder name",fld_ren:"Rename",fld_del:"Delete folder",fld_delc:"Delete folder? Prompts will be unassigned.",fld_all:"All prompts",fld_none:"No folder",fld_move:"Move to folder",fld_moved:"Prompt moved",fld_created:"Folder created",fld_empty:"No prompts in this folder",ai_rm:"Refine and expand this prompt for generative AI with more technical specificity. Include photography terms, art direction, visual storytelling and cinematography. Give me the full Pro version:\n\n",ai_vm:"Give me 3 completely different variations of this prompt, each with a different aesthetic approach but maintaining the essence. Number each variation clearly:\n\n",ai_om:"Optimize technically for generative AI platforms (FLUX, Midjourney, Sora, Kling, Seedance, GPT Image). Include advanced technical parameters and platform-specific syntax:\n\n",an_pr:'Analyze this file. Detect all visual, technical, style, lighting, mood, camera movement, color grade elements relevant for building a generative AI prompt. Respond ONLY with valid JSON without markdown: {"summary":"brief description","detected_tags":["tag1","tag2"],"new_suggestions":["suggestion1"]}',nav_r:"References",nav_home:"Home",profile:"My Profile",community:"Community",cp_lang_h:"Instantly switch the whole interface language.",comm_sub:"Discover prompts, get inspired and share your creations.",ref_add:"＋ Add reference",ref_save_btn:"Save reference",ref_cancel:"Cancel",ref_modal_title:"＋ New reference",ref_type_lbl:"Type",ref_title_lbl:"Title",ref_url_lbl:"URL",ref_url_opt:"(optional)",ref_thumb_lbl:"Thumbnail",ref_notes_lbl:"Notes",ref_name_ph:"Reference name…",ref_notes_ph:"What I like, what it is for…",ref_thumb_ph:"https://… image url",ref_url_ph:"https://…",ref_saved:"Reference saved ✓",ref_deleted:"Reference deleted",ref_del_confirm:"Delete this reference?",ref_type_img:"Image",ref_type_vid:"Video",ref_type_snd:"Sound",ref_type_app:"App",ref_type_web:"Web",ref_type_oth:"Other",ref_empty:"No references yet.",ref_empty_hint:"Add images, videos, sounds, apps or websites that inspire you.",ref_sub:"Visual, sound and app reference bank to inspire you.",cat_mgr_sel:"Select a category to manage its sections.",cat_mgr_no_sec:"This category has no configurable sections.",sec_visible:"Visible sections",lib_add_btn:"＋ Add prompt",lib_search_ph:"🔍 Search by name or content…",lib_sort_new:"Newest",lib_sort_old:"Oldest",lib_sort_az:"Name A→Z",lib_sort_za:"Name Z→A",lib_add_title:"＋ Add prompt",lib_edit_title:"✏️ Edit prompt",lib_name_ph:"Prompt name…",lib_prompt_ph:"Write or paste your prompt here…",lib_save:"Save",lib_cancel:"Cancel",lib_rename_title:"Rename prompt",lib_name_req:"Name is required",lib_prompt_req:"Prompt cannot be empty",lib_updated:"Prompt updated ✓",lib_saved_ok:"Prompt saved ✓",lib_edit_menu:"✏️ Edit",lib_rename_menu:"🔤 Rename",lib_dup_menu:"📋 Duplicate",lib_dup_suffix:" (copy)",lib_duped:"Duplicated ✓",lib_move_fld:"📁 Move to folder",lib_chg_cat:"🏷 Change category",lib_my_name:"My Library",pack_import:"↑ Import pack",pack_export:"↓ Export pack",export_empty:"No prompts to export",set_fz_lbl:"Font size — Interface / Builder",set_card_fz:"Font size — Home cards",set_card_pad:"Home button size",set_tag_fz:"Tag font",set_tag_py:"Vertical padding",set_tag_px:"Horizontal padding",set_ui_style:"Interface style",api_key_lbl:"Anthropic API Key",api_key_hint:"Optional. With your sk-ant-… key the AI works directly. Without a key, instructions are copied to clipboard for use in Claude.",theme_cust_saved:"Custom theme saved ✓",color_invalid:"Invalid color — use #RRGGBB",color_updated:"Color updated ✓",color_reset:"Color reset ✓",eng_none:"Unspecified",eng_other:"Other",comm_post_btn:"+ Post Prompt",comm_login_post:"Sign in to post.",comm_title_req:"Write a title.",comm_prompt_req:"Prompt cannot be empty.",comm_media_err:"Choose an image or switch to 'No media'.",comm_published:"Published to community! ✓",comm_login_like:"Sign in to like.",comm_login_cmt:"Sign in to comment.",comm_post_del:"Post deleted.",comm_prompt_loaded:"Prompt loaded in Builder ✓",comm_no_my_posts:"You haven't posted anything yet.<br>Share your first prompt!",comm_empty:"Community is empty. Be the first to post!",comm_first_cmt:"Be the first to comment.",comm_cmt_ph:"Add a comment…",comm_time_now:"now",comm_file_large:"Image too large. Maximum 1.5 MB.",comm_img_ph:"Click to choose image (max 1.5 MB)",comm_url_img_ph:"https://i.imgur.com/… (image URL)",comm_url_lnk_ph:"https://… (link to result)",adm_no_perm:"No permissions.",adm_usr_not_found:"User not found.",adm_super_prot:"Cannot delete the superuser.",adm_usr_del:"User deleted ✓",adm_post_del:"Post deleted ✓",adm_role_usr:"User",adm_protected:"Protected",adm_no_results:"No results.",adm_no_posts:"No posts.",adm_lib_lbl:"Library",adm_no_prompts:"No saved prompts.",prof_edit_title:"Edit Profile",prof_display_name:"Display Name",prof_bio:"Bio",prof_website:"Website",prof_save:"Save Changes",prof_cancel:"Cancel",prof_img_large:"Image too large (max 2 MB)",prof_updated:"Profile updated ✓",prof_no_prompts:"No saved prompts yet. Build your first in the Builder!",prof_no_posts:"You haven't posted anything in the Community yet. Share your first prompt!",prof_load:"Load",prof_since:"Member since",prof_stat_saved:"Saved Prompts",prof_stat_posts:"Posts",prof_stat_likes:"♥ Received",prof_stat_cmts:"💬 Received",combo_name:"Combo name:",combo_num:"Combo ",combo_lbl:"Combos",combo_save:"+ Save selection",combo_empty:"Select options and save your first combo.",t_cfirst:"First select some options",t_csav:"Combo saved",t_cld:"Combo loaded",t_cdl:"Combo deleted",preset_lbl:"Saved settings",preset_save:"+ Save current config",preset_loaded:"Configuration loaded",preset_name_ph:"Preset name…",stats_title:"Statistics",stats_sub:"Most used options and tags",refs_title:"References",hc_font:"Font",hc_text:"Text",hc_buttons:"Buttons",hc_icon_color:"Icon · Background color · Text color",hc_reset_colors:"↺ Reset colors",hc_bg_color:"Background color",hc_change_icon:"Change icon",hc_text_auto:"Text color: Auto",hc_text_white:"White text",hc_text_black:"Black text",t_colors_reset:"Colors reset ✓",fld_create:"Create",logout_q:"Sign out?",logout_b:"Sign out",lib_delc:"Delete this prompt?",comm_title_ph:"Give your creation a name…",comm_prompt_ph:"Paste here the prompt you used…",comm_net_err:"Connection error. Please try again.",comm_del_confirm:"Delete this post?"}
+ES:{nav_b:"Builder",nav_l:"Biblioteca",nav_s:"Panel de control",nav_c:"Crear",nav_sys:"Sistema",th_li:"Claro",th_au:"Auto",th_dk:"Oscuro",ph_h:"Construye tu prompt",ph_p:"Selecciona una categoría y define cada parámetro.",cat_h:"Categoría",home_settings:"Ajustes",cat_mgr:"⊞ Categorías",ul_l:"Analizar:",ul_i:"Imagen",ul_v:"Video",ul_a:"Audio",ul_t:"Texto",an_btn:"Analizar",an_ing:"Analizando…",sug_l:"Sugerencias detectadas",sug_a:"+ añadir",back:"← cambiar",vd1:"Descripción visual del video",vd2:"Narrativa / Historia",vd1p:"Describe lo que se ve: colores, ambientes, personajes, acción…",vd2p:"La historia, arco narrativo, mensaje emocional del video…",tl_h:"Timeline segundo a segundo",add_b:"+ añadir beat",pr_l:"Prompt — editable",pr_p:"Selecciona una categoría para comenzar…",copy:"Copiar",copied:"Copiado ✓",reset:"Reset",sv_p:"Nombre para guardar…",sv_b:"★ Guardar",svd:"★ Guardado",ai_r:"Refinar con IA",ai_v:"3 Variaciones",ai_o:"Optimizar EN →",lib_h:"Biblioteca",lib_p:"Tus prompts guardados.",lib_e:"No hay prompts guardados.\nCrea uno y guárdalo con ★",lib_lo:"Cargar",lib_co:"Copiar",lib_de:"Eliminar",set_h:"Panel de control",set_p:"Personaliza comportamiento y apariencia.",cp_lang:"Idioma de la interfaz",cp_dlang:"Idioma del prompt",cp_plat:"Plataforma IA favorita",cp_rat:"Aspect ratio favorito",cp_cats:"Categorías activas",cp_ch:"Desactiva las que no uses",cp_font:"Tipografía",cp_tag:"Tamaño de botones / tags",cp_dens:"Densidad de la UI",den_c:"Compacta",den_n:"Normal",den_s:"Espaciada",cp_th:"Tema",cp_thh:"Auto: claro 7am–7pm, oscuro el resto",cp_lib:"Biblioteca",cp_lc:"prompts guardados",cp_ex:"↓ Exportar JSON",cp_im:"↑ Importar JSON",cp_cl:"Borrar biblioteca",cp_clc:"¿Borrar toda la biblioteca? No se puede deshacer.",s_orig:"Orig",s_az:"A–Z",s_za:"Z–A",s_fav:"★",s_col:"Color",multi:"múltiple",one:"uno",add_ph:"+ Añadir opción personalizada…",add_b2:"Añadir",bp:"¿Qué sucede aquí? Acción, movimiento, emoción…",bpn:"Notas: FX visual, color grade, sonido clave…",bs:"Plano",bm:"Mov. cámara",bl:"Iluminación",be:"Emoción",bls:"Lente",bt:"Transición",tc:"Color:",tc_an:"✓",t_cp:"Prompt copiado",t_sv:"Guardado en biblioteca",t_np:"Genera un prompt primero",t_nf:"Carga un archivo primero",t_an:"Análisis completado",t_fb:"Instrucción copiada — pégala en Claude",t_tr:"Traducido",t_ex:"Exportado",t_im:"prompts importados",t_inv:"Archivo inválido",t_dl:"Eliminado",t_ld:"Prompt cargado",t_cl:"Biblioteca borrada",fld_h:"Carpetas",fld_new:"Nueva carpeta",fld_sub:"Nueva subcarpeta",fld_name:"Nombre de la carpeta",fld_ren:"Renombrar",fld_del:"Eliminar carpeta",fld_delc:"¿Eliminar carpeta? Los prompts quedarán sin carpeta.",fld_all:"Todos los prompts",fld_none:"Sin carpeta",fld_move:"Mover a carpeta",fld_moved:"Prompt movido",fld_created:"Carpeta creada",fld_empty:"Sin prompts en esta carpeta",ai_rm:"Refina y expande este prompt para IA generativa con más especificidad técnica. Incluye términos de fotografía, dirección de arte y cinematografía. Dame la versión Pro completa:\n\n",ai_vm:"Dame 3 variaciones completamente distintas de este prompt, cada una con un enfoque estético diferente pero manteniendo la esencia. Numera claramente:\n\n",ai_om:"Translate to English and optimize technically for generative AI platforms (FLUX, Midjourney, Sora, Kling, Seedance, GPT Image). Include advanced technical parameters:\n\n",an_pr:'Analiza este archivo. Detecta parámetros visuales, técnicos, de estilo, iluminación, mood, movimiento de cámara, color grade relevantes para un prompt de IA generativa. Responde SOLO con JSON válido sin markdown: {"summary":"breve descripción","detected_tags":["tag1","tag2"],"new_suggestions":["sugerencia1"]}',nav_r:"Referencias",nav_home:"Inicio",profile:"Mi Perfil",community:"Comunidad",cp_lang_h:"Cambia el idioma de toda la interfaz al instante.",comm_sub:"Descubre prompts, inspírate y comparte tus creaciones.",ref_add:"＋ Añadir referencia",ref_save_btn:"Guardar referencia",ref_cancel:"Cancelar",ref_modal_title:"＋ Nueva referencia",ref_type_lbl:"Tipo",ref_title_lbl:"Título",ref_url_lbl:"URL",ref_url_opt:"(opcional)",ref_thumb_lbl:"Miniatura",ref_notes_lbl:"Notas",ref_name_ph:"Nombre de la referencia…",ref_notes_ph:"Qué me gusta, para qué sirve…",ref_thumb_ph:"https://… imagen",ref_url_ph:"https://…",ref_saved:"Referencia guardada ✓",ref_deleted:"Referencia eliminada",ref_del_confirm:"¿Eliminar esta referencia?",ref_type_img:"Imagen",ref_type_vid:"Video",ref_type_snd:"Sonido",ref_type_app:"App",ref_type_web:"Web",ref_type_oth:"Otro",ref_empty:"No hay referencias.",ref_empty_hint:"Añade imágenes, videos, sonidos, apps o webs que te inspiren.",ref_sub:"Banco de referencias visuales, sonoras y de apps para inspirarte.",cat_mgr_sel:"Selecciona una categoría para gestionar sus secciones.",cat_mgr_no_sec:"Esta categoría no tiene secciones configurables.",sec_visible:"Secciones visibles",lib_add_btn:"＋ Añadir prompt",lib_search_ph:"🔍 Buscar por nombre o contenido…",lib_sort_new:"Más reciente",lib_sort_old:"Más antiguo",lib_sort_az:"Nombre A→Z",lib_sort_za:"Nombre Z→A",lib_add_title:"＋ Añadir prompt",lib_edit_title:"✏️ Editar prompt",lib_name_ph:"Nombre del prompt…",lib_prompt_ph:"Escribe o pega tu prompt aquí…",lib_save:"Guardar",lib_cancel:"Cancelar",lib_rename_title:"Renombrar prompt",lib_name_req:"El nombre es requerido",lib_prompt_req:"El prompt no puede estar vacío",lib_updated:"Prompt actualizado ✓",lib_saved_ok:"Prompt guardado ✓",lib_edit_menu:"✏️ Editar",lib_rename_menu:"🔤 Renombrar",lib_dup_menu:"📋 Duplicar",lib_dup_suffix:" (copia)",lib_duped:"Duplicado ✓",lib_move_fld:"📁 Mover a carpeta",lib_chg_cat:"🏷 Cambiar categoría",lib_my_name:"Mi Biblioteca",pack_import:"↑ Importar pack",pack_export:"↓ Exportar pack",export_empty:"Sin prompts para exportar",set_fz_lbl:"Tamaño fuente — Interfaz / Builder",set_card_fz:"Tamaño fuente — Tarjetas Home",set_card_pad:"Tamaño botones Home",set_tag_fz:"Fuente del tag",set_tag_py:"Padding vertical",set_tag_px:"Padding horizontal",set_ui_style:"Estilo de interfaz",api_key_lbl:"Clave API Anthropic",api_key_hint:"Opcional. Con tu clave sk-ant-… la IA funciona directamente. Sin clave, las instrucciones se copian al portapapeles para usar en Claude.",theme_cust_saved:"Tema personalizado guardado ✓",color_invalid:"Color inválido — usa #RRGGBB",color_updated:"Color actualizado ✓",color_reset:"Color restablecido ✓",eng_none:"Sin especificar",eng_other:"Otro",comm_post_btn:"+ Publicar Prompt",comm_login_post:"Inicia sesión para publicar.",comm_title_req:"Escribe un título.",comm_prompt_req:"El prompt no puede estar vacío.",comm_media_err:"Elige una imagen o cambia a 'Sin media'.",comm_published:"¡Publicado en la comunidad! ✓",comm_login_like:"Inicia sesión para dar likes.",comm_login_cmt:"Inicia sesión para comentar.",comm_post_del:"Publicación eliminada.",comm_prompt_loaded:"Prompt cargado en el Builder ✓",comm_no_my_posts:"Aún no has publicado nada.<br>¡Comparte tu primer prompt!",comm_empty:"La comunidad está vacía. ¡Sé el primero en publicar!",comm_first_cmt:"Sé el primero en comentar.",comm_cmt_ph:"Añade un comentario…",comm_time_now:"ahora",comm_file_large:"Imagen demasiado grande. Máximo 1.5 MB.",comm_img_ph:"Clic para elegir imagen (máx. 1.5 MB)",comm_url_img_ph:"https://i.imgur.com/… (URL de imagen)",comm_url_lnk_ph:"https://… (link al resultado)",adm_no_perm:"Sin permisos.",adm_usr_not_found:"Usuario no encontrado.",adm_super_prot:"No puedes eliminar el superusuario.",adm_usr_del:"Usuario eliminado ✓",adm_post_del:"Publicación eliminada ✓",adm_role_usr:"Usuario",adm_protected:"Protegido",adm_no_results:"Sin resultados.",adm_no_posts:"Sin publicaciones.",adm_lib_lbl:"Biblioteca",adm_no_prompts:"Sin prompts guardados.",prof_edit_title:"Editar Perfil",prof_display_name:"Nombre a mostrar",prof_bio:"Biografía",prof_website:"Sitio web",prof_save:"Guardar cambios",prof_cancel:"Cancelar",prof_img_large:"Imagen demasiado grande (máx. 2 MB)",prof_updated:"Perfil actualizado ✓",prof_no_prompts:"Aún no has guardado prompts. ¡Construye tu primero en el Builder!",prof_no_posts:"Aún no has publicado nada en la Comunidad. ¡Comparte tu primer prompt!",prof_load:"Cargar",prof_since:"Miembro desde",prof_stat_saved:"Prompts guardados",prof_stat_posts:"Posts",prof_stat_likes:"♥ Recibidos",prof_stat_cmts:"💬 Recibidos",combo_name:"Nombre del combo:",combo_num:"Combo ",combo_lbl:"Combos",combo_save:"+ Guardar selección",combo_empty:"Selecciona opciones y guarda tu primer combo.",t_cfirst:"Primero selecciona opciones",t_csav:"Combo guardado",t_cld:"Combo cargado",t_cdl:"Combo eliminado",preset_lbl:"Ajustes guardados",preset_save:"+ Guardar configuración actual",preset_loaded:"Configuración cargada",preset_name_ph:"Nombre del preset…",stats_title:"Estadísticas",stats_sub:"Opciones y tags más utilizados",refs_title:"Referencias",hc_font:"Fuente",hc_text:"Texto",hc_buttons:"Botones",hc_icon_color:"Icono · Color de fondo · Color de texto",hc_reset_colors:"↺ Reset colores",hc_bg_color:"Color de fondo",hc_change_icon:"Cambiar icono",hc_text_auto:"Color de texto: Auto",hc_text_white:"Texto blanco",hc_text_black:"Texto negro",t_colors_reset:"Colores reseteados ✓",fld_create:"Crear",logout_q:"¿Cerrar sesión?",logout_b:"Salir",lib_delc:"¿Eliminar este prompt?",comm_title_ph:"Dale un nombre a tu creación…",comm_prompt_ph:"Pega aquí el prompt que usaste…",comm_net_err:"Error de conexión. Inténtalo de nuevo.",comm_del_confirm:"¿Eliminar esta publicación?",exp_btn:"⤓ Exportar ▾",exp_hdr:"Exportar a sintaxis nativa",exp_copied:"copiado al portapapeles ✓",ver_hdr:"Historial de versiones",ver_empty:"Aún no hay versiones guardadas.",ver_restored:"Versión restaurada ✓",wt_lbl:"Peso del tag",t_copy_fail:"No se pudo copiar — cópialo manualmente",cp_rat_h:"Se aplica al exportar y a los prompts de video",t_quota:"Almacenamiento lleno — libera espacio (borra imágenes o biblioteca)"},
+FR:{nav_b:"Builder",nav_l:"Bibliothèque",nav_s:"Panneau",nav_c:"Créer",nav_sys:"Système",th_li:"Clair",th_au:"Auto",th_dk:"Sombre",ph_h:"Construisez votre prompt",ph_p:"Sélectionnez une catégorie et définissez chaque paramètre.",cat_h:"Catégorie",home_settings:"Réglages",cat_mgr:"⊞ Catégories",ul_l:"Analyser:",ul_i:"Image",ul_v:"Vidéo",ul_a:"Audio",ul_t:"Texte",an_btn:"Analyser",an_ing:"Analyse…",sug_l:"Suggestions détectées",sug_a:"+ ajouter",back:"← changer",vd1:"Description visuelle de la vidéo",vd2:"Narration / Histoire",vd1p:"Décrivez visuellement ce qu'on voit: couleurs, ambiances, personnages…",vd2p:"L'histoire, l'arc narratif, le message émotionnel de la vidéo…",tl_h:"Timeline seconde par seconde",add_b:"+ ajouter beat",pr_l:"Prompt — modifiable",pr_p:"Sélectionnez une catégorie pour commencer…",copy:"Copier",copied:"Copié ✓",reset:"Réinitialiser",sv_p:"Nom pour sauvegarder…",sv_b:"★ Sauvegarder",svd:"★ Sauvegardé",ai_r:"Affiner avec IA",ai_v:"3 Variations",ai_o:"Optimiser EN →",lib_h:"Bibliothèque",lib_p:"Vos prompts sauvegardés.",lib_e:"Aucun prompt sauvegardé.\nCréez-en un et sauvegardez avec ★",lib_lo:"Charger",lib_co:"Copier",lib_de:"Supprimer",set_h:"Panneau de contrôle",set_p:"Personnalisez le comportement et l'apparence.",cp_lang:"Langue de l'interface",cp_dlang:"Langue du prompt",cp_plat:"Plateforme IA favorite",cp_rat:"Format d'image favori",cp_cats:"Catégories actives",cp_ch:"Désactivez celles inutilisées",cp_font:"Typographie",cp_tag:"Taille des boutons / tags",cp_dens:"Densité de l'UI",den_c:"Compacte",den_n:"Normale",den_s:"Spacieuse",cp_th:"Thème",cp_thh:"Auto: clair 7h–19h, sombre le reste",cp_lib:"Bibliothèque",cp_lc:"prompts sauvegardés",cp_ex:"↓ Exporter JSON",cp_im:"↑ Importer JSON",cp_cl:"Vider la bibliothèque",cp_clc:"Vider toute la bibliothèque? Irréversible.",s_orig:"Orig",s_az:"A–Z",s_za:"Z–A",s_fav:"★",s_col:"Couleur",multi:"multiple",one:"unique",add_ph:"+ Ajouter option personnalisée…",add_b2:"Ajouter",bp:"Que se passe-t-il ici? Action, mouvement, émotion…",bpn:"Notes: FX visuel, color grade, son clé…",bs:"Plan",bm:"Mouvement cam",bl:"Éclairage",be:"Émotion",bls:"Objectif",bt:"Transition",tc:"Couleur:",tc_an:"✓",t_cp:"Prompt copié",t_sv:"Sauvegardé",t_np:"Générez d'abord un prompt",t_nf:"Chargez d'abord un fichier",t_an:"Analyse terminée",t_fb:"Instruction copiée — collez dans Claude",t_tr:"Traduit",t_ex:"Exporté",t_im:"prompts importés",t_inv:"Fichier invalide",t_dl:"Supprimé",t_ld:"Prompt chargé",t_cl:"Bibliothèque vidée",fld_h:"Dossiers",fld_new:"Nouveau dossier",fld_sub:"Sous-dossier",fld_name:"Nom du dossier",fld_ren:"Renommer",fld_del:"Supprimer",fld_delc:"Supprimer le dossier? Les prompts seront sans dossier.",fld_all:"Tous les prompts",fld_none:"Sans dossier",fld_move:"Déplacer",fld_moved:"Prompt déplacé",fld_created:"Dossier créé",fld_empty:"Aucun prompt dans ce dossier",ai_rm:"Raffine et développe ce prompt pour l'IA générative avec plus de spécificité technique:\n\n",ai_vm:"Donne 3 variations complètement différentes de ce prompt avec une approche esthétique différente:\n\n",ai_om:"Translate to English and optimize for generative AI platforms (FLUX, Midjourney, Sora, Kling, Seedance, GPT Image):\n\n",an_pr:'Analyse ce fichier. Détecte les paramètres visuels, techniques, de style pertinents pour un prompt IA. Réponds UNIQUEMENT avec JSON valide sans markdown: {"summary":"description","detected_tags":["tag1"],"new_suggestions":["suggestion1"]}',nav_r:"Références",nav_home:"Accueil",profile:"Mon Profil",community:"Communauté",cp_lang_h:"Changez instantanément la langue de toute l'interface.",comm_sub:"Découvrez des prompts, inspirez-vous et partagez vos créations.",ref_add:"＋ Ajouter une référence",ref_save_btn:"Sauvegarder",ref_cancel:"Annuler",ref_modal_title:"＋ Nouvelle référence",ref_type_lbl:"Type",ref_title_lbl:"Titre",ref_url_lbl:"URL",ref_url_opt:"(optionnel)",ref_thumb_lbl:"Miniature",ref_notes_lbl:"Notes",ref_name_ph:"Nom de la référence…",ref_notes_ph:"Ce que j'aime, à quoi ça sert…",ref_thumb_ph:"https://… image",ref_url_ph:"https://…",ref_saved:"Référence sauvegardée ✓",ref_deleted:"Référence supprimée",ref_del_confirm:"Supprimer cette référence?",ref_type_img:"Image",ref_type_vid:"Vidéo",ref_type_snd:"Son",ref_type_app:"App",ref_type_web:"Web",ref_type_oth:"Autre",ref_empty:"Pas encore de références.",ref_empty_hint:"Ajoutez des images, vidéos, sons, apps ou sites qui vous inspirent.",ref_sub:"Banque de références visuelles, sonores et apps pour vous inspirer.",cat_mgr_sel:"Sélectionnez une catégorie pour gérer ses sections.",cat_mgr_no_sec:"Cette catégorie n'a pas de sections configurables.",sec_visible:"Sections visibles",lib_add_btn:"＋ Ajouter prompt",lib_search_ph:"🔍 Rechercher par nom ou contenu…",lib_sort_new:"Plus récent",lib_sort_old:"Plus ancien",lib_sort_az:"Nom A→Z",lib_sort_za:"Nom Z→A",lib_add_title:"＋ Ajouter prompt",lib_edit_title:"✏️ Modifier prompt",lib_name_ph:"Nom du prompt…",lib_prompt_ph:"Écrivez ou collez votre prompt ici…",lib_save:"Sauvegarder",lib_cancel:"Annuler",lib_rename_title:"Renommer le prompt",lib_name_req:"Le nom est requis",lib_prompt_req:"Le prompt ne peut pas être vide",lib_updated:"Prompt mis à jour ✓",lib_saved_ok:"Prompt sauvegardé ✓",lib_edit_menu:"✏️ Modifier",lib_rename_menu:"🔤 Renommer",lib_dup_menu:"📋 Dupliquer",lib_dup_suffix:" (copie)",lib_duped:"Dupliqué ✓",lib_move_fld:"📁 Déplacer dans dossier",lib_chg_cat:"🏷 Changer catégorie",lib_my_name:"Ma Bibliothèque",pack_import:"↑ Importer pack",pack_export:"↓ Exporter pack",export_empty:"Aucun prompt à exporter",set_fz_lbl:"Taille police — Interface / Builder",set_card_fz:"Taille police — Cartes Home",set_card_pad:"Taille boutons Home",set_tag_fz:"Police du tag",set_tag_py:"Padding vertical",set_tag_px:"Padding horizontal",set_ui_style:"Style d'interface",api_key_lbl:"Clé API Anthropic",api_key_hint:"Optionnel. Avec votre clé sk-ant-… l'IA fonctionne directement. Sans clé, les instructions sont copiées dans le presse-papiers pour Claude.",theme_cust_saved:"Thème personnalisé sauvegardé ✓",color_invalid:"Couleur invalide — utilisez #RRGGBB",color_updated:"Couleur mise à jour ✓",color_reset:"Couleur réinitialisée ✓",eng_none:"Non spécifié",eng_other:"Autre",comm_post_btn:"+ Publier Prompt",comm_login_post:"Connectez-vous pour publier.",comm_title_req:"Écrivez un titre.",comm_prompt_req:"Le prompt ne peut pas être vide.",comm_media_err:"Choisissez une image ou passez à 'Sans média'.",comm_published:"Publié dans la communauté! ✓",comm_login_like:"Connectez-vous pour liker.",comm_login_cmt:"Connectez-vous pour commenter.",comm_post_del:"Publication supprimée.",comm_prompt_loaded:"Prompt chargé dans le Builder ✓",comm_no_my_posts:"Vous n'avez encore rien publié.<br>Partagez votre premier prompt!",comm_empty:"La communauté est vide. Soyez le premier à publier!",comm_first_cmt:"Soyez le premier à commenter.",comm_cmt_ph:"Ajouter un commentaire…",comm_time_now:"maintenant",comm_file_large:"Image trop grande. Maximum 1.5 MB.",comm_img_ph:"Cliquez pour choisir une image (max 1.5 MB)",comm_url_img_ph:"https://i.imgur.com/… (URL image)",comm_url_lnk_ph:"https://… (lien vers le résultat)",adm_no_perm:"Permissions insuffisantes.",adm_usr_not_found:"Utilisateur introuvable.",adm_super_prot:"Impossible de supprimer le superutilisateur.",adm_usr_del:"Utilisateur supprimé ✓",adm_post_del:"Publication supprimée ✓",adm_role_usr:"Utilisateur",adm_protected:"Protégé",adm_no_results:"Aucun résultat.",adm_no_posts:"Aucune publication.",adm_lib_lbl:"Bibliothèque",adm_no_prompts:"Aucun prompt sauvegardé.",prof_edit_title:"Modifier le Profil",prof_display_name:"Nom d'affichage",prof_bio:"Bio",prof_website:"Site web",prof_save:"Sauvegarder",prof_cancel:"Annuler",prof_img_large:"Image trop grande (max 2 MB)",prof_updated:"Profil mis à jour ✓",prof_no_prompts:"Vous n'avez pas encore sauvegardé de prompts. Créez votre premier dans le Builder!",prof_no_posts:"Vous n'avez encore rien publié dans la Communauté. Partagez votre premier prompt!",prof_load:"Charger",prof_since:"Membre depuis",prof_stat_saved:"Prompts sauvegardés",prof_stat_posts:"Publications",prof_stat_likes:"♥ Reçus",prof_stat_cmts:"💬 Reçus",combo_name:"Nom du combo:",combo_num:"Combo ",combo_lbl:"Combos",combo_save:"+ Sauvegarder la sélection",combo_empty:"Sélectionnez des options et sauvegardez votre premier combo.",t_cfirst:"Sélectionnez d'abord des options",t_csav:"Combo sauvegardé",t_cld:"Combo chargé",t_cdl:"Combo supprimé",preset_lbl:"Réglages sauvegardés",preset_save:"+ Sauvegarder la config actuelle",preset_loaded:"Configuration chargée",preset_name_ph:"Nom du preset…",stats_title:"Statistiques",stats_sub:"Options et tags les plus utilisés",refs_title:"Références",hc_font:"Police",hc_text:"Texte",hc_buttons:"Boutons",hc_icon_color:"Icône · Couleur de fond · Couleur du texte",hc_reset_colors:"↺ Réinitialiser couleurs",hc_bg_color:"Couleur de fond",hc_change_icon:"Changer icône",hc_text_auto:"Couleur texte: Auto",hc_text_white:"Texte blanc",hc_text_black:"Texte noir",t_colors_reset:"Couleurs réinitialisées ✓",fld_create:"Créer",logout_q:"Se déconnecter ?",logout_b:"Sortir",lib_delc:"Supprimer ce prompt ?",comm_title_ph:"Donnez un nom à votre création…",comm_prompt_ph:"Collez ici le prompt utilisé…",comm_net_err:"Erreur de connexion. Réessayez.",comm_del_confirm:"Supprimer cette publication ?",exp_btn:"⤓ Exporter ▾",exp_hdr:"Exporter en syntaxe native",exp_copied:"copié dans le presse-papiers ✓",ver_hdr:"Historique des versions",ver_empty:"Pas encore de versions enregistrées.",ver_restored:"Version restaurée ✓",wt_lbl:"Poids du tag",t_copy_fail:"Échec de la copie — copiez manuellement",cp_rat_h:"S'applique à l'export et aux prompts vidéo",t_quota:"Stockage plein — libérez de l'espace (images ou bibliothèque)"},
+EN:{nav_b:"Builder",nav_l:"Library",nav_s:"Control Panel",nav_c:"Create",nav_sys:"System",th_li:"Light",th_au:"Auto",th_dk:"Dark",ph_h:"Build your prompt",ph_p:"Select a category and define each parameter with precision.",cat_h:"Category",home_settings:"Settings",cat_mgr:"⊞ Categories",ul_l:"Analyze:",ul_i:"Image",ul_v:"Video",ul_a:"Audio",ul_t:"Text",an_btn:"Analyze",an_ing:"Analyzing…",sug_l:"Detected suggestions",sug_a:"+ add",back:"← change",vd1:"Visual description of the video",vd2:"Narrative / Story",vd1p:"Visually describe what is seen: colors, environments, characters, action…",vd2p:"The story, narrative arc, emotional message of the video…",tl_h:"Second-by-second timeline",add_b:"+ add beat",pr_l:"Prompt — editable",pr_p:"Select a category to begin…",copy:"Copy",copied:"Copied ✓",reset:"Reset",sv_p:"Name to save in library…",sv_b:"★ Save",svd:"★ Saved",ai_r:"Refine with AI",ai_v:"3 Variations",ai_o:"Optimize EN →",lib_h:"Library",lib_p:"Your saved prompts.",lib_e:"No prompts saved yet.\nCreate one and save with ★",lib_lo:"Load",lib_co:"Copy",lib_de:"Delete",set_h:"Control Panel",set_p:"Customize behavior and appearance.",cp_lang:"Interface language",cp_dlang:"Prompt language",cp_plat:"Favorite AI platform",cp_rat:"Favorite aspect ratio",cp_cats:"Active categories",cp_ch:"Disable categories you don't use",cp_font:"Typography",cp_tag:"Button / tag size",cp_dens:"UI density",den_c:"Compact",den_n:"Normal",den_s:"Spacious",cp_th:"Theme",cp_thh:"Auto: light 7am–7pm, dark otherwise",cp_lib:"Library",cp_lc:"prompts saved",cp_ex:"↓ Export JSON",cp_im:"↑ Import JSON",cp_cl:"Clear library",cp_clc:"Clear entire library? Cannot be undone.",s_orig:"Orig",s_az:"A–Z",s_za:"Z–A",s_fav:"★",s_col:"Color",multi:"multiple",one:"single",add_ph:"+ Add custom option…",add_b2:"Add",bp:"What happens here? Action, movement, emotion…",bpn:"Notes: visual FX, color grade, key sound…",bs:"Shot",bm:"Cam movement",bl:"Lighting",be:"Emotion",bls:"Lens",bt:"Transition",tc:"Color:",tc_an:"✓",t_cp:"Prompt copied",t_sv:"Saved to library",t_np:"Generate a prompt first",t_nf:"Load a file first",t_an:"Analysis complete",t_fb:"Instruction copied — paste it in Claude",t_tr:"Translated",t_ex:"Exported",t_im:"prompts imported",t_inv:"Invalid file",t_dl:"Deleted",t_ld:"Prompt loaded",t_cl:"Library cleared",fld_h:"Folders",fld_new:"New folder",fld_sub:"New subfolder",fld_name:"Folder name",fld_ren:"Rename",fld_del:"Delete folder",fld_delc:"Delete folder? Prompts will be unassigned.",fld_all:"All prompts",fld_none:"No folder",fld_move:"Move to folder",fld_moved:"Prompt moved",fld_created:"Folder created",fld_empty:"No prompts in this folder",ai_rm:"Refine and expand this prompt for generative AI with more technical specificity. Include photography terms, art direction, visual storytelling and cinematography. Give me the full Pro version:\n\n",ai_vm:"Give me 3 completely different variations of this prompt, each with a different aesthetic approach but maintaining the essence. Number each variation clearly:\n\n",ai_om:"Optimize technically for generative AI platforms (FLUX, Midjourney, Sora, Kling, Seedance, GPT Image). Include advanced technical parameters and platform-specific syntax:\n\n",an_pr:'Analyze this file. Detect all visual, technical, style, lighting, mood, camera movement, color grade elements relevant for building a generative AI prompt. Respond ONLY with valid JSON without markdown: {"summary":"brief description","detected_tags":["tag1","tag2"],"new_suggestions":["suggestion1"]}',nav_r:"References",nav_home:"Home",profile:"My Profile",community:"Community",cp_lang_h:"Instantly switch the whole interface language.",comm_sub:"Discover prompts, get inspired and share your creations.",ref_add:"＋ Add reference",ref_save_btn:"Save reference",ref_cancel:"Cancel",ref_modal_title:"＋ New reference",ref_type_lbl:"Type",ref_title_lbl:"Title",ref_url_lbl:"URL",ref_url_opt:"(optional)",ref_thumb_lbl:"Thumbnail",ref_notes_lbl:"Notes",ref_name_ph:"Reference name…",ref_notes_ph:"What I like, what it is for…",ref_thumb_ph:"https://… image url",ref_url_ph:"https://…",ref_saved:"Reference saved ✓",ref_deleted:"Reference deleted",ref_del_confirm:"Delete this reference?",ref_type_img:"Image",ref_type_vid:"Video",ref_type_snd:"Sound",ref_type_app:"App",ref_type_web:"Web",ref_type_oth:"Other",ref_empty:"No references yet.",ref_empty_hint:"Add images, videos, sounds, apps or websites that inspire you.",ref_sub:"Visual, sound and app reference bank to inspire you.",cat_mgr_sel:"Select a category to manage its sections.",cat_mgr_no_sec:"This category has no configurable sections.",sec_visible:"Visible sections",lib_add_btn:"＋ Add prompt",lib_search_ph:"🔍 Search by name or content…",lib_sort_new:"Newest",lib_sort_old:"Oldest",lib_sort_az:"Name A→Z",lib_sort_za:"Name Z→A",lib_add_title:"＋ Add prompt",lib_edit_title:"✏️ Edit prompt",lib_name_ph:"Prompt name…",lib_prompt_ph:"Write or paste your prompt here…",lib_save:"Save",lib_cancel:"Cancel",lib_rename_title:"Rename prompt",lib_name_req:"Name is required",lib_prompt_req:"Prompt cannot be empty",lib_updated:"Prompt updated ✓",lib_saved_ok:"Prompt saved ✓",lib_edit_menu:"✏️ Edit",lib_rename_menu:"🔤 Rename",lib_dup_menu:"📋 Duplicate",lib_dup_suffix:" (copy)",lib_duped:"Duplicated ✓",lib_move_fld:"📁 Move to folder",lib_chg_cat:"🏷 Change category",lib_my_name:"My Library",pack_import:"↑ Import pack",pack_export:"↓ Export pack",export_empty:"No prompts to export",set_fz_lbl:"Font size — Interface / Builder",set_card_fz:"Font size — Home cards",set_card_pad:"Home button size",set_tag_fz:"Tag font",set_tag_py:"Vertical padding",set_tag_px:"Horizontal padding",set_ui_style:"Interface style",api_key_lbl:"Anthropic API Key",api_key_hint:"Optional. With your sk-ant-… key the AI works directly. Without a key, instructions are copied to clipboard for use in Claude.",theme_cust_saved:"Custom theme saved ✓",color_invalid:"Invalid color — use #RRGGBB",color_updated:"Color updated ✓",color_reset:"Color reset ✓",eng_none:"Unspecified",eng_other:"Other",comm_post_btn:"+ Post Prompt",comm_login_post:"Sign in to post.",comm_title_req:"Write a title.",comm_prompt_req:"Prompt cannot be empty.",comm_media_err:"Choose an image or switch to 'No media'.",comm_published:"Published to community! ✓",comm_login_like:"Sign in to like.",comm_login_cmt:"Sign in to comment.",comm_post_del:"Post deleted.",comm_prompt_loaded:"Prompt loaded in Builder ✓",comm_no_my_posts:"You haven't posted anything yet.<br>Share your first prompt!",comm_empty:"Community is empty. Be the first to post!",comm_first_cmt:"Be the first to comment.",comm_cmt_ph:"Add a comment…",comm_time_now:"now",comm_file_large:"Image too large. Maximum 1.5 MB.",comm_img_ph:"Click to choose image (max 1.5 MB)",comm_url_img_ph:"https://i.imgur.com/… (image URL)",comm_url_lnk_ph:"https://… (link to result)",adm_no_perm:"No permissions.",adm_usr_not_found:"User not found.",adm_super_prot:"Cannot delete the superuser.",adm_usr_del:"User deleted ✓",adm_post_del:"Post deleted ✓",adm_role_usr:"User",adm_protected:"Protected",adm_no_results:"No results.",adm_no_posts:"No posts.",adm_lib_lbl:"Library",adm_no_prompts:"No saved prompts.",prof_edit_title:"Edit Profile",prof_display_name:"Display Name",prof_bio:"Bio",prof_website:"Website",prof_save:"Save Changes",prof_cancel:"Cancel",prof_img_large:"Image too large (max 2 MB)",prof_updated:"Profile updated ✓",prof_no_prompts:"No saved prompts yet. Build your first in the Builder!",prof_no_posts:"You haven't posted anything in the Community yet. Share your first prompt!",prof_load:"Load",prof_since:"Member since",prof_stat_saved:"Saved Prompts",prof_stat_posts:"Posts",prof_stat_likes:"♥ Received",prof_stat_cmts:"💬 Received",combo_name:"Combo name:",combo_num:"Combo ",combo_lbl:"Combos",combo_save:"+ Save selection",combo_empty:"Select options and save your first combo.",t_cfirst:"First select some options",t_csav:"Combo saved",t_cld:"Combo loaded",t_cdl:"Combo deleted",preset_lbl:"Saved settings",preset_save:"+ Save current config",preset_loaded:"Configuration loaded",preset_name_ph:"Preset name…",stats_title:"Statistics",stats_sub:"Most used options and tags",refs_title:"References",hc_font:"Font",hc_text:"Text",hc_buttons:"Buttons",hc_icon_color:"Icon · Background color · Text color",hc_reset_colors:"↺ Reset colors",hc_bg_color:"Background color",hc_change_icon:"Change icon",hc_text_auto:"Text color: Auto",hc_text_white:"White text",hc_text_black:"Black text",t_colors_reset:"Colors reset ✓",fld_create:"Create",logout_q:"Sign out?",logout_b:"Sign out",lib_delc:"Delete this prompt?",comm_title_ph:"Give your creation a name…",comm_prompt_ph:"Paste here the prompt you used…",comm_net_err:"Connection error. Please try again.",comm_del_confirm:"Delete this post?",exp_btn:"⤓ Export ▾",exp_hdr:"Export to native syntax",exp_copied:"copied to clipboard ✓",ver_hdr:"Version history",ver_empty:"No saved versions yet.",ver_restored:"Version restored ✓",wt_lbl:"Tag weight",t_copy_fail:"Couldn't copy — copy it manually",cp_rat_h:"Applies to export and video prompts",t_quota:"Storage full — free up space (clear images or library)"}
 };
 // Combo translations
 const COMBO_T={
@@ -1755,7 +1815,7 @@ const THEMES={
     "--tx":"#e2e2f0","--tx2":"#9090c0","--tx3":"#6868a8",
     "--bd":"rgba(255,255,255,.07)","--bd2":"rgba(255,255,255,.14)",
     "--sel":"#6366f1","--sel-tx":"#fff",
-    "--acc":"#6366f1","--acc-bg":"#1c1c3a","--acc-tx":"#a5b4fc",
+    "--acc":"#6366f1","--acc-bg":"#1c1c3a","--acc-tx":"#a5b4fc","--acc-on":"#fff",
     "--sug":"#8b5cf6","--sug-bg":"#1a1230","--sug-tx":"#c4b5fd",
     "--fav":"#f59e0b","--fav-bg":"#261c00","--fav-tx":"#fde68a",
     "--r":"8px","--rl":"14px","--tag-radius":"6px",
@@ -1767,7 +1827,7 @@ const THEMES={
     "--tx":"#0a0a0a","--tx2":"#505050","--tx3":"#a0a0a0",
     "--bd":"rgba(0,0,0,.07)","--bd2":"rgba(0,0,0,.13)",
     "--sel":"#0a0a0a","--sel-tx":"#ffffff",
-    "--acc":"#0a0a0a","--acc-bg":"#f2f2f2","--acc-tx":"#0a0a0a",
+    "--acc":"#0a0a0a","--acc-bg":"#f2f2f2","--acc-tx":"#0a0a0a","--acc-on":"#fff",
     "--sug":"#404040","--sug-bg":"#f2f2f2","--sug-tx":"#0a0a0a",
     "--fav":"#404040","--fav-bg":"#f9f9f9","--fav-tx":"#222222",
     "--r":"2px","--rl":"4px","--tag-radius":"2px",
@@ -1778,7 +1838,7 @@ const THEMES={
     "--tx":"#b0d8f5","--tx2":"#6aaad4","--tx3":"#4a85b0",
     "--bd":"rgba(80,170,255,.08)","--bd2":"rgba(80,170,255,.18)",
     "--sel":"#0ea5e9","--sel-tx":"#fff",
-    "--acc":"#0ea5e9","--acc-bg":"#0a2640","--acc-tx":"#7dd3fc",
+    "--acc":"#0ea5e9","--acc-bg":"#0a2640","--acc-tx":"#7dd3fc","--acc-on":"#03141f",
     "--sug":"#22d3ee","--sug-bg":"#0a2832","--sug-tx":"#67e8f9",
     "--fav":"#fb923c","--fav-bg":"#2a1400","--fav-tx":"#fed7aa",
     "--r":"10px","--rl":"18px","--tag-radius":"99px",
@@ -1790,7 +1850,7 @@ const THEMES={
     "--tx":"#3a1e00","--tx2":"#8a4e12","--tx3":"#c8903a",
     "--bd":"rgba(120,55,0,.1)","--bd2":"rgba(120,55,0,.2)",
     "--sel":"#c2410c","--sel-tx":"#fff",
-    "--acc":"#c2410c","--acc-bg":"#fff4ed","--acc-tx":"#9a3412",
+    "--acc":"#c2410c","--acc-bg":"#fff4ed","--acc-tx":"#9a3412","--acc-on":"#fff",
     "--sug":"#9333ea","--sug-bg":"#faf5ff","--sug-tx":"#7e22ce",
     "--fav":"#d97706","--fav-bg":"#fffbeb","--fav-tx":"#92400e",
     "--r":"10px","--rl":"18px","--tag-radius":"99px",
@@ -1802,7 +1862,7 @@ const THEMES={
     "--tx":"#b0f0b0","--tx2":"#6abf6a","--tx3":"#4a8a4a",
     "--bd":"rgba(0,200,0,.1)","--bd2":"rgba(0,200,0,.2)",
     "--sel":"#00c800","--sel-tx":"#0c0f0c",
-    "--acc":"#00c800","--acc-bg":"#0a1c0a","--acc-tx":"#7fff7f",
+    "--acc":"#00c800","--acc-bg":"#0a1c0a","--acc-tx":"#7fff7f","--acc-on":"#06140a",
     "--sug":"#22e022","--sug-bg":"#091609","--sug-tx":"#86efac",
     "--fav":"#ffd700","--fav-bg":"#1a1500","--fav-tx":"#fef08a",
     "--r":"2px","--rl":"4px","--tag-radius":"2px",
@@ -1815,7 +1875,7 @@ const THEMES={
     "--tx":"#f0d0ff","--tx2":"#b080e8","--tx3":"#7a50b8",
     "--bd":"rgba(180,60,255,.1)","--bd2":"rgba(180,60,255,.22)",
     "--sel":"#d946ef","--sel-tx":"#fff",
-    "--acc":"#d946ef","--acc-bg":"#200030","--acc-tx":"#f0abfc",
+    "--acc":"#d946ef","--acc-bg":"#200030","--acc-tx":"#f0abfc","--acc-on":"#1a0024",
     "--sug":"#06b6d4","--sug-bg":"#001824","--sug-tx":"#67e8f9",
     "--fav":"#f59e0b","--fav-bg":"#1e1000","--fav-tx":"#fde68a",
     "--r":"8px","--rl":"16px","--tag-radius":"99px",
@@ -2284,6 +2344,7 @@ const PROMPT_LANGS=[
   {id:"RU",label:"Russian"},
   {id:"JA",label:"Japanese"},
 ];
+const RATIO_OPTS=["16:9","9:16","1:1","4:3","3:2","2:3","4:5","21:9"];
 function autoPackCat(cat){return({image:"photo",character:"photo",location:"photo",storyboard:"concept",video:"video",music:"music",sound:"music",voice:"music",app:"concept"})[cat]||"photo";}
 function packCatLabel(id){const p=PACK_CATS.find(c=>c.id===id);return p?(p.icon+" "+(p.label[S.cfg?.ui||"ES"]||p.label.ES)):"—";}
 
@@ -2314,7 +2375,7 @@ const BUILT_IN_PACKS=[
 // ════ STATE ═══════════════════════════════════════════════════
 const S={
   cat:null,vals:{},customs:{},
-  favs:{},sortMode:{},secColors:{},tagColors:{},tagOrder:{},combos:{},
+  favs:{},sortMode:{},secColors:{},tagColors:{},tagOrder:{},combos:{},weights:{},
   catOrder:[],catGroupMap:{},secOrder:{},stats:{},configPresets:[],
   combinatorSel:[],combinatorSep:"\n\n",selectedModel:{},
   catIcons:{},catColors:{},catTextColors:{},
@@ -2330,8 +2391,28 @@ const S={
 
 // ════ UTILS ════════════════════════════════════════════════════
 let toastT;
-function toast(m){const e=eid("toast");e.textContent=m;e.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove("show"),2400)}
+function toast(m,type){const e=eid("toast");e.textContent=m;e.classList.remove("toast-err","toast-ok");if(type==="err")e.classList.add("toast-err");else if(type==="ok")e.classList.add("toast-ok");e.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove("show"),2400)}
 function eid(i){return document.getElementById(i)}
+// Keyboard activation for non-native interactive elements (role=button divs): Enter/Space → click.
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Enter"&&e.key!==" "&&e.key!=="Spacebar")return;
+  const el=e.target;
+  if(!el||el.getAttribute?.("role")!=="button")return;
+  const tag=el.tagName;
+  if(tag==="BUTTON"||tag==="A"||tag==="INPUT"||tag==="TEXTAREA"||tag==="SELECT")return;
+  e.preventDefault();el.click();
+});
+// Copy to clipboard with a legacy fallback; only reports success when the copy actually worked.
+function copyText(text,okMsg){
+  const done=()=>{if(okMsg)toast(okMsg,"ok");};
+  const fail=()=>{ // legacy fallback for insecure contexts / older browsers
+    try{const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.focus();ta.select();const ok=document.execCommand("copy");document.body.removeChild(ta);if(ok){done();return;}}catch(e){}
+    toast(t("t_copy_fail"),"err");};
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(fail);}
+    else fail();
+  }catch(e){fail();}
+}
 function esc(s){return String(s).replace(/[^a-z0-9_]/gi,"_")}
 function escHtml(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 function safeUrl(u){u=String(u||"").trim();return /^(https?:\/\/|data:image\/)/i.test(u)?u:"";}
@@ -2344,7 +2425,7 @@ function colorCls(key){const cid=S.secColors[key]||"mono";return COLS.find(c=>c.
 // ════ PERSIST ══════════════════════════════════════════════════
 function persist(){
   try{
-    const data={library:S.library,refs:S.refs,cfg:S.cfg,favs:S.favs,secColors:S.secColors,tagColors:S.tagColors,tagOrder:S.tagOrder,sortMode:S.sortMode,combos:S.combos,catOrder:S.catOrder,catGroupMap:S.catGroupMap,secOrder:S.secOrder,stats:S.stats,configPresets:S.configPresets,catIcons:S.catIcons,catColors:S.catColors,catTextColors:S.catTextColors,folders:S.folders};
+    const data={library:S.library,refs:S.refs,cfg:S.cfg,favs:S.favs,secColors:S.secColors,tagColors:S.tagColors,tagOrder:S.tagOrder,sortMode:S.sortMode,combos:S.combos,catOrder:S.catOrder,catGroupMap:S.catGroupMap,secOrder:S.secOrder,stats:S.stats,configPresets:S.configPresets,catIcons:S.catIcons,catColors:S.catColors,catTextColors:S.catTextColors,folders:S.folders,weights:S.weights};
     localStorage.setItem("pbpv3",JSON.stringify(data));
     // Also save user-specific data when logged in
     const sess=getSession();
@@ -2352,15 +2433,23 @@ function persist(){
       const uKey="pbpv3_u_"+sess.id;
       try{localStorage.setItem(uKey,JSON.stringify({library:S.library,configPresets:S.configPresets,favs:S.favs,folders:S.folders,combos:S.combos}));}catch(e){}
     }
-  }catch(e){}
+    _quotaWarned=false;
+  }catch(e){
+    // Storage full (e.g. large base64 community images) — warn once instead of losing data silently.
+    if((e&&(e.name==="QuotaExceededError"||e.code===22||e.code===1014))&&!_quotaWarned){
+      _quotaWarned=true;
+      toast(t("t_quota"),"err");
+    }
+  }
 }
+let _quotaWarned=false;
 function loadState(userId){
   try{
     const d=JSON.parse(localStorage.getItem("pbpv3")||"{}");
     if(d.cfg)Object.assign(S.cfg,d.cfg);
     // Always ensure every built-in cat is active (adds new ones silently, never removes user-disabled ones)
     CATS.forEach(c=>{if(c.id!=="combinator"&&!S.cfg.activeCats.includes(c.id))S.cfg.activeCats.push(c.id);});
-    if(d.secColors)S.secColors=d.secColors;if(d.tagColors)S.tagColors=d.tagColors;
+    if(d.secColors)S.secColors=d.secColors;if(d.tagColors)S.tagColors=d.tagColors;if(d.weights)S.weights=d.weights;
     if(d.tagOrder)S.tagOrder=d.tagOrder;if(d.sortMode)S.sortMode=d.sortMode;
     if(d.catOrder)S.catOrder=d.catOrder;if(d.catGroupMap)S.catGroupMap=d.catGroupMap;if(d.secOrder)S.secOrder=d.secOrder;
     if(d.stats)S.stats=d.stats;if(d.catIcons)S.catIcons=d.catIcons;
@@ -2546,6 +2635,7 @@ function applyFont(f,sz){
 
 // ════ UI LANGUAGE ══════════════════════════════════════════════
 function applyUILang(){
+  document.documentElement.lang=(getLang()||"en").toLowerCase();
   const s=(id,k)=>{const e=eid(id);if(e)e.textContent=t(k)};
   s("th-light","th_li");s("th-auto","th_au");s("th-dark","th_dk");
   s("ph-title","ph_h");s("ph-sub","ph_p");s("cat-h2","cat_h");s("cat-ctrl-btn-el","cat_mgr");s("home-ctrl-btn","home_settings");
@@ -2559,7 +2649,7 @@ function applyUILang(){
   const vn=eid("vid-narr");if(vn)vn.placeholder=t("vd2p");
   s("tl-h2","tl_h");s("add-beat-btn","add_b");s("prompt-lbl","pr_l");
   const pa=eid("prompt-area");if(pa)pa.placeholder=t("pr_p");
-  s("copy-btn","copy");s("reset-btn","reset");
+  s("copy-btn","copy");s("reset-btn","reset");s("export-btn","exp_btn");
   const si=eid("save-inp");if(si)si.placeholder=t("sv_p");
   const cti=eid("comm-title-inp");if(cti)cti.placeholder=t("comm_title_ph");
   const cpi=eid("comm-prompt-inp");if(cpi)cpi.placeholder=t("comm_prompt_ph");
@@ -2690,7 +2780,7 @@ function renderFolderTree(){
     const cnt=countItems(folder.id);
     const indent=depth>0?`padding-left:${depth*1.1+0.45}rem`:"";
     const subPad=depth>0?`padding-left:${(depth+1)*1.1+0.45}rem`:"padding-left:.45rem";
-    let h=`<div class="fold-item${isActive?" active":""}" data-fid="${folder.id}" style="${indent}" draggable="true" ondragstart="fDragStart(event,'${folder.id}')" ondragover="folderItemDragOver(event,'${folder.id}')" ondragleave="folderItemDragLeave(event)" ondrop="folderItemDrop(event,'${folder.id}')" ondragend="fDragEnd()" onclick="setLibFilter('${folder.id}')">`;
+    let h=`<div class="fold-item${isActive?" active":""}" role="button" tabindex="0" aria-pressed="${isActive}" data-fid="${folder.id}" style="${indent}" draggable="true" ondragstart="fDragStart(event,'${folder.id}')" ondragover="folderItemDragOver(event,'${folder.id}')" ondragleave="folderItemDragLeave(event)" ondrop="folderItemDrop(event,'${folder.id}')" ondragend="fDragEnd()" onclick="setLibFilter('${folder.id}')">`;
     h+=`<span class="fold-drag-handle" title="Arrastrar para ordenar" ondragstart="event.stopPropagation();fDragStart(event,'${folder.id}')" draggable="true" onclick="event.stopPropagation()">⠿</span>`;
     h+=`<span class="fold-toggle${isOpen?" open":""}${!children.length?" fold-toggle-empty":""}" onclick="event.stopPropagation();toggleFolderOpen('${folder.id}')">▶</span>`;
     h+=`<span class="fold-ico">${folder.icon||"📁"}</span>`;
@@ -2786,7 +2876,7 @@ async function analyzeFiles(){
     const raw=d.content?.find(b=>b.type==="text")?.text||"{}";
     const parsed=JSON.parse(raw.replace(/```json|```/g,"").trim());
     procAnalysis(parsed);toast(t("t_an"));
-  }catch(e){navigator.clipboard.writeText(t("an_pr")).catch(()=>{});toast(t("t_fb"));}
+  }catch(e){copyText(t("an_pr"),t("t_fb"));}
   btn.textContent=t("an_btn");btn.disabled=false;
 }
 function toB64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=ev=>res(ev.target.result.split(",")[1]);r.onerror=rej;r.readAsDataURL(file);});}
@@ -2829,7 +2919,7 @@ function renderCatMgr(){
     const isOn=!hidden.includes(sec.key);
     const sel=S.vals[sec.key];
     const cnt=Array.isArray(sel)?sel.filter(Boolean).length:(sel?1:0);
-    const badge=cnt?`<span style="font-size:.6rem;background:var(--acc);color:#fff;border-radius:99px;padding:.03rem .35rem;margin-left:.15rem">${cnt}</span>`:"";
+    const badge=cnt?`<span style="font-size:.6rem;background:var(--acc);color:var(--acc-on);border-radius:99px;padding:.03rem .35rem;margin-left:.15rem">${cnt}</span>`:"";
     return`<button class="cat-tog${isOn?" on":""}" onclick="toggleSecHidden('${S.cat}','${sec.key}',this)">${sL(sec)}${badge}</button>`;
   }).join("");
   panel.innerHTML=`<div style="font-size:.65rem;color:var(--tx3);margin-bottom:.4rem;letter-spacing:.04em;text-transform:uppercase;font-weight:600">${t("sec_visible")}</div><div class="cat-mgr-grid">${togBtns}</div>`;
@@ -3060,9 +3150,9 @@ function renderSection(sec){
   const cls=colorCls(sec.key);
   // fav bar
   const fb=fs.filter(f=>all.includes(f));
-  const favHtml=fb.length?`<div class="fav-bar ${cls}">${fb.map(v=>{const sel=multi?(Array.isArray(cur)&&cur.includes(v)):cur===v;const idx=all.indexOf(v);const tcid=tc[v]||"";return`<span class="fav-item"><button class="fav-rm" onclick="toggleFav(event,'${esc(sec.key)}',${idx})" title="Quitar favorito">★</button><button class="fav-tag tag ${sel?"sel":""}" data-key="${esc(sec.key)}" data-idx="${idx}" data-single="${!multi}" data-tc="${tcid}" onclick="handleTag(this)">${v}</button></span>`;}).join("")}</div>`:"";
+  const favHtml=fb.length?`<div class="fav-bar ${cls}">${fb.map(v=>{const sel=multi?(Array.isArray(cur)&&cur.includes(v)):cur===v;const idx=all.indexOf(v);const tcid=tc[v]||"";return`<span class="fav-item"><button class="fav-rm" onclick="toggleFav(event,'${esc(sec.key)}',${idx})" title="Quitar favorito">★</button><button class="fav-tag tag ${sel?"sel":""}" data-key="${esc(sec.key)}" data-idx="${idx}" data-single="${!multi}" data-tc="${tcid}" onclick="handleTag(this)">${escHtml(v)}</button></span>`;}).join("")}</div>`:"";
   // tags
-  const tagHtml=all.map((v,idx)=>{const sel=multi?(Array.isArray(cur)&&cur.includes(v)):cur===v;const isC=cus.includes(v);const isAna=anK.includes(v);const isFav=fs.includes(v);const tcid=tc[v]||"";return`<button class="tag${isC?" custom":""}${sel?" sel":""}${isAna?" analyzed":""} ${tcid?"":cls}" data-key="${esc(sec.key)}" data-idx="${idx}" data-single="${!multi}" data-tc="${tcid}" draggable="true" onclick="handleTag(this)" ondragstart="dStart(event,'${esc(sec.key)}',${idx})" ondragover="event.preventDefault()" ondrop="dDrop(event,'${esc(sec.key)}',${idx})"><span class="star${isFav?" on":""}" onclick="toggleFav(event,'${esc(sec.key)}',${idx})">★</span>${v}<span class="dot-btn" onclick="openCMenu(event,'${esc(sec.key)}',${idx})">⬤</span></button>`;}).join("");
+  const tagHtml=all.map((v,idx)=>{const sel=multi?(Array.isArray(cur)&&cur.includes(v)):cur===v;const isC=cus.includes(v);const isAna=anK.includes(v);const isFav=fs.includes(v);const tcid=tc[v]||"";return`<button class="tag${isC?" custom":""}${sel?" sel":""}${isAna?" analyzed":""} ${tcid?"":cls}" data-key="${esc(sec.key)}" data-idx="${idx}" data-single="${!multi}" data-tc="${tcid}" draggable="true" onclick="handleTag(this)" ondragstart="dStart(event,'${esc(sec.key)}',${idx})" ondragover="event.preventDefault()" ondrop="dDrop(event,'${esc(sec.key)}',${idx})"><span class="star${isFav?" on":""}" onclick="toggleFav(event,'${esc(sec.key)}',${idx})">★</span>${escHtml(v)}${getWeight(esc(sec.key),v)!=1?`<span class="tag-wt">×${getWeight(esc(sec.key),v)}</span>`:""}<span class="dot-btn" onclick="openCMenu(event,'${esc(sec.key)}',${idx})">⬤</span></button>`;}).join("");
   // color dots
   const dots=COLS.map(c=>`<span class="cdot${(S.secColors[sec.key]||"mono")===c.id?" on":""}" style="background:${getColDot(c.id)}" title="${c.id}" onclick="setSecColor('${esc(sec.key)}','${c.id}')"></span>`).join("");
   const sortBtns=["orig","az","za","fav","col"].map(m=>`<button class="tg-btn${mode===m?" on":""}" onclick="setSort('${esc(sec.key)}','${m}')">${t("s_"+m)}</button>`).join("");
@@ -3097,12 +3187,32 @@ function openCMenu(ev,key,idx){
   ev.stopPropagation();buildTV(S.cat);const val=TV[key]?.[idx];if(!val)return;
   if(cmEl){cmEl.remove();cmEl=null;}
   const m=document.createElement("div");m.className="cmenu";
-  m.innerHTML=`<span class="cmenu-lbl">Color del botón</span>`+COLS.map(c=>`<span class="cdot" style="background:${c.dot}" title="${c.id}" onclick="setTC('${key}',${idx},'${c.id}');this.closest('.cmenu').remove()"></span>`).join("")+`<span class="cdot" style="background:var(--bg3);border:1px solid var(--bd2)" title="quitar" onclick="setTC('${key}',${idx},'');this.closest('.cmenu').remove()">✕</span>`;
+  const curW=getWeight(key,val);
+  m.innerHTML=`<span class="cmenu-lbl">Color del botón</span>`+COLS.map(c=>`<span class="cdot" style="background:${c.dot}" title="${c.id}" onclick="setTC('${key}',${idx},'${c.id}');this.closest('.cmenu').remove()"></span>`).join("")+`<span class="cdot" style="background:var(--bg3);border:1px solid var(--bd2)" title="quitar" onclick="setTC('${key}',${idx},'');this.closest('.cmenu').remove()">✕</span>`+
+    `<span class="cmenu-lbl" style="margin-top:.45rem">${t("wt_lbl")}</span><div class="wt-row">`+WEIGHT_STEPS.map(w=>`<button class="wt-opt${w===curW?" on":""}" onclick="setWeight('${key}',${idx},${w});this.closest('.cmenu').remove()">${w}</button>`).join("")+`</div>`;
   m.style.left=Math.min(ev.clientX-10,window.innerWidth-200)+"px";m.style.top=Math.min(ev.clientY+8,window.innerHeight-100)+"px";
   document.body.appendChild(m);cmEl=m;
   setTimeout(()=>document.addEventListener("click",()=>{m.remove();cmEl=null;},{once:true}),50);
 }
 function setTC(key,idx,cid){buildTV(S.cat);const val=TV[key]?.[idx];if(!val)return;if(!S.tagColors[key])S.tagColors[key]={};if(cid)S.tagColors[key][val]=cid;else delete S.tagColors[key][val];persist();refreshSec(key);}
+// ── Tag weights (0.25–2.0) ────────────────────────────────────
+const WEIGHT_STEPS=[0.25,0.5,0.75,1,1.25,1.5,1.75,2];
+function getWeight(key,val){const w=S.weights&&S.weights[key]&&S.weights[key][val];return w||1;}
+function weightWrap(key,val){const w=getWeight(key,val);return (w&&w!=1)?`(${val}:${w})`:val;}
+function setWeight(key,idx,w){
+  buildTV(S.cat);const val=TV[key]?.[idx];if(val===undefined)return;
+  if(!S.weights)S.weights={};
+  if(!S.weights[key])S.weights[key]={};
+  if(w&&w!=1)S.weights[key][val]=w; else delete S.weights[key][val];
+  // setting a weight implies the tag is part of the prompt — select it if not already
+  const single=(SECS[S.cat]||[]).find(s=>esc(s.key)===key)?.single;
+  if(w&&w!=1){
+    if(single){S.vals[key]=val;}
+    else{if(!Array.isArray(S.vals[key]))S.vals[key]=[];if(!S.vals[key].includes(val))S.vals[key].push(val);}
+    S.manualEdit=false;
+  }
+  persist();refreshSec(key);buildPrompt();
+}
 // drag to reorder
 let dSrcKey=null,dSrcIdx=null;
 function dStart(ev,key,idx){dSrcKey=key;dSrcIdx=idx;ev.dataTransfer.effectAllowed="move";}
@@ -3196,13 +3306,13 @@ function buildPrompt(){
   // Prepend model if selected and no generator section handles it
   const genKey=CAT_GEN_KEY[S.cat];
   if(!genKey&&S.selectedModel[S.cat]){parts.push(S.selectedModel[S.cat]);}
-  (SECS[S.cat]||[]).forEach(sec=>{const v=S.vals[sec.key];if(!v||(Array.isArray(v)&&!v.length))return;parts.push(Array.isArray(v)?v.join(", "):v);});
+  (SECS[S.cat]||[]).forEach(sec=>{const v=S.vals[sec.key];if(!v||(Array.isArray(v)&&!v.length))return;const arr=Array.isArray(v)?v:[v];parts.push(arr.map(val=>weightWrap(esc(sec.key),val)).join(", "));});
   let prompt=parts.join(", ");
   if(S.cat==="video"&&S.timeline.length){prompt+="\n\n[TIMELINE]\n"+S.timeline.map(b=>{const meta=[b.shot,b.move,b.lens,b.light,b.emotion,b.trans].filter(Boolean).join(" | ");return`[${b.start}s-${b.end}s]${meta?" "+meta:""} — ${b.desc}${b.notes?" • "+b.notes:""}`;}).join("\n");}
   setPromptText(prompt);
 }
 function setPromptText(txt){S.prompt=txt;const e=eid("prompt-area");if(e)e.value=txt;updateTok(txt);}
-function onManualEdit(){S.manualEdit=true;S.prompt=eid("prompt-area").value;updateTok(S.prompt);}
+function onManualEdit(){S.manualEdit=true;S.prompt=eid("prompt-area").value;updateTok(S.prompt);snapVersionDebounced(S.prompt);}
 function updateTok(txt){const w=txt.trim().split(/\s+/).filter(Boolean).length;const e=eid("tok");if(e)e.textContent=w?`~${Math.round(w*1.3)} tokens · ${w} palabras`:""}
 function getPrompt(){return eid("prompt-area")?.value||"";}
 
@@ -3222,10 +3332,11 @@ function showLangPicker(e){
 async function translateTo(lng){
   const langObj=PROMPT_LANGS.find(l=>l.id===lng)||{id:lng,flag:"🌐",label:lng};
   const txt=getPrompt().trim();if(!txt){toast(t("t_np"));return;}
+  snapVersion(txt); // checkpoint before translation replaces the prompt
   const pickSel=eid("lang-pick-sel");if(pickSel)pickSel.value=lng;
   if(!S.cfg.apiKey){
     toast("⚙️ Add your API key in Settings to auto-translate");
-    navigator.clipboard.writeText(`Translate to ${langObj.label}:\n\n`+txt).catch(()=>{});
+    copyText(`Translate to ${langObj.label}:\n\n`+txt);
     S.lang=lng;eid("lang-badge").textContent=lng;_syncMobLang(lng);
     return;
   }
@@ -3247,8 +3358,98 @@ async function translateTo(lng){
 function _syncMobLang(lng){const mc=eid("mob-lang-code");if(mc)mc.textContent=lng;}
 
 // ════ ACTIONS ══════════════════════════════════════════════════
-function copyPrompt(){const txt=getPrompt();if(!txt){toast(t("t_np"));return;}navigator.clipboard.writeText(txt).catch(()=>{});toast(t("t_cp"));const btn=eid("copy-btn");if(btn){btn.textContent=t("copied");setTimeout(()=>btn.textContent=t("copy"),1500);}}
-function mobCopyPrompt(){const txt=getPrompt();if(!txt){toast(t("t_np"));return;}navigator.clipboard.writeText(txt).catch(()=>{});toast(t("t_cp"));const btn=eid("mob-copy-btn");if(btn){const prev=btn.textContent;btn.textContent="✓";setTimeout(()=>btn.textContent=prev,1200);}}
+function copyPrompt(){const txt=getPrompt();if(!txt){toast(t("t_np"));return;}copyText(txt,t("t_cp"));const btn=eid("copy-btn");if(btn){btn.textContent=t("copied");setTimeout(()=>btn.textContent=t("copy"),1500);}}
+function mobCopyPrompt(){const txt=getPrompt();if(!txt){toast(t("t_np"));return;}copyText(txt,t("t_cp"));const btn=eid("mob-copy-btn");if(btn){const prev=btn.textContent;btn.textContent="✓";setTimeout(()=>btn.textContent=prev,1200);}}
+// ── Export to native platform syntax ──────────────────────────
+const EXPORT_TARGETS=[
+  {id:"mj",label:"Midjourney v7"},
+  {id:"niji",label:"Midjourney · Niji 6"},
+  {id:"sd",label:"Stable Diffusion / SDXL"},
+  {id:"flux",label:"FLUX"},
+  {id:"ideogram",label:"Ideogram v3"},
+  {id:"dalle",label:"DALL·E 3 / GPT Image"},
+  {id:"video",label:"Sora · Kling · Runway"}
+];
+function _exportRatio(){const r=(S.cfg.defRatio||"").trim();return /^\d{1,2}:\d{1,2}$/.test(r)?r:"16:9";}
+// Midjourney uses "word::weight" multi-prompt syntax, not SD/A1111 "(word:weight)".
+function _mjWeights(s){return s.replace(/\(([^():]+):(\d*\.?\d+)\)/g,"$1::$2");}
+function formatForPlatform(id,txt){
+  const ar=_exportRatio();const base=txt.trim();
+  switch(id){
+    case"mj":return _mjWeights(base)+" --ar "+ar+" --v 7";
+    case"niji":return _mjWeights(base)+" --ar "+ar+" --niji 6";
+    case"ideogram":return base+" --ar "+ar;
+    case"video":return base+"\n\n[Aspect ratio: "+ar+" · Duration: 5s · 24fps]";
+    case"sd":return base+"\n\nNegative prompt: lowres, blurry, deformed, extra fingers, watermark, text\nSteps: 30 · CFG scale: 7 · Sampler: DPM++ 2M Karras · Size: 1024x1024";
+    case"flux":case"dalle":default:return base; // these models prefer plain natural-language prose
+  }
+}
+// Position a popup near an anchor, flipping above it when there's more room (e.g. anchored to the bottom bar).
+function _positionPopup(menu,rect,width){
+  const gap=6,margin=10;
+  const left=Math.max(margin,Math.min(rect.left,window.innerWidth-width-margin));
+  const spaceBelow=window.innerHeight-rect.bottom-gap-margin;
+  const spaceAbove=rect.top-gap-margin;
+  const up=spaceBelow<200&&spaceAbove>spaceBelow;
+  const maxH=Math.max(120,Math.floor(up?spaceAbove:spaceBelow));
+  let pos;
+  if(up)pos=`bottom:${Math.round(window.innerHeight-rect.top+gap)}px;`;
+  else pos=`top:${Math.round(rect.bottom+gap)}px;`;
+  menu.style.cssText=`left:${Math.round(left)}px;${pos}min-width:${width}px;max-width:${width+125}px;max-height:${maxH}px;overflow-y:auto;`;
+}
+function showExportMenu(e){
+  const txt=getPrompt().trim();
+  if(!txt){toast(t("t_np"));return;}
+  closeAllPopups();
+  const rect=(e?.currentTarget||eid("export-btn"))?.getBoundingClientRect()||{left:0,top:40,bottom:40};
+  const menu=document.createElement("div");
+  menu.className="fold-popup";menu.id="__export-menu__";
+  _positionPopup(menu,rect,215);
+  menu.innerHTML=`<div style="padding:.35rem .65rem;font-size:.62rem;letter-spacing:.5px;text-transform:uppercase;color:var(--tx3)">${t("exp_hdr")} · ${_exportRatio()}</div>`+
+    EXPORT_TARGETS.map(p=>`<button class="fold-popup-item" onclick="exportTo('${p.id}')">${p.label}</button>`).join("");
+  document.body.appendChild(menu);
+  setTimeout(()=>document.addEventListener("click",closeAllPopups,{once:true}),10);
+}
+function exportTo(id){
+  const txt=getPrompt().trim();if(!txt){toast(t("t_np"));return;}
+  const out=formatForPlatform(id,txt);
+  closeAllPopups();
+  const label=(EXPORT_TARGETS.find(p=>p.id===id)||{}).label||id;
+  copyText(out,"⤓ "+label+" — "+t("exp_copied"));
+}
+// ── Prompt version history (in-memory checkpoints) ────────────
+let _verHist=[];
+let _verSnapT;
+function snapVersion(txt){
+  txt=(txt||"").trim();
+  if(!txt)return;
+  if(_verHist[0]&&_verHist[0].text===txt)return;
+  _verHist.unshift({text:txt,ts:Date.now()});
+  if(_verHist.length>25)_verHist.pop();
+}
+function snapVersionDebounced(txt){clearTimeout(_verSnapT);_verSnapT=setTimeout(()=>snapVersion(txt),1400);}
+function showVerHist(e){
+  closeAllPopups();
+  if(!_verHist.length){toast(t("ver_empty"));return;}
+  const rect=(e?.currentTarget||eid("verhist-btn"))?.getBoundingClientRect()||{left:0,top:40,bottom:40};
+  const menu=document.createElement("div");
+  menu.className="fold-popup";menu.id="__verhist__";
+  _positionPopup(menu,rect,265);
+  menu.innerHTML=`<div style="padding:.35rem .65rem;font-size:.62rem;letter-spacing:.5px;text-transform:uppercase;color:var(--tx3)">${t("ver_hdr")} · ${_verHist.length}</div>`+
+    _verHist.map((v,i)=>{
+      const prev=v.text.replace(/\s+/g," ").slice(0,70);
+      return `<button class="fold-popup-item" style="display:block;text-align:left;white-space:normal;line-height:1.35" onclick="restoreVersion(${i})"><span style="font-size:.6rem;color:var(--tx3)">${timeAgo(new Date(v.ts).toISOString())}</span><br>${escHtml(prev)}${v.text.length>70?"…":""}</button>`;
+    }).join("");
+  document.body.appendChild(menu);
+  setTimeout(()=>document.addEventListener("click",closeAllPopups,{once:true}),10);
+}
+function restoreVersion(i){
+  const v=_verHist[i];if(!v)return;
+  snapVersion(getPrompt()); // keep the current text recoverable too
+  const pa=eid("prompt-area");if(pa){pa.value=v.text;S.manualEdit=true;S.prompt=v.text;updateTok(v.text);}
+  closeAllPopups();
+  toast(t("ver_restored"));
+}
 function resetAll(){S.cat=null;S.vals={};S.customs={};S.timeline=[];S.manualEdit=false;S.lang="EN";S.uploadedFiles=[];S.analyzedTags={};S.suggestions=[];eid("cat-section").style.display="";eid("params-section").style.display="none";eid("analysis-result").style.display="none";eid("sug-bar").style.display="none";eid("vid-desc").style.display="none";eid("lang-badge").textContent="EN";_syncMobLang("EN");const ps=eid("lang-pick-sel");if(ps)ps.value="EN";const msp=eid("mob-save-panel");if(msp)msp.style.display="none";renderCats();renderUploadSlots();setPromptText("");}
 function mobSaveToggle(){
   const panel=eid("mob-save-panel");if(!panel)return;
@@ -3264,11 +3465,14 @@ function mobSaveSubmit(){
 }
 async function aiAction(type){
   const p=getPrompt();if(!p.trim()){toast(t("t_np"));return;}
+  snapVersion(p); // checkpoint before AI rewrites the prompt
   const keys={r:"ai_rm",v:"ai_vm",o:"ai_om"};
-  if(!S.cfg.apiKey){navigator.clipboard.writeText(t(keys[type])+p).catch(()=>{});toast(t("t_fb"));return;}
-  const arow=eid("arow");const btns=arow?arow.querySelectorAll(".abtn"):[];btns.forEach(b=>b.disabled=true);
-  const idx={r:0,v:1,o:2}[type]||0;const clickedBtn=btns[idx];
-  const origTxt=clickedBtn?.textContent;if(clickedBtn)clickedBtn.innerHTML=`<span class="spin"></span>`;
+  if(!S.cfg.apiKey){copyText(t(keys[type])+p);toast(t("t_fb"));return;}
+  // Spinner + disable on the buttons the user actually clicks (pf-bar), not the hidden #arow
+  const aiBtns=[eid("pf-ai-r"),eid("pf-ai-v"),eid("pf-ai-o")].filter(Boolean);
+  aiBtns.forEach(b=>b.disabled=true);
+  const clickedBtn=eid("pf-ai-"+type);
+  const origHtml=clickedBtn?.innerHTML;if(clickedBtn)clickedBtn.innerHTML=`<span class="spin"></span>`;
   try{
     const hdrs={"Content-Type":"application/json","anthropic-version":"2023-06-01","anthropic-dangerously-allow-browser":"true","x-api-key":S.cfg.apiKey};
     const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:hdrs,body:JSON.stringify({model:"claude-haiku-4-5-20251001",max_tokens:2000,system:"You are an expert at writing prompts for generative AI. Return ONLY the improved prompt text, no explanation or preamble.",messages:[{role:"user",content:t(keys[type])+p}]})});
@@ -3276,7 +3480,7 @@ async function aiAction(type){
     const out=d.content?.find(b=>b.type==="text")?.text||"";
     if(out){eid("prompt-area").value=out;S.manualEdit=true;S.prompt=out;updateTok(out);toast(t("ai_r")+" ✓");}
   }catch(e){toast("Error: "+e.message);}
-  btns.forEach(b=>b.disabled=false);if(clickedBtn&&origTxt)clickedBtn.textContent=origTxt;
+  aiBtns.forEach(b=>b.disabled=false);if(clickedBtn&&origHtml!=null)clickedBtn.innerHTML=origHtml;
 }
 
 // ════ LIBRARY ══════════════════════════════════════════════════
@@ -3339,9 +3543,11 @@ function renderRefs(){
   }
   grid.innerHTML=items.map(ref=>{
     const rt=REF_TYPES.find(r=>r.id===ref.type)||REF_TYPES[5];
-    const thumb=ref.thumb?`<img class="ref-thumb" src="${escHtml(ref.thumb)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">`:"";
-    const ph=`<div class="ref-thumb-placeholder"${ref.thumb?" style=\"display:none\"":""}>${rt.ico}</div>`;
-    const urlHtml=ref.url?`<a class="ref-card-url" href="${escHtml(ref.url)}" target="_blank" rel="noopener">${escHtml(ref.url)}</a>`:"";
+    const safeThumb=safeUrl(ref.thumb);
+    const thumb=safeThumb?`<img class="ref-thumb" src="${escHtml(safeThumb)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="">`:"";
+    const ph=`<div class="ref-thumb-placeholder"${safeThumb?" style=\"display:none\"":""}>${rt.ico}</div>`;
+    const safeRefUrl=safeUrl(ref.url);
+    const urlHtml=safeRefUrl?`<a class="ref-card-url" href="${escHtml(safeRefUrl)}" target="_blank" rel="noopener noreferrer">${escHtml(ref.url)}</a>`:"";
     const notesHtml=ref.notes?`<div class="ref-card-notes">${escHtml(ref.notes)}</div>`:"";
     const dateLbl=ref.date?new Date(ref.date).toLocaleDateString("es-ES",{day:"2-digit",month:"short",year:"2-digit"}):"";
     return`<div class="ref-card" id="ref-${ref.id}">
@@ -3539,7 +3745,7 @@ function showFolderMenu(event,folderId){
   setTimeout(()=>document.addEventListener("click",closeAllPopups,{once:true}),10);
 }
 function closeAllPopups(){
-  ["__fold-pick__","__fold-menu__","__pcat-pick__","__item-menu__","__fdlg__","__apm__","__pem__","__lang-pick__","__mob-menu__"].forEach(id=>{eid(id)?.remove();});
+  ["__fold-pick__","__fold-menu__","__pcat-pick__","__item-menu__","__fdlg__","__apm__","__pem__","__lang-pick__","__mob-menu__","__export-menu__","__verhist__"].forEach(id=>{eid(id)?.remove();});
   document.removeEventListener("click",closeAllPopups);
 }
 
@@ -3819,7 +4025,7 @@ function loadItem(i){
   gotoView("builder");document.querySelector(".ni[data-view='builder']")?.classList.add("active");document.querySelector(".mob-ni[data-view='builder']")?.classList.add("active");
   toast(t("t_ld"));
 }
-function copyLib(i){navigator.clipboard.writeText(S.library[i].prompt).catch(()=>{});toast(t("t_cp"));}
+function copyLib(i){copyText(S.library[i].prompt,t("t_cp"));}
 function renameItem(i){
   const item=S.library[i];if(!item)return;
   fdlgInput("Renombrar prompt",item.name||"","Guardar",function(name){
@@ -3988,7 +4194,7 @@ function libFolderDrop(e,folderId){
 function shareLib(i){
   const item=S.library[i];
   if(navigator.share){navigator.share({title:item.name||"Prompt",text:item.prompt}).catch(()=>{});}
-  else{navigator.clipboard.writeText(item.prompt).catch(()=>{});toast(t("t_cp"));}
+  else{copyText(item.prompt,t("t_cp"));}
 }
 function delItem(i){fdlgAsk(t("lib_delc"),function(){S.library.splice(i,1);persist();updateLibBadge();renderLib();toast(t("t_dl"));});}
 function exportLib(){const blob=new Blob([JSON.stringify(S.library,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="prompts-"+new Date().toISOString().slice(0,10)+".json";a.click();toast(t("t_ex"));}
@@ -4118,6 +4324,9 @@ function renderSettings(){
 <select class="cpsel" onchange="S.cfg.defLang=this.value;persist()">${PROMPT_LANGS.map(l=>`<option value="${l.id}"${c.defLang===l.id?" selected":""}>${l.label}</option>`).join("")}</select></div>
 <div class="cpc"><div class="cpl">${t("cp_plat")}</div>
 <select class="cpsel" onchange="S.cfg.defPlatform=this.value;persist()"><option value="">—</option>${platforms.map(p=>`<option value="${p}"${c.defPlatform===p?" selected":""}>${p}</option>`).join("")}</select></div>
+<div class="cpc"><div class="cpl">${t("cp_rat")}</div>
+<select class="cpsel" onchange="S.cfg.defRatio=this.value;persist()"><option value="">—</option>${RATIO_OPTS.map(r=>`<option value="${r}"${c.defRatio===r?" selected":""}>${r}</option>`).join("")}</select>
+<div class="cp-hint" style="margin-top:.4rem">${t("cp_rat_h")}</div></div>
 <div class="cpc"><div class="cpl">${t("cp_cats")}</div>
 ${renderCatGroupToggles()}
 <div class="cp-hint" style="margin-top:.5rem">${t("cp_ch")}</div></div>
@@ -4319,6 +4528,8 @@ function customThemeVars(bg,tx,acc,sug,sidebar){
   const bg4=rgb(clamp(bgc.map(v=>v+s*3)));
   const accBg=rgb(mix(ac,bgc,0.88));
   const accTx=dark?rgb(clamp(mix(ac,[255,255,255],0.45))):rgb(clamp(mix(ac,[0,0,0],0.3)));
+  const accLum=(0.299*ac[0]+0.587*ac[1]+0.114*ac[2])/255;
+  const accOn=accLum>0.45?"#0a0a0a":"#ffffff";
   const sugBg=rgb(mix(sc,bgc,0.88));
   const sugTx=dark?rgb(clamp(mix(sc,[255,255,255],0.45))):rgb(clamp(mix(sc,[0,0,0],0.3)));
   return{
@@ -4326,7 +4537,7 @@ function customThemeVars(bg,tx,acc,sug,sidebar){
     "--tx":tx,"--tx2":rgba(txc,.65),"--tx3":rgba(txc,.4),
     "--bd":rgba(txc,.1),"--bd2":rgba(txc,.2),
     "--sel":acc,"--sel-tx":dark?"#fff":"#000",
-    "--acc":acc,"--acc-bg":accBg,"--acc-tx":accTx,
+    "--acc":acc,"--acc-bg":accBg,"--acc-tx":accTx,"--acc-on":accOn,
     "--sug":sug,"--sug-bg":sugBg,"--sug-tx":sugTx,
     "--fav":"#f59e0b","--fav-bg":dark?"#1e1200":"#fffbeb","--fav-tx":dark?"#fde68a":"#92400e",
     "--sh":dark?"0 1px 4px rgba(0,0,0,.4)":"0 1px 3px rgba(0,0,0,.07)",
@@ -4394,7 +4605,7 @@ function deleteConfigPreset(i){
 }
 function factoryReset(){
   if(!confirm(t("rst_confirm")))return;
-  S.favs={};S.secColors={};S.tagColors={};S.tagOrder={};S.sortMode={};S.combos={};S.catOrder=[];S.catGroupMap={};S.secOrder={};S.stats={};S.configPresets=[];
+  S.favs={};S.secColors={};S.tagColors={};S.tagOrder={};S.sortMode={};S.combos={};S.catOrder=[];S.catGroupMap={};S.secOrder={};S.stats={};S.configPresets=[];S.weights={};
   S.combinatorSel=[];S.combinatorSep="\n\n";S.selectedModel={};S.catIcons={};S.catColors={};S.catTextColors={};
   S._collapsedSecs={};S._secEditMode={};
   S.cfg={ui:"EN",theme:"auto",themePreset:"default",defLang:"EN",defPlatform:"",defRatio:"",
@@ -4554,6 +4765,7 @@ function doLogin(){
   const u=users.find(x=>(x.username.toLowerCase()===userVal.toLowerCase()||x.email.toLowerCase()===userVal.toLowerCase())&&x.passHash===hashPass(pass));
   if(!u){showAuthErr("login","Usuario o contraseña incorrectos.");return;}
   saveSession({id:u.id,username:u.username,email:u.email});
+  CLOUD.beginCredentialAuth(u.username,pass); // cross-device cloud identity (best-effort)
   onAuthSuccess(u.id);
 }
 function doRegister(){
@@ -4573,10 +4785,12 @@ function doRegister(){
   users.push(newUser);
   saveUsers(users);
   saveSession({id:newUser.id,username:newUser.username,email:newUser.email});
+  CLOUD.beginCredentialAuth(uname,pass); // cross-device cloud identity (best-effort)
   onAuthSuccess(newUser.id);
 }
 function skipAuth(){
   clearSession();
+  try{CLOUD.signOut&&CLOUD.signOut();localStorage.removeItem("pbp_sb_auth");}catch(e){} // guests carry no cloud identity
   eid("auth-overlay").classList.add("hidden");
   loadState(null);
   renderSidebar();renderCats();renderUploadSlots();updateLibBadge();applyUILang();
@@ -4584,6 +4798,7 @@ function skipAuth(){
 }
 function doLogout(){
   fdlgAsk(t("logout_q"),function(){
+  try{CLOUD.signOut&&CLOUD.signOut();localStorage.removeItem("pbp_sb_auth");}catch(e){} // drop cloud session so the next user doesn't inherit it
   clearSession();
   S.library=[];S.configPresets=[];S.favs={};S.folders=[];S.combos={};
   location.reload();
@@ -4792,7 +5007,9 @@ function setCommMediaType(type,btn){
     inp.placeholder=type==="image"?"https://i.imgur.com/… (URL de imagen)":"https://… (link al resultado)";
   }
 }
+let _commPosting=false;const _likingIds=new Set();
 async function submitCommPost(){
+  if(_commPosting)return; // guard against double-submit (duplicate posts)
   const sess=getSession();
   if(!sess){toast(t("comm_login_post"));return;}
   const title=(eid("comm-title-inp")?.value||"").trim();
@@ -4808,35 +5025,41 @@ async function submitCommPost(){
   } else if(_commMediaType!=="none"){
     finalMediaUrl=mediaVal;
   }
-  if(await CLOUD.ensureReady()){
-    try{
-      await CLOUD.createPost({title,prompt,mediaType:finalMediaType,mediaUrl:finalMediaUrl,aiEngine:_commEngine||"",username:sess.username});
-    }catch(e){console.warn("[cloud] publish failed",e);toast(t("comm_net_err"));return;}
-  }else{
-    const post={
-      id:"p_"+Date.now()+"_"+Math.random().toString(36).slice(2,6),
-      userId:sess.id,username:sess.username,
-      title,prompt,
-      mediaType:finalMediaType,
-      mediaUrl:finalMediaUrl,
-      aiEngine:_commEngine||"",
-      timestamp:new Date().toISOString(),
-      likes:[],comments:[]
-    };
-    const posts=getCommPosts();
-    posts.unshift(post);
-    saveCommPosts(posts);
-  }
-  closeCommModal();
-  toast(t("comm_published"));
-  updateCommBadge();
-  renderComm();
+  _commPosting=true;
+  const submitBtn=eid("comm-submit-btn");if(submitBtn)submitBtn.disabled=true;
+  try{
+    if(await CLOUD.ensureReady()){
+      try{
+        await CLOUD.createPost({title,prompt,mediaType:finalMediaType,mediaUrl:finalMediaUrl,aiEngine:_commEngine||"",username:sess.username});
+      }catch(e){console.warn("[cloud] publish failed",e);toast(t("comm_net_err"));return;}
+    }else{
+      const post={
+        id:"p_"+Date.now()+"_"+Math.random().toString(36).slice(2,6),
+        userId:sess.id,username:sess.username,
+        title,prompt,
+        mediaType:finalMediaType,
+        mediaUrl:finalMediaUrl,
+        aiEngine:_commEngine||"",
+        timestamp:new Date().toISOString(),
+        likes:[],comments:[]
+      };
+      const posts=getCommPosts();
+      posts.unshift(post);
+      saveCommPosts(posts);
+    }
+    closeCommModal();
+    toast(t("comm_published"));
+    updateCommBadge();
+    renderComm();
+  }finally{_commPosting=false;if(submitBtn)submitBtn.disabled=false;}
 }
 async function toggleLike(postId){
   const sess=getSession();
   if(!sess){toast(t("comm_login_like"));return;}
   if(await CLOUD.ensureReady()){
     const p=_commCache.find(x=>x.id===postId);if(!p)return;
+    if(_likingIds.has(postId))return; // serialize like toggles per post to avoid state desync
+    _likingIds.add(postId);
     const myUid=await CLOUD.myUid();
     const wasLiked=myUid?p.likes.includes(myUid):false;
     try{
@@ -4846,6 +5069,7 @@ async function toggleLike(postId){
       const btn=document.querySelector(`[data-like-id="${postId}"]`);
       if(btn){btn.classList.toggle("liked",p.likes.includes(uid));btn.querySelector(".comm-like-count").textContent=p.likes.length||"";}
     }catch(e){console.warn("[cloud] like failed",e);toast(t("comm_net_err"));}
+    finally{_likingIds.delete(postId);}
     return;
   }
   const posts=getCommPosts();
@@ -4871,14 +5095,17 @@ function toggleComments(postId){
     sec.querySelector(".comm-comment-inp")?.focus();
   }
 }
+const _commentingIds=new Set();
 async function sendComment(postId){
   const sess=getSession();
   if(!sess){toast(t("comm_login_cmt"));return;}
   const inp=document.querySelector(`[data-comment-inp="${postId}"]`);
   const text=(inp?.value||"").trim();
   if(!text){return;}
+  if(_commentingIds.has(postId))return; // guard against duplicate comment from rapid double-send
   if(await CLOUD.ensureReady()){
     const p=_commCache.find(x=>x.id===postId);if(!p)return;
+    _commentingIds.add(postId);
     try{
       const c=await CLOUD.addComment(postId,text,sess.username);
       p.comments.push(c);
@@ -4888,6 +5115,7 @@ async function sendComment(postId){
       const cnt=sec?.closest(".comm-card")?.querySelector(".comm-comment-btn span");
       if(cnt)cnt.textContent=p.comments.length||"";
     }catch(e){console.warn("[cloud] comment failed",e);toast(t("comm_net_err"));}
+    finally{_commentingIds.delete(postId);}
     return;
   }
   const posts=getCommPosts();
